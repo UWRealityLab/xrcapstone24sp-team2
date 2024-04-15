@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7174952596147135844}
   - component: {fileID: 3782742666911532753}
   m_Layer: 0
-  m_Name: RArm
+  m_Name: LArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350873238463049065}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1634, y: 0.15439999, z: -0.034000397}
   m_LocalScale: {x: 0.075, y: 0.15, z: 0.075}
   m_ConstrainProportionsScale: 1
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 5671935096928557679}
   - component: {fileID: 4335396737576480602}
   m_Layer: 0
-  m_Name: LArm
+  m_Name: RArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745716649967913619}
   m_Layer: 0
-  m_Name: LArmPivot
+  m_Name: RArmPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2195037269613229739}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1634, y: 0.26139998, z: -0.034000397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

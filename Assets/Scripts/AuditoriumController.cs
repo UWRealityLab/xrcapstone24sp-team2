@@ -4,9 +4,9 @@ public class AuditoriumController : MonoBehaviour
 {
     #region Constants
 
-    private readonly Vector3 _seatCenterOffset = new(0f, 0.42f, -2.97f);
-
     private readonly Vector3 _mainRowsStartingPosition = new(0f, -0.501f, 8.7f);
+
+    private readonly Vector3 _mainRowsSeatCenterOffset = new(0f, 0.42f, -2.97f);
 
     private readonly Vector3[] _mainRowsVectors =
     {
@@ -34,20 +34,6 @@ public class AuditoriumController : MonoBehaviour
         new(0.260f, 5.478f, 27.391f),
         new(0.000f, 5.739f, 28.696f),
         new(0.260f, 6.000f, 30.000f)
-    };
-
-    private Vector3[] _closeRowsVectors =
-    {
-        Vector3.zero,
-        new(0.882f, 0.000f, -0.260f),
-        new(1.764f, 0.000f, 0.000f),
-        new(2.645f, 0.000f, -0.260f),
-        new(3.527f, 0.000f, 0.000f),
-        new(4.409f, 0.000f, -0.260f),
-        new(5.291f, 0.000f, 0.000f),
-        new(6.172f, 0.000f, -0.260f),
-        new(7.054f, 0.000f, 0.000f),
-        new(7.936f, 0.000f, -0.260f)
     };
 
     private readonly Vector3[] _seatsArc =
@@ -114,24 +100,42 @@ public class AuditoriumController : MonoBehaviour
         new(15.000f, 0.000f, 0.000f)
     };
 
-    private Vector3[] _closeSeatsArc =
+    private readonly Vector3 _closeRowsStartingPosition = new(7.55f, -0.5f, -0f);
+
+    private readonly Vector3 _closeRowsSeatCenterOffset = new(-0.5f, 0.42f, 0f);
+
+    private readonly Vector3[] _closeRowsVectors =
     {
-        new(-4.000f, 0.000f, 0f),
-        new(-3.494f, 0.000f, 0.189f),
-        new(-2.967f, 0.000f, 0.312f),
-        new(-2.433f, 0.000f, 0.393f),
-        new(-1.894f, 0.000f, 0.445f),
-        new(-1.355f, 0.000f, 0.477f),
-        new(-0.814f, 0.000f, 0.494f),
-        new(-0.273f, 0.000f, 0.500f),
-        new(0.268f, 0.000f, 0.498f),
-        new(0.809f, 0.000f, 0.486f),
-        new(1.349f, 0.000f, 0.463f),
-        new(1.889f, 0.000f, 0.424f),
-        new(2.427f, 0.000f, 0.370f),
-        new(2.962f, 0.000f, 0.294f),
-        new(3.490f, 0.000f, 0.179f),
-        new(4.000f, 0.000f, 0.000f)
+        Vector3.zero,
+        new(0.882f, 0.000f, -0.260f),
+        new(1.764f, 0.000f, 0.000f),
+        new(2.645f, 0.000f, -0.260f),
+        new(3.527f, 0.000f, 0.000f),
+        new(4.409f, 0.000f, -0.260f),
+        new(5.291f, 0.000f, 0.000f),
+        new(6.172f, 0.000f, -0.260f),
+        new(7.054f, 0.000f, 0.000f),
+        new(7.936f, 0.000f, -0.260f)
+    };
+
+    private readonly Vector3[] _closeSeatsArc =
+    {
+        new(0f, 0.000f, -4.000f),
+        new(0.189f, 0.000f, -3.494f),
+        new(0.312f, 0.000f, -2.967f),
+        new(0.393f, 0.000f, -2.433f),
+        new(0.445f, 0.000f, -1.894f),
+        new(0.477f, 0.000f, -1.355f),
+        new(0.494f, 0.000f, -0.814f),
+        new(0.500f, 0.000f, -0.273f),
+        new(0.498f, 0.000f, 0.268f),
+        new(0.486f, 0.000f, 0.809f),
+        new(0.463f, 0.000f, 1.349f),
+        new(0.424f, 0.000f, 1.889f),
+        new(0.370f, 0.000f, 2.427f),
+        new(0.294f, 0.000f, 2.962f),
+        new(0.179f, 0.000f, 3.490f),
+        new(0.000f, 0.000f, 4.000f)
     };
 
     #endregion
@@ -153,16 +157,40 @@ public class AuditoriumController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        // Spawn main rows audience members.
         foreach (var mainRowPosition in _mainRowsVectors)
         foreach (var seatPosition in _seatsArc)
             if (Random.value <= _audienceFillFactor)
                 Instantiate(
                     audienceMemberPrefab,
-                    _mainRowsStartingPosition + mainRowPosition + seatPosition + _seatCenterOffset,
-                    Quaternion.identity
+                    _mainRowsStartingPosition
+                        + mainRowPosition
+                        + seatPosition
+                        + _mainRowsSeatCenterOffset,
+                    Quaternion.Euler(0, 180, 0)
                 );
-    }
 
-    // Update is called once per frame
-    private void Update() { }
+        // Spawn close rows audience members
+        foreach (var closeRowPosition in _closeRowsVectors)
+        foreach (var seatPosition in _closeSeatsArc)
+        {
+            var closeSeatPosition =
+                _closeRowsStartingPosition
+                + closeRowPosition
+                + seatPosition
+                + _closeRowsSeatCenterOffset;
+            
+            // Left side.
+            if (Random.value <= _audienceFillFactor)
+                Instantiate(audienceMemberPrefab, closeSeatPosition, Quaternion.Euler(0, -90, 0));
+            
+            // Right side.
+            if (Random.value <= _audienceFillFactor)
+                Instantiate(
+                    audienceMemberPrefab,
+                    new Vector3(-closeSeatPosition.x, closeSeatPosition.y, closeSeatPosition.z),
+                    Quaternion.Euler(0, 90, 0)
+                );
+        }
+    }
 }
