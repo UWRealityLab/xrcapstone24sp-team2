@@ -157,6 +157,7 @@ public class AuditoriumController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        return;
         // Spawn main rows audience members.
         foreach (var mainRowPosition in _mainRowsVectors)
         foreach (var seatPosition in _seatsArc)
