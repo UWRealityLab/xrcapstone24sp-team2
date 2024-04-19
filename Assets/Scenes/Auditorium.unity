@@ -1068,7 +1068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audienceMemberPrefab: {fileID: 6542893413613257226, guid: 79859c2df6c974200a04e5bb6a5cf4b5,
     type: 3}
-  _audienceFillFactor: 0.8
+  _audienceFillFactor: 0
 --- !u!1 &1780300410
 GameObject:
   m_ObjectHideFlags: 0
