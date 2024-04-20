@@ -7,12 +7,12 @@
             "actions": [
                 {
                     "name": "NextQuestion",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "35b5c3a1-f744-41af-a5ab-d7a357010a07",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

@@ -505,7 +505,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 534077286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3061b898f82624f55872024e05a25eac, type: 3}
+  m_Script: {fileID: 11500000, guid: 46e45ea71e97745d79144074b4ff831a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tts: {fileID: 1697292339}
@@ -1166,7 +1166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1697292338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614880dbf0c5d4496ad9667711564428, type: 3}
+  m_Script: {fileID: 11500000, guid: 836b1d083cb4e4f26864d1a337a0b39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openAIURL: https://api.openai.com/v1/audio/speech
