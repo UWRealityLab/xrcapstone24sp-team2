@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class AuditoriumController : MonoBehaviour
 {
+    /// <summary>
+    ///     Collection of constants that define the seating layout of the auditorium.
+    /// </summary>
+
     #region Constants
 
+    // Define the starting position of the main rows.
     private readonly Vector3 _mainRowsStartingPosition = new(0f, -0.501f, 8.7f);
 
+    // Define the offset from the center of a seat to where the audience should sit.
     private readonly Vector3 _mainRowsSeatCenterOffset = new(0f, 0.42f, -2.97f);
 
+    // Define the position for each row in the main rows.
     private readonly Vector3[] _mainRowsVectors =
     {
         Vector3.zero,
@@ -36,6 +43,7 @@ public class AuditoriumController : MonoBehaviour
         new(0.260f, 6.000f, 30.000f)
     };
 
+    // Define the position for each seat in a main row.
     private readonly Vector3[] _seatsArc =
     {
         new(-15.000f, 0.000f, 0.000f),
@@ -100,10 +108,13 @@ public class AuditoriumController : MonoBehaviour
         new(15.000f, 0.000f, 0.000f)
     };
 
+    // Define the starting position of the close rows.
     private readonly Vector3 _closeRowsStartingPosition = new(7.55f, -0.5f, -0f);
 
+    // Define the offset from the center of a seat to where the audience should sit.
     private readonly Vector3 _closeRowsSeatCenterOffset = new(-0.5f, 0.42f, 0f);
 
+    // Define the position for each row in the close rows.
     private readonly Vector3[] _closeRowsVectors =
     {
         Vector3.zero,
@@ -118,6 +129,7 @@ public class AuditoriumController : MonoBehaviour
         new(7.936f, 0.000f, -0.260f)
     };
 
+    // Define the position for each seat in a close row.
     private readonly Vector3[] _closeSeatsArc =
     {
         new(0f, 0.000f, -4.000f),
@@ -142,15 +154,15 @@ public class AuditoriumController : MonoBehaviour
 
     #region Components
 
-    [SerializeField]
-    private GameObject audienceMemberPrefab;
+    // GameObject prefab for an audience member (to be instantiated).
+    [SerializeField] private GameObject audienceMemberPrefab;
 
     #endregion
 
     #region Properties
 
-    [SerializeField]
-    private float _audienceFillFactor = 1f;
+    // Factor that determines how many audience members are spawned.
+    [SerializeField] private float audienceFillFactor = 1f;
 
     #endregion
 
@@ -160,13 +172,13 @@ public class AuditoriumController : MonoBehaviour
         // Spawn main rows audience members.
         foreach (var mainRowPosition in _mainRowsVectors)
         foreach (var seatPosition in _seatsArc)
-            if (Random.value <= _audienceFillFactor)
+            if (Random.value <= audienceFillFactor)
                 Instantiate(
                     audienceMemberPrefab,
                     _mainRowsStartingPosition
-                        + mainRowPosition
-                        + seatPosition
-                        + _mainRowsSeatCenterOffset,
+                    + mainRowPosition
+                    + seatPosition
+                    + _mainRowsSeatCenterOffset,
                     Quaternion.Euler(0, 180, 0)
                 );
 
@@ -179,13 +191,13 @@ public class AuditoriumController : MonoBehaviour
                 + closeRowPosition
                 + seatPosition
                 + _closeRowsSeatCenterOffset;
-            
+
             // Left side.
-            if (Random.value <= _audienceFillFactor)
+            if (Random.value <= audienceFillFactor)
                 Instantiate(audienceMemberPrefab, closeSeatPosition, Quaternion.Euler(0, -90, 0));
-            
+
             // Right side.
-            if (Random.value <= _audienceFillFactor)
+            if (Random.value <= audienceFillFactor)
                 Instantiate(
                     audienceMemberPrefab,
                     new Vector3(-closeSeatPosition.x, closeSeatPosition.y, closeSeatPosition.z),
