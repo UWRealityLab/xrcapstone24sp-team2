@@ -16,6 +16,15 @@ public class ChatGPTManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
 
+    /// <summary>
+    /// Initiates an asynchronous interaction with the ChatGPT model based on the content of a specified text file.
+    /// </summary>
+    /// <remarks>
+    /// Reads a user's input from "SpeechLog.txt" located within the Assets directory, logs the content for debugging purposes,
+    /// and checks for null or empty input. If valid, the text is sent as a request to the ChatGPT model. The model's response
+    /// is then captured and logged, and the associated event is triggered with the response data.
+    /// </remarks>
+    /// <exception cref="Exception">Throws an exception if there is an error reading from the text file.</exception>
     public async void AskChatGPT()
     {
         // Read the text from Assets/SpeechLog.txt
@@ -49,6 +58,7 @@ public class ChatGPTManager : MonoBehaviour
         messages.Add(newMessage);
         CreateChatCompletionRequest request = new CreateChatCompletionRequest();
         request.Messages = messages;
+        // request.Model = "gpt-3.5-turbo";
         request.Model = "gpt-4-turbo";
 
         var response = await openAI.CreateChatCompletion(request);
