@@ -58,6 +58,16 @@ public class QuestionManager : MonoBehaviour
 
     public void AskNextQuestion()
     {
+<<<<<<< HEAD
+=======
+        // Check if the audio source is currently playing
+        if (audioSource.isPlaying)
+        {
+            Debug.Log("Audio is still playing. Waiting until the current audio finishes.");
+            return; // Exit the method if audio is still playing
+        }
+
+>>>>>>> temp
         if (questionQueue.Count > 0)
         {
             Question question = questionQueue.Dequeue(); // Dequeue the next question
