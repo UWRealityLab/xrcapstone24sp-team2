@@ -219,3 +219,5 @@ $RECYCLE.BIN/
 Assets/WitConfig.asset
 Assets/WitConfig.asset.meta
 ProjectSettings/wit.config
+Assets/APIKey.txt
+Assets/APIKey.txt.meta

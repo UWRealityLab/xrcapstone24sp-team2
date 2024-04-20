@@ -1,0 +1,34 @@
+{
+    "name": "NextQuestion",
+    "maps": [
+        {
+            "name": "UI Controls",
+            "id": "bc4a4667-82b1-4483-b3e2-a0187fcec906",
+            "actions": [
+                {
+                    "name": "NextQuestion",
+                    "type": "Value",
+                    "id": "35b5c3a1-f744-41af-a5ab-d7a357010a07",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dcbd3fe6-975c-4ef2-9aaa-381d54eb966b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextQuestion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
