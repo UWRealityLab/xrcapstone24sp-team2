@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: ea9a8a86c459e3d4c992a20f220b5a6d
+guid: 79982069f62ef44a7872464ee07d1daf
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spotlight
+    second: {fileID: 2100000, guid: 7aabbd29416c7460f8627dc4fa72f4a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spotlight Body
+    second: {fileID: 2100000, guid: 6b4b37c4c06074a9ba9ec332c8f73ee9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -36,7 +46,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
