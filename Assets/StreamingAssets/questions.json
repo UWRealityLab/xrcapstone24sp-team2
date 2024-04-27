@@ -1,0 +1,19 @@
+{
+    "questions": [
+        {
+            "number": 1,
+            "text": "What are some of the different materials used to make shoelaces?",
+            "voice": "alloy"
+        },
+        {
+            "number": 2,
+            "text": "How have shoelaces evolved over time in terms of design and functionality?",
+            "voice": "alloy"
+        },
+        {
+            "number": 3,
+            "text": "Are there any cultural or symbolic meanings associated with shoelaces in different societies or communities?",
+            "voice": "alloy"
+        }
+    ]
+}
