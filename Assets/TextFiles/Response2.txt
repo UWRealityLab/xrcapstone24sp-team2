@@ -1,0 +1,17 @@
+Questions:
+Section Motivation
+1. Why do people practice talks in front of a mirror and what issues do they face?
+2. How might practicing in a virtual environment be different from practicing in front of a mirror?
+
+Section Overview
+1. What exactly do you mean by ‘virtual avatars’?
+2. Could you explain a little more about how interacting with the AI audience works?
+
+Section Related Work
+1. What is the main difference between Deck Talk and other similar apps like Virtual Speech?
+2. Why is it important that Deck Talk is free?
+
+Suggestions:
+1. Could you include more simple examples or comparisons to help understand how the virtual reality environment works?
+2. Maybe add some pictures or screenshots of the app in action, so it's easier to visualize what you are talking about.
+```

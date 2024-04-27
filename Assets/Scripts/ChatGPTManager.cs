@@ -10,6 +10,7 @@ using OpenAI;
 public class ChatGPTManager : MonoBehaviour
 {
     public OnResponseEvent OnResponse;
+
     [System.Serializable]
     public class OnResponseEvent : UnityEvent<string> { }
 
@@ -17,22 +18,36 @@ public class ChatGPTManager : MonoBehaviour
     private List<ChatMessage> messages = new List<ChatMessage>();
 
     /// <summary>
-    /// Initiates an asynchronous interaction with the ChatGPT model based on the content of a specified text file.
+    /// Initiates an asynchronous interaction with the ChatGPT model based on the combined content of "Prompt.txt" and "SpeechLog.txt".
     /// </summary>
     /// <remarks>
-    /// Reads a user's input from "SpeechLog.txt" located within the Assets directory, logs the content for debugging purposes,
-    /// and checks for null or empty input. If valid, the text is sent as a request to the ChatGPT model. The model's response
-    /// is then captured and logged, and the associated event is triggered with the response data.
+    /// Reads the content from "Prompt.txt" and "SpeechLog.txt" located within the Assets/TextFiles directory,
+    /// combines the content, logs it for debugging purposes, and checks for null or empty input.
+    /// If valid, the combined text is sent as a request to the ChatGPT model. The model's response is then captured,
+    /// logged, and the associated event is triggered with the response data.
     /// </remarks>
-    /// <exception cref="Exception">Throws an exception if there is an error reading from the text file.</exception>
+    /// <exception cref="Exception">Throws an exception if there is an error reading from the text files.</exception>
     public async void AskChatGPT()
     {
-        // Read the text from Assets/SpeechLog.txt
-        string filePath = Path.Combine(Application.dataPath, "SpeechLog.txt");
-        string newText;
+        // Read the text from Assets/TextFiles/Prompt.txt
+        string promptFilePath = Path.Combine(Application.dataPath, "TextFiles", "Prompt.txt");
+        string promptText = "";
         try
         {
-            newText = File.ReadAllText(filePath);
+            promptText = File.ReadAllText(promptFilePath);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error reading from the Prompt.txt file: " + e.Message);
+            return;
+        }
+
+        // Read the text from Assets/TextFiles/SpeechLog.txt
+        string speechLogFilePath = Path.Combine(Application.dataPath, "TextFiles", "SpeechLog.txt");
+        string speechLogText = "";
+        try
+        {
+            speechLogText = File.ReadAllText(speechLogFilePath);
         }
         catch (Exception e)
         {
@@ -40,29 +55,41 @@ public class ChatGPTManager : MonoBehaviour
             return;
         }
 
-        // Log the text content for debugging
-        Debug.Log("Text read from SpeechLog.txt: " + newText);
+        // Combine the content of Prompt.txt and SpeechLog.txt
+        string combinedText = promptText + "\n" + speechLogText;
 
-        // Check if the file content is empty
-        if (string.IsNullOrEmpty(newText))
+        // Log the combined text content for debugging
+        Debug.Log("Combined text from Prompt.txt and SpeechLog.txt: " + combinedText);
+
+        // Check if the combined content is empty
+        if (string.IsNullOrEmpty(combinedText))
         {
-            Debug.LogError("The SpeechLog.txt file is empty or text is null.");
+            Debug.LogError("The combined content is empty or null.");
             return;
         }
 
         // Ask ChatGPT
         ChatMessage newMessage = new ChatMessage();
-        newMessage.Content = newText;
+        newMessage.Content = combinedText;
         newMessage.Role = "user";
-
         messages.Add(newMessage);
+
         CreateChatCompletionRequest request = new CreateChatCompletionRequest();
         request.Messages = messages;
         // request.Model = "gpt-3.5-turbo";
         request.Model = "gpt-4-turbo";
 
-        var response = await openAI.CreateChatCompletion(request);
+        // var response = await openAI.CreateChatCompletion(request);
+        // if (response.Choices != null && response.Choices.Count > 0)
+        // {
+        //     var chatResponse = response.Choices[0].Message;
+        //     messages.Add(chatResponse);
 
+        //     // Log the response for debugging
+        //     Debug.Log(chatResponse.Content);
+        //     OnResponse.Invoke(chatResponse.Content);
+        // }
+        var response = await openAI.CreateChatCompletion(request);
         if (response.Choices != null && response.Choices.Count > 0)
         {
             var chatResponse = response.Choices[0].Message;
@@ -70,9 +97,44 @@ public class ChatGPTManager : MonoBehaviour
 
             // Log the response for debugging
             Debug.Log(chatResponse.Content);
-
             OnResponse.Invoke(chatResponse.Content);
+
+            // Separate professional and novice content
+            string professionalContent = ExtractContent(chatResponse.Content, "Professional:");
+            string noviceContent = ExtractContent(chatResponse.Content, "Novice:");
+
+            // Save professional content to Response1.txt
+            string response1FilePath = Path.Combine(Application.dataPath, "TextFiles", "Response1.txt");
+            File.WriteAllText(response1FilePath, professionalContent);
+
+            // Save novice content to Response2.txt
+            string response2FilePath = Path.Combine(Application.dataPath, "TextFiles", "Response2.txt");
+            File.WriteAllText(response2FilePath, noviceContent);
         }
+    }
+
+    /// <summary>
+    /// Extracts the content between the specified keyword and the next keyword or end of string.
+    /// </summary>
+    /// <param name="content">The input string to extract from.</param>
+    /// <param name="keyword">The keyword to search for.</param>
+    /// <returns>The extracted content.</returns>
+    private string ExtractContent(string content, string keyword)
+    {
+        int startIndex = content.IndexOf(keyword);
+        if (startIndex != -1)
+        {
+            startIndex += keyword.Length;
+            int endIndex = content.IndexOf("Professional:", startIndex);
+            if (endIndex == -1)
+                endIndex = content.IndexOf("Novice:", startIndex);
+            if (endIndex == -1)
+                endIndex = content.Length;
+
+            return content.Substring(startIndex, endIndex - startIndex).Trim();
+        }
+
+        return string.Empty;
     }
 
     void Start()
