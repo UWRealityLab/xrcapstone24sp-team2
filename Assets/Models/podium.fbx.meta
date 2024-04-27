@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: a372c2f83778044b6a4e76c1128cf93c
+guid: ef3713a85d5897c458ed069cd0665e6a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Podium
-    second: {fileID: 2100000, guid: 8c8c8ef0a0a9e4cfb9b4ddedc170465b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Podium Stand
-    second: {fileID: 2100000, guid: 1314cb293901247f7a65565673453825, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

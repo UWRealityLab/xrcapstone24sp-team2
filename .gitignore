@@ -214,3 +214,10 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,unity,macos,windows
 *.blend1
+
+# API configs
+Assets/WitConfig.asset
+Assets/WitConfig.asset.meta
+ProjectSettings/wit.config
+Assets/APIKey.txt
+Assets/APIKey.txt.meta

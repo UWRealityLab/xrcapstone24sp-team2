@@ -1,0 +1,19 @@
+{
+    "questions": [
+      {
+        "number": 1,
+        "text": "What is the capital of Japan?",
+        "voice": "alloy"
+      },
+      {
+        "number": 2,
+        "text": "How many continents are there on Earth?",
+        "voice": "echo"
+      },
+      {
+        "number": 3,
+        "text": "What year did the Titanic sink?",
+        "voice": "fable"
+      }
+    ]
+  }
