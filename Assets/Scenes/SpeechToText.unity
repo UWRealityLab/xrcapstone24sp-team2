@@ -624,7 +624,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: c0ac5afd2a82046d485f7c2a16c7d372, type: 2}
+    witConfiguration: {fileID: 11400000, guid: 043eb99b154e3488eabb37b20b4ea923, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
