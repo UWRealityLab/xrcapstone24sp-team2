@@ -1,0 +1,16 @@
+Questions:
+Section Motivation
+1. Can you elaborate on the specific limitations encountered when practicing presentations in front of a wall or mirror that Deck Talk aims to overcome?
+2. How does the inclusion of AI-powered audiences in virtual reality fundamentally enhance the effectiveness of practice sessions compared to traditional methods?
+
+Section Overview
+1. You mentioned three core concepts of Deck Talk; could you discuss how each concept individually contributes to improving presentation skills?
+2. Regarding interactivity with the audience, what types of feedback can the presenter expect to receive from the AI?
+
+Section Related Work
+1. How does Deck Talk's feature set compare to Virtual Speech with regard to real-time interactivity and feedback accuracy?
+2. Given the competitive landscape, what are the commercial viability and sustainability plans for Deck Talk considering it will be offered free?
+
+Suggestions:
+1. Consider conducting a side-by-side comparative study detailing user improvement using Deck Talk versus traditional practice methods to underline the app's effectiveness.
+2. Include testimonials from early users to add authenticity and real-world applicability in your next presentation.

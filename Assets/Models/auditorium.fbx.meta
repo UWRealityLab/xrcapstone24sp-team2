@@ -1,59 +1,9 @@
 fileFormatVersion: 2
-guid: 219a7227370984c139bc426fa361f773
+guid: ea9a8a86c459e3d4c992a20f220b5a6d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ambient Lights
-    second: {fileID: 2100000, guid: 7457aaf54dc8944139ce436ddbd46e9a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Chair
-    second: {fileID: 2100000, guid: 297617957d88d4272ae40c72a76261af, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Cushion
-    second: {fileID: 2100000, guid: 0d0045adb5192482593783729980a459, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DT Sign
-    second: {fileID: 2100000, guid: a7934e272674148f8b32a7bc0bb8550e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ground
-    second: {fileID: 2100000, guid: 38f58afc1c65c479a86f7bdeaceea491, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Room
-    second: {fileID: 2100000, guid: 4ea494c6e4cf949579cbaba4c8a5c724, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Room Light Body
-    second: {fileID: 2100000, guid: 7529c79b772fb4ca2a85b35b1e6b872e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Room Light Light
-    second: {fileID: 2100000, guid: 13c22d99d6b4f43419681be28168dd54, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stage
-    second: {fileID: 2100000, guid: 779e934b791c44fc68f3c340c1f9c544, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stage Carpet
-    second: {fileID: 2100000, guid: 918bb7c88796144a1a8c166cef28871b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -86,7 +36,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 3
+    meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
