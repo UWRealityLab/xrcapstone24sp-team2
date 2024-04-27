@@ -36,16 +36,11 @@ MonoBehaviour:
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4
-  m_UserSelectedRegistryName: Voltstro UPM
+  m_UserSelectedRegistryName: 
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:
     m_Modified: 0
     m_ErrorMessage: 
-<<<<<<< HEAD
-    m_UserModificationsInstanceId: -858
-    m_OriginalInstanceId: -860
-=======
-    m_UserModificationsInstanceId: -838
-    m_OriginalInstanceId: -840
->>>>>>> 116ef4e68d22667272561e0ff2429203a392d6e0
+    m_UserModificationsInstanceId: -840
+    m_OriginalInstanceId: -842
   m_LoadAssets: 0
