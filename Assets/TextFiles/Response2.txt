@@ -1,17 +1,17 @@
 Questions:
-Section Motivation
-1. I often practice my speeches in front of a mirror; what makes practicing with Deck Talk different or better?
-2. What kind of feedback can I not get from a mirror that Deck Talk would provide?
+Section Introduction
+1. What is a virtual reality app and how does it help with practicing presentations?
+2. Why is practicing presentations in front of a wall not very effective?
 
-Section Overview of Deck Talk
-1. How easy is it to use this Deck Talk app for someone who isn't tech-savvy?
-2. What kinds of questions can I ask the virtual audience in Deck Talk, and how do they respond?
+Section Design Principles
+1. What are virtual avatars and how do they make practicing presentations better?
+2. What does it mean to interact with an audience via question answering in Deck Talk?
 
-Section Related Work
-1. What is the main difference between Virtual Speech and Deck Talk?
-2. Does Deck Talk cost anything to use, and why is it free compared to Virtual Speech?
+Section Comparison with Competitor
+1. Why do you have to convert presentations to PDFs to use Virtual Speech and not for Deck Talk?
+2. What is the advantage of Deck Talk being free?
 
 Suggestions:
-1. It would be helpful if the presentation clearly explained how to set up and start using Deck Talk for a complete beginner.
-2. Including a simple comparison chart or list to show the differences between Deck Talk and similar tools like Virtual Speech might make it easier to understand its advantages.
+1. It would help if the presentation included simple definitions of technical terms like virtual reality, interactable AI, etc.
+2. Adding more visual aids like diagrams or screenshots of the app might make it easier to understand how Deck Talk works.
 ```
