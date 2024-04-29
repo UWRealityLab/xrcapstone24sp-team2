@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AuditoriumController : MonoBehaviour
 {
@@ -169,6 +170,13 @@ public class AuditoriumController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        // Capture mouse cursor.
+        Cursor.lockState = CursorLockMode.Locked;
+        
+        var escapeAction = new InputAction(binding: "<Keyboard>/escape");
+        escapeAction.performed += _ => Cursor.lockState = CursorLockMode.None;
+        escapeAction.Enable();
+        
         // Spawn main rows audience members.
         foreach (var mainRowPosition in _mainRowsVectors)
         foreach (var seatPosition in _seatsArc)
@@ -205,4 +213,5 @@ public class AuditoriumController : MonoBehaviour
                 );
         }
     }
+    
 }
