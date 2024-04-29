@@ -1,7 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 
 [CustomEditor(typeof(AvatarQuestionManager))]
 public class AvatarQuestionManagerEditor : Editor
@@ -12,24 +10,15 @@ public class AvatarQuestionManagerEditor : Editor
 
         AvatarQuestionManager script = (AvatarQuestionManager)target;
 
-        // Check if there are any sections loaded to avoid out-of-index errors
-        if (script.SectionQuestions != null && script.SectionQuestions.Count > 0)
+        // Check if there are any questions loaded to avoid out-of-index errors
+        if (script.allQuestions != null && script.allQuestions.Count > 0)
         {
             if (GUILayout.Button("Ask Random Question"))
             {
-                // Randomly pick a section
-                List<string> keys = script.SectionQuestions.Keys.ToList();
-                int sectionIndex = Random.Range(0, keys.Count);
-                string selectedSection = keys[sectionIndex];
-
-                // Now pick a random question from the selected section
-                List<string> questionsInSection = script.SectionQuestions[selectedSection];
-                if (questionsInSection.Count > 0)
-                {
-                    int questionIndex = Random.Range(0, questionsInSection.Count);
-                    string questionText = questionsInSection[questionIndex];  // Get the question text
-                    script.AskQuestion(questionText);  // Call the AskQuestion method with the question text
-                }
+                // Randomly pick a question from the loaded questions
+                int index = Random.Range(0, script.allQuestions.Count);
+                string questionText = script.allQuestions[index];  // Get the question text
+                script.AskRandomQuestion();  // Call the AskRandomQuestion method directly
             }
         }
         else

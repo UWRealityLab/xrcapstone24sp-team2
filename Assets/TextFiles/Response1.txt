@@ -1,16 +1,16 @@
 Questions:
 Section Motivation
-1. How exactly does the interactable AI-powered audience in "Deck Talk" enhance the realism of practicing presentations compared to traditional methods?
-2. What specific feedback does the AI provide to presenters, and how is it tailored to improve their skills?
+1. How do traditional methods of presentation practice currently fall short in preparing individuals for real-life scenarios?
+2. Could you elaborate on the specific types of feedback that are typically unavailable when practicing traditional speech delivery methods like speaking to a mirror?
 
-Section Overview
-1. Can you elaborate on the types of environments available for users in "Deck Talk"? 
-2. How does the interaction with virtual avatars simulate real audience behaviors?
+Section Overview of Deck Talk
+1. You mentioned enabling interaction with virtual avatars; how sophisticated is this interaction? Can avatars show a range of human-like reactions to the user’s presentation?
+2. In terms of environments, what are the various settings users can select from in Deck Talk? Are these customizable based on the type of presentation or audience?
 
 Section Related Work
-1. In what ways is "Deck Talk" fundamentally different from the Virtual Speech app, other than cost and the ingress method for presentations?
-2. Could you discuss the technical challenges involved in differentiating your platform from existing solutions like Virtual Speech?
+1. How does Deck Talk's AI feedback mechanism differ from that of Virtual Speech, especially in terms of practicality and accuracy?
+2. Considering Virtual Speech's pricing model, how do you plan to sustain the Deck Talk platform once it’s open-sourced?
 
 Suggestions:
-1. It would be valuable to delve deeper into the AI’s feedback mechanics and illustrate with examples how this feedback can guide users in improving specific presentation aspects.
-2. Consider expanding on user customization options, particularly in terms of environment and avatar settings, to enhance the appeal and utility of the application.
+1. Consider clarifying how Deck Talk ensures the realism and relevance of the feedback provided by AI, which is crucial for effective practice.
+2. Highlight the technological requirements and setup needed to use Deck Talk effectively, which might be crucial for users with limited access to high-end VR gear.

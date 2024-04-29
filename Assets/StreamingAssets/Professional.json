@@ -1,22 +1,22 @@
 {
   "Persona": "professional",
-  "Voice": "fable",
+  "Voice": "shimmer",
   "Sections": {
-    "Introduction": [
-      "How does Deck Talk provide a benefit over conventional practice methods like speaking to a wall or a mirror?",
-      "What specific types of feedback can Deck Talk's AI provide to the user?"
+    "Motivation": [
+      "How do traditional methods of presentation practice currently fall short in preparing individuals for real-life scenarios?",
+      "Could you elaborate on the specific types of feedback that are typically unavailable when practicing traditional speech delivery methods like speaking to a mirror?"
     ],
-    "Core Concepts": [
-      "Could you clarify how the diversity of virtual environments in Deck Talk enhances the practice experience for users?",
-      "How do interactable AI avatars mimic real-life audience behavior and responses?"
+    "Overview of Deck Talk": [
+      "You mentioned enabling interaction with virtual avatars; how sophisticated is this interaction? Can avatars show a range of human-like reactions to the user’s presentation?",
+      "In terms of environments, what are the various settings users can select from in Deck Talk? Are these customizable based on the type of presentation or audience?"
     ],
-    "Competitor Analysis": [
-      "Apart from price and the need for PDF conversions, in what other areas does Deck Talk outperform Virtual Speech?",
-      "How significant is the limitation of Virtual Speech's requirement to convert slides into PDFs to the user experience?"
+    "Related Work": [
+      "How does Deck Talk's AI feedback mechanism differ from that of Virtual Speech, especially in terms of practicality and accuracy?",
+      "Considering Virtual Speech's pricing model, how do you plan to sustain the Deck Talk platform once it’s open-sourced?"
     ]
   },
   "Suggestions": [
-    "Consider adding specific examples of feedback provided by the AI that illustrate how it is superior to human feedback in certain aspects.",
-    "Integrating user testimonials or initial user trial results could enhance the persuasiveness and reliability of your presentation."
+    "Consider clarifying how Deck Talk ensures the realism and relevance of the feedback provided by AI, which is crucial for effective practice.",
+    "Highlight the technological requirements and setup needed to use Deck Talk effectively, which might be crucial for users with limited access to high-end VR gear."
   ]
 }

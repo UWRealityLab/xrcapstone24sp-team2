@@ -15,7 +15,7 @@ public class AvatarCreator
     // AvatarData class defined as public to be accessible by other scripts.
     public class AvatarData
     {
-        public string Persona { get; set; }
+        public string Persona;  // "novice" or "professional"
         public string Voice { get; set; }
         public Dictionary<string, List<string>> Sections { get; set; }
         public List<string> Suggestions { get; set; }
