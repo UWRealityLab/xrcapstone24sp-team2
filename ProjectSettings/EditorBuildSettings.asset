@@ -6,14 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Auditorium.unity
-    guid: 6c4f4ee3e8cfa477c9ddbf80d2e73d51
-  - enabled: 0
     path: Assets/Scenes/SpeechToText.unity
     guid: 7d804614863ad4b48a50ca5e045eefed
-  - enabled: 0
-    path: Assets/Scenes/Auditorium UI.unity
-    guid: 6e89a89d337af477ea399d4eaefb4d1e
+  - enabled: 1
+    path: Assets/Scenes/Auditorium.unity
+    guid: 6c4f4ee3e8cfa477c9ddbf80d2e73d51
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 4403b6ec791f045ed8692ba9d4691afc,
       type: 2}
