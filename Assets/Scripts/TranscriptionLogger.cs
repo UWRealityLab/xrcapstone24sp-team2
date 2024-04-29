@@ -15,7 +15,7 @@ public class TranscriptionLogger : MonoBehaviour
         _textComponent = GetComponent<TextMeshProUGUI>();
         _previousText = string.Empty;
         // Assets/SpeechLog.txt
-        _filePath = Path.Combine(Application.dataPath, "SpeechLog.txt");
+        _filePath = Path.Combine(Application.dataPath, "TextFiles", "SpeechLog.txt");
         // opens the file in truncate mode to clear the content
         _streamWriter = new StreamWriter(_filePath, false);
         _streamWriter.Close();
