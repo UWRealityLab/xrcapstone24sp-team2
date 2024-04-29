@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SpeechToText.unity
     guid: 7d804614863ad4b48a50ca5e045eefed
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Auditorium UI.unity
     guid: 6e89a89d337af477ea399d4eaefb4d1e
   m_configObjects:
