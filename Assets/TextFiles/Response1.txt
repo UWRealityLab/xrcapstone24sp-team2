@@ -1,16 +1,16 @@
 Questions:
 Section Motivation
-1. Can you elaborate on the specific limitations encountered when practicing presentations in front of a wall or mirror that Deck Talk aims to overcome?
-2. How does the inclusion of AI-powered audiences in virtual reality fundamentally enhance the effectiveness of practice sessions compared to traditional methods?
+1. How exactly does the interactable AI-powered audience in "Deck Talk" enhance the realism of practicing presentations compared to traditional methods?
+2. What specific feedback does the AI provide to presenters, and how is it tailored to improve their skills?
 
 Section Overview
-1. You mentioned three core concepts of Deck Talk; could you discuss how each concept individually contributes to improving presentation skills?
-2. Regarding interactivity with the audience, what types of feedback can the presenter expect to receive from the AI?
+1. Can you elaborate on the types of environments available for users in "Deck Talk"? 
+2. How does the interaction with virtual avatars simulate real audience behaviors?
 
 Section Related Work
-1. How does Deck Talk's feature set compare to Virtual Speech with regard to real-time interactivity and feedback accuracy?
-2. Given the competitive landscape, what are the commercial viability and sustainability plans for Deck Talk considering it will be offered free?
+1. In what ways is "Deck Talk" fundamentally different from the Virtual Speech app, other than cost and the ingress method for presentations?
+2. Could you discuss the technical challenges involved in differentiating your platform from existing solutions like Virtual Speech?
 
 Suggestions:
-1. Consider conducting a side-by-side comparative study detailing user improvement using Deck Talk versus traditional practice methods to underline the app's effectiveness.
-2. Include testimonials from early users to add authenticity and real-world applicability in your next presentation.
+1. It would be valuable to delve deeper into the AI’s feedback mechanics and illustrate with examples how this feedback can guide users in improving specific presentation aspects.
+2. Consider expanding on user customization options, particularly in terms of environment and avatar settings, to enhance the appeal and utility of the application.

@@ -1,17 +1,17 @@
 Questions:
 Section Motivation
-1. Why do people practice talks in front of a mirror and what issues do they face?
-2. How might practicing in a virtual environment be different from practicing in front of a mirror?
+1. Why is it important to practice presentations in varied environments?
+2. What do you mean by "interactable AI-powered audience"? 
 
 Section Overview
-1. What exactly do you mean by ‘virtual avatars’?
-2. Could you explain a little more about how interacting with the AI audience works?
+1. What kinds of environments can I choose in "Deck Talk"?
+2. How can I talk to and interact with the audience in the virtual setting?
 
 Section Related Work
-1. What is the main difference between Deck Talk and other similar apps like Virtual Speech?
-2. Why is it important that Deck Talk is free?
+1. Why do I need to convert presentation slides into PDFs for the Virtual Speech app, but not for "Deck Talk"?
+2. What makes "Deck Talk" different from just practicing in front of a mirror or a real audience?
 
 Suggestions:
-1. Could you include more simple examples or comparisons to help understand how the virtual reality environment works?
-2. Maybe add some pictures or screenshots of the app in action, so it's easier to visualize what you are talking about.
+1. It might help if there were some beginner-friendly explanations about how AI helps in practicing presentations.
+2. The presentation could include clearer examples or demonstrations of the environments and audience interactions.
 ```

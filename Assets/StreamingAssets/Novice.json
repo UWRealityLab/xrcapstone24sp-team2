@@ -1,0 +1,22 @@
+{
+  "Persona": "novice",
+  "Voice": "fable",
+  "Sections": {
+    "Introduction": [
+      "What is a virtual reality app? How does it work for practicing talks?",
+      "Why is receiving feedback important when you practice giving talks?"
+    ],
+    "Core Concepts": [
+      "What do you mean by virtual environments? Can you give some examples?",
+      "How does talking to virtual avatars help in practicing?"
+    ],
+    "Competitor Analysis": [
+      "Why is converting presentations to PDFs a bad thing?",
+      "What does \"open sourcing the code\" mean, and why is it good for users?"
+    ]
+  },
+  "Suggestions": [
+    "It might help if there were more basic explanations about how virtual reality and AI work in this context.",
+    "Including simpler language or definitions for terms like \"interactable avatars\" and \"AI generated ratings\" would make the presentation more understandable."
+  ]
+}

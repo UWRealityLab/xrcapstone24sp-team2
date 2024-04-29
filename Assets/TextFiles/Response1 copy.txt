@@ -1,0 +1,16 @@
+Questions:
+Section Motivation
+1. How do you ensure that practicing with a virtual audience in Deck Talk provides a substantially similar experience to interacting with a real-life audience?
+2. Considering user experience, what kind of real-time feedback can users expect from the AI-powered audience?
+
+Section Overview
+1. What environments are currently available in Deck Talk, and are there plans to expand these choices?
+2. How do the virtual avatars react to different types of presentations?
+
+Section Related Work
+1. How does Deck Talk's performance and user feedback compare directly with Virtual Speech's offering?
+2. What specific advantages does not requiring PDF conversion offer to the user experience?
+
+Suggestions:
+1. Consider incorporating user case studies or testimonials in the presentation to provide evidence of effectiveness and user satisfaction.
+2. Expand on the technology behind the interaction with avatars to help the audience understand the sophistication of the AI being used.
