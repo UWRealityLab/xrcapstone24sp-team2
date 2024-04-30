@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
+    [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string personaType;
     public string CurrentVoice { get; private set; }
-    // private List<string> allQuestions = new List<string>();
     public List<string> allQuestions { get; private set; } = new List<string>();
 
     private bool isQuestionBeingProcessed = false;
 
     void Start()
     {
-        AvatarCreator.OnAvatarDataCreated += HandleAvatarDataReceived;
+        // Ensure communicationManager is assigned either via inspector or here if needed
+        communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
     }
 
     void OnDestroy()
     {
-        AvatarCreator.OnAvatarDataCreated -= HandleAvatarDataReceived;
+        communicationManager.OnAvatarDataReady.RemoveListener(HandleAvatarDataReceived);
     }
 
-    private void HandleAvatarDataReceived(AvatarCreator.AvatarData avatarData)
+    private void HandleAvatarDataReceived(CommunicationManager.AvatarData avatarData)
     {
         if (avatarData.Persona == personaType)
         {
@@ -32,7 +33,7 @@ public class AvatarQuestionManager : MonoBehaviour
         }
     }
 
-    private void UpdateData(AvatarCreator.AvatarData avatarData)
+    private void UpdateData(CommunicationManager.AvatarData avatarData)
     {
         CurrentVoice = avatarData.Voice;
         allQuestions.Clear();
