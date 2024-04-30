@@ -28,6 +28,7 @@ public class CommunicationManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
+    private int i = 0;
 
     void Start()
     {
@@ -115,7 +116,7 @@ public class CommunicationManager : MonoBehaviour
         AvatarData professionalData = new AvatarData
         {
             Persona = "Professional",
-            Voice = voices[new System.Random().Next(voices.Count)],
+            Voice = "alloy",
             Sections = ParseSections(professionalContent),
             Suggestions = ParseSuggestions(professionalContent)
         };
@@ -127,7 +128,7 @@ public class CommunicationManager : MonoBehaviour
         AvatarData noviceData = new AvatarData
         {
             Persona = "Novice",
-            Voice = voices[new System.Random().Next(voices.Count)],
+            Voice = "onyx",
             Sections = ParseSections(noviceContent),
             Suggestions = ParseSuggestions(noviceContent)
         };
@@ -165,6 +166,10 @@ public class CommunicationManager : MonoBehaviour
             {
                 currentSection = line.Substring(line.IndexOf(" ") + 1).Trim();
                 sections[currentSection] = new List<string>();
+            }
+            else if (line.StartsWith("Suggestions:"))
+            {
+                break;
             }
             else if (currentSection != null && !string.IsNullOrEmpty(line.Trim()))
             {

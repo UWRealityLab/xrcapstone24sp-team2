@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class AvatarQuestionManager : MonoBehaviour
 {
     [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private TextMeshProUGUI questions;
     [SerializeField] private string personaType;
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
@@ -40,6 +42,9 @@ public class AvatarQuestionManager : MonoBehaviour
         foreach (var section in avatarData.Sections)
         {
             allQuestions.AddRange(section.Value);
+        }
+        foreach (string q in allQuestions) {
+            questions.text = q + "\n";
         }
         Debug.Log("Data updated for " + avatarData.Persona + " with voice " + CurrentVoice);
     }
