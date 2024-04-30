@@ -22,10 +22,20 @@ public class CommunicationManager : MonoBehaviour
         public List<string> Suggestions { get; set; }
     }
 
+    public ToggleButtonText toggleButtonText;
+
+    public TranscriptionLogger transcriptionLogger;
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
 
+    void Start()
+    {
+        toggleButtonText.recordingFinished.AddListener(AskChatGPT);
+    }
+
+    private string GenerateCombinedText()
+    {
         string promptText = @"
         Given the full transcription for a presentation, do the following:
         1. Read the full transcript and divide it into separate sections (e.g., motivation, overview, related work).
@@ -61,31 +71,13 @@ public class CommunicationManager : MonoBehaviour
         2. ...
         '''";
 
-        string speechLogText = @"
-        Full transcription:
-        We present deck talk a virtual reality app that enables users to practice giving talks in virtualized environments to an interactable AI powered audience.
-        Presentation it's common in both academic and professional settings
-        To refine the presentation people often practice giving talks in front of a wall or mirror
-        Where are limited amount of feedback can be obtained
-        How can we make practice talks more effective and closer to real life?
-        We designed deck talk based on three core concepts.
-        First the user should be able to choose from a diverse set of environments to give toxin
-        Second
-        We are just taking virtual avatars should be present in the scene.
-        To mimic real audiences.
-        Third the user should be able to interact with the audience via question answering and receive feedback about the presentation
-        The company virtual speech has developed a similar application with virtual reality and AI.
-        Including varied Workplace settings
-        Virtual Interactable avatars. And AI generated ratings.
-        However, virtual speech requires the conversion of presentation sites into PDFs
-        And it costs $400 a year
-        In contrast we allow users to bring the presentation into the virtual environment
-        The web browser and are planning to offer the app for free by open sourcing the code.
-        In addition our app enables users to improve their general presentation skills by practicing against AI generated presentation sides.";
+        string speechLogText = "";
+        List<string> list = transcriptionLogger.GetTranscriptionList();
+        for (int i = 0; i < list.Count; i++) {
+            speechLogText += list[i];
+        }
 
-    void Start()
-    {
-        AskChatGPT();
+        return promptText + "\n" + speechLogText;
     }
 
     public async void AskChatGPT()
@@ -93,8 +85,6 @@ public class CommunicationManager : MonoBehaviour
         try
         {
             string combinedText = GenerateCombinedText();
-            Debug.Log("Combined text from prompt and speech log: " + combinedText);
-
             messages.Add(new ChatMessage { Content = combinedText, Role = "user" });
 
             CreateChatCompletionRequest request = new CreateChatCompletionRequest
@@ -158,10 +148,10 @@ public class CommunicationManager : MonoBehaviour
         return string.Empty;
     }
 
-    private string GenerateCombinedText()
-    {
-        return promptText + "\n" + speechLogText;
-    }
+    // private string GenerateCombinedText()
+    // {
+    //     return promptText + "\n" + speechLogText;
+    // }
 
     private Dictionary<string, List<string>> ParseSections(string responseData)
     {
@@ -235,3 +225,4 @@ public class CommunicationManager : MonoBehaviour
         }
     }
 }
+
