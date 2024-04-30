@@ -97,8 +97,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 22324b17df4a78a4988f2d13a7d894fb,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 7a562fc478ba5db4784b6f42e418ba93,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -219,6 +221,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: spot_light (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6447495915279426390, guid: 21239c91aa441477da54b774c0ec2693,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820618490105049893, guid: 21239c91aa441477da54b774c0ec2693,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -790,10 +802,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7445671098755915381, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -4169070548289439236, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -674449036139524865, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 800442303603797762, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 219a7227370984c139bc426fa361f773,
         type: 3}
       propertyPath: m_Name
       value: auditorium
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310829391137948746, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1327001021544829866, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990703444702238231, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343248219658952724, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968768837189481272, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969505484201252047, guid: 219a7227370984c139bc426fa361f773,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1101,6 +1168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Intensity
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820618490105049893, guid: 21239c91aa441477da54b774c0ec2693,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9188991603711380403, guid: 21239c91aa441477da54b774c0ec2693,
         type: 3}
@@ -3887,7 +3959,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: 0
+  m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -4380,6 +4452,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: spot_light
+      objectReference: {fileID: 0}
+    - target: {fileID: 6447495915279426390, guid: 21239c91aa441477da54b774c0ec2693,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820618490105049893, guid: 21239c91aa441477da54b774c0ec2693,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
