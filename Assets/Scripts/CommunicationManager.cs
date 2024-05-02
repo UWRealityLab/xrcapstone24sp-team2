@@ -22,17 +22,15 @@ public class CommunicationManager : MonoBehaviour
         public List<string> Suggestions { get; set; }
     }
 
-    public ToggleButtonText toggleButtonText;
-
     public TranscriptionLogger transcriptionLogger;
+    public TranscriptionProcessor transcriptionProcessor;
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
-    private int i = 0;
 
     void Start()
     {
-        toggleButtonText.recordingFinished.AddListener(AskChatGPT);
+        transcriptionProcessor.onTranscriptionReady.AddListener(AskChatGPT);
     }
 
     private string GenerateCombinedText()
@@ -72,7 +70,17 @@ public class CommunicationManager : MonoBehaviour
         2. ...
         '''";
 
-        string speechLogText = "";
+        string speechLogText = @"There is no strife, no prejudice, no national conflict in outer space as yet.
+        Its hazards are hostile to us all. Its conquest deserves the best of all mankind,
+        and its opportunity for peaceful cooperation many never come again. But why, some say, the moon?
+        Why choose this as our goal? And they may well ask why climb the highest mountain?
+        Why, 35 years ago, fly the Atlantic? Why does Rice play Texas?
+        We choose to go to the moon. We choose to go to the moon in this decade and do the other things,
+        not because they are easy, but because they are hard, because that goal will serve to organize and measure the best of our energies and skills,
+        because that challenge is one that we are willing to accept, one we are unwilling to postpone, and one which we intend to win, and the others, too.
+        It is for these reasons that I regard the decision last year to shift our efforts in space from low to high gear
+        as among the most important decisions that will be made during my incumbency in the office of the Presidency.";
+
         List<string> list = transcriptionLogger.GetTranscriptionList();
         for (int i = 0; i < list.Count; i++) {
             speechLogText += list[i];
@@ -83,6 +91,7 @@ public class CommunicationManager : MonoBehaviour
 
     public async void AskChatGPT()
     {
+        Debug.Log("ChatGPT request initiated.");
         try
         {
             string combinedText = GenerateCombinedText();
@@ -139,43 +148,42 @@ public class CommunicationManager : MonoBehaviour
     private string ExtractContent(string content, string startKeyword, string endKeyword)
     {
         int startIndex = content.IndexOf(startKeyword);
-        if (startIndex != -1)
+        if (startIndex == -1)
         {
-            startIndex += startKeyword.Length;
-            int endIndex = content.IndexOf(endKeyword, startIndex);
-            endIndex = endIndex == -1 ? content.Length : endIndex;
-            return content.Substring(startIndex, endIndex - startIndex).Trim();
+            Debug.LogError($"Start keyword '{startKeyword}' not found.");
+            return string.Empty;
         }
-        return string.Empty;
-    }
 
-    // private string GenerateCombinedText()
-    // {
-    //     return promptText + "\n" + speechLogText;
-    // }
+        startIndex += startKeyword.Length;
+        int endIndex = content.IndexOf(endKeyword, startIndex);
+        if (endIndex == -1)
+        {
+            Debug.LogWarning($"End keyword '{endKeyword}' not found after start keyword. Assuming end of content.");
+            endIndex = content.Length; // If not found, assume end of content
+        }
+
+        return content.Substring(startIndex, endIndex - startIndex).Trim();
+    }
 
     private Dictionary<string, List<string>> ParseSections(string responseData)
     {
         var sections = new Dictionary<string, List<string>>();
-        string[] lines = responseData.Split('\n');
-        string currentSection = null;
-
-        foreach (string line in lines)
+        var lines = responseData.Split('\n');
+        for (int i = 0; i < lines.Length; i++)
         {
-            if (line.StartsWith("Section"))
+            if (lines[i].StartsWith("Section"))
             {
-                currentSection = line.Substring(line.IndexOf(" ") + 1).Trim();
-                sections[currentSection] = new List<string>();
+                string sectionTitle = lines[i].Substring(lines[i].IndexOf(' ') + 1).Trim();
+                sections[sectionTitle] = new List<string>
+                {
+                    lines[++i].Substring(3).Trim(), // Increment i to skip to the question, and substring to remove numbering like '1. '
+                    lines[++i].Substring(3).Trim()  // Same here for the second question
+                };
             }
-            else if (line.StartsWith("Suggestions:"))
+            else if (lines[i].StartsWith("Suggestions:"))
             {
+                // Once we hit "Suggestions:", we stop processing as no more sections are expected.
                 break;
-            }
-            else if (currentSection != null && !string.IsNullOrEmpty(line.Trim()))
-            {
-                string cleanedLine = line.Trim().Split(new char[] {' '}, 2).LastOrDefault()?.Trim(); // Split and remove the numbering
-                if (!string.IsNullOrEmpty(cleanedLine))
-                    sections[currentSection].Add(cleanedLine);
             }
         }
 
@@ -186,24 +194,17 @@ public class CommunicationManager : MonoBehaviour
     {
         List<string> suggestions = new List<string>();
         bool collecting = false;
-        bool skipNextLine = false; // To skip the line immediately after "Suggestions:"
 
         foreach (string line in responseData.Split('\n'))
         {
             if (line.StartsWith("Suggestions:"))
             {
                 collecting = true;
-                skipNextLine = true;
-                continue;
-            }
-            if (collecting && skipNextLine)
-            {
-                skipNextLine = false; // Skip this line and reset
-                continue;
+                continue; // Move to next iteration to skip "Suggestions:" line itself
             }
             if (collecting && !string.IsNullOrEmpty(line.Trim()))
             {
-                suggestions.Add(line.Trim());
+                suggestions.Add(line.Substring(3).Trim()); // Remove the number and trim the string
             }
         }
 
@@ -228,6 +229,6 @@ public class CommunicationManager : MonoBehaviour
         {
             Debug.Log(suggestion);
         }
+
     }
 }
-

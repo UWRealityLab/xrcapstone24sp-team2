@@ -8,6 +8,6 @@ public class QuestionUIManager : MonoBehaviour
 
     void Start()
     {
-        askButton.onClick.AddListener(avatarQuestionManager.AskRandomQuestion);
+        askButton.onClick.AddListener(avatarQuestionManager.AskQuestion);
     }
 }

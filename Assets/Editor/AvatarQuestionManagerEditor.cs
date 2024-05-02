@@ -18,7 +18,7 @@ public class AvatarQuestionManagerEditor : Editor
                 // Randomly pick a question from the loaded questions
                 int index = Random.Range(0, script.allQuestions.Count);
                 string questionText = script.allQuestions[index];  // Get the question text
-                script.AskRandomQuestion();  // Call the AskRandomQuestion method directly
+                script.AskQuestion();  // Call the AskQuestion method directly
             }
         }
         else

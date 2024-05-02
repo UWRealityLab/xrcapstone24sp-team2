@@ -12,12 +12,12 @@ public class AvatarQuestionManager : MonoBehaviour
     [SerializeField] private string personaType;
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
+    private Queue<string> questionQueue = new Queue<string>();
 
     private bool isQuestionBeingProcessed = false;
 
     void Start()
     {
-        // Ensure communicationManager is assigned either via inspector or here if needed
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
     }
 
@@ -34,32 +34,43 @@ public class AvatarQuestionManager : MonoBehaviour
             UpdateData(avatarData);
         }
     }
-
     private void UpdateData(CommunicationManager.AvatarData avatarData)
     {
         CurrentVoice = avatarData.Voice;
-        allQuestions.Clear();
+        questionQueue.Clear();
         foreach (var section in avatarData.Sections)
         {
-            allQuestions.AddRange(section.Value);
+            foreach (var question in section.Value)
+            {
+                questionQueue.Enqueue(question);
+            }
         }
-        foreach (string q in allQuestions) {
-            questions.text = q + "\n";
-        }
-        Debug.Log("Data updated for " + avatarData.Persona + " with voice " + CurrentVoice);
+        Debug.Log($"Data updated for {avatarData.Persona} with voice {CurrentVoice}. Total questions loaded: {questionQueue.Count}");
     }
+    // private void UpdateData(CommunicationManager.AvatarData avatarData)
+    // {
+    //     CurrentVoice = avatarData.Voice;
+    //     allQuestions.Clear();
+    //     foreach (var section in avatarData.Sections)
+    //     {
+    //         allQuestions.AddRange(section.Value);
+    //     }
+    //     foreach (string q in allQuestions) {
+    //         questions.text = q + "\n";
+    //     }
+    //     Debug.Log("Data updated for " + avatarData.Persona + " with voice " + CurrentVoice);
+    // }
 
-    public void AskRandomQuestion()
+    public void AskQuestion()
     {
-        if (audioSource.isPlaying || isQuestionBeingProcessed || allQuestions.Count == 0)
+        if (audioSource.isPlaying || isQuestionBeingProcessed || questionQueue.Count == 0)
         {
-            Debug.Log("Waiting: Audio is still playing or question is being processed, or no questions are available.");
+            Debug.Log("Waiting: Audio is still playing, question is being processed, or no questions are available.");
             return;
         }
 
         isQuestionBeingProcessed = true;
-        int randomIndex = UnityEngine.Random.Range(0, allQuestions.Count);
-        string questionText = allQuestions[randomIndex];
+        string questionText = questionQueue.Dequeue(); // Get the next question
 
         string jsonData = JsonUtility.ToJson(new TTSRequestData
         {
@@ -83,6 +94,40 @@ public class AvatarQuestionManager : MonoBehaviour
             }
         }));
     }
+    // public void AskRandomQuestion()
+    // {
+    //     if (audioSource.isPlaying || isQuestionBeingProcessed || allQuestions.Count == 0)
+    //     {
+    //         Debug.Log("Waiting: Audio is still playing or question is being processed, or no questions are available.");
+    //         return;
+    //     }
+
+    //     isQuestionBeingProcessed = true;
+    //     int randomIndex = UnityEngine.Random.Range(0, allQuestions.Count);
+    //     string questionText = allQuestions[randomIndex];
+
+    //     string jsonData = JsonUtility.ToJson(new TTSRequestData
+    //     {
+    //         model = "tts-1",
+    //         input = questionText,
+    //         voice = CurrentVoice
+    //     });
+
+    //     StartCoroutine(tts.GetTTS(jsonData, clip =>
+    //     {
+    //         isQuestionBeingProcessed = false;
+    //         if (clip != null)
+    //         {
+    //             audioSource.clip = clip;
+    //             audioSource.Play();
+    //             Debug.Log("Playing audio for question: " + questionText);
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError("Failed to load audio for question: " + questionText);
+    //         }
+    //     }));
+    // }
 
     [System.Serializable]
     public class TTSRequestData
