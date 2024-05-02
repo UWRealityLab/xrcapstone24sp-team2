@@ -1,16 +1,16 @@
 Questions:
-Section Motivation
-1. Can you elaborate on the specific limitations encountered when practicing presentations in front of a wall or mirror that Deck Talk aims to overcome?
-2. How does the inclusion of AI-powered audiences in virtual reality fundamentally enhance the effectiveness of practice sessions compared to traditional methods?
+Section Introduction
+1. How does Deck Talk improve upon traditional methods of presentation practice such as practicing in front of a mirror?
+2. Could you clarify the specific limitations of receiving feedback when practicing against a wall or mirror that Deck Talk addresses?
 
-Section Overview
-1. You mentioned three core concepts of Deck Talk; could you discuss how each concept individually contributes to improving presentation skills?
-2. Regarding interactivity with the audience, what types of feedback can the presenter expect to receive from the AI?
+Section Design Principles
+1. Can you elaborate on the technology used to mimic real audiences within Deck Talk?
+2. How does the interactability with virtual avatars enhance the speaker’s experience?
 
-Section Related Work
-1. How does Deck Talk's feature set compare to Virtual Speech with regard to real-time interactivity and feedback accuracy?
-2. Given the competitive landscape, what are the commercial viability and sustainability plans for Deck Talk considering it will be offered free?
+Section Comparison with Competitor
+1. Aside from costing and PDF conversion, in what ways does Deck Talk outperform Virtual Speech?
+2. How significant is the feature of importing presentations via a web browser in real-world application?
 
 Suggestions:
-1. Consider conducting a side-by-side comparative study detailing user improvement using Deck Talk versus traditional practice methods to underline the app's effectiveness.
-2. Include testimonials from early users to add authenticity and real-world applicability in your next presentation.
+1. Consider providing clearer examples or case studies that demonstrate real-world improvements from using Deck Talk.
+2. It would be beneficial to include user testimonials or early feedback sessions to underline the effectiveness of the interactive features.

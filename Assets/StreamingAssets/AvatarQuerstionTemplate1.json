@@ -1,0 +1,14 @@
+{
+    "persona": "professional",
+    "voice": "alloy",
+    "sections": {
+        "Motivation": [
+            "How does your work address a key gap in the existing literature?",
+            "What potential real-world applications do you envision for your research?"
+        ],
+        "Overview": [
+            "Could you please summarize the main goals of your project?",
+            "What are the key methodologies you've employed?"
+        ]
+    }
+}

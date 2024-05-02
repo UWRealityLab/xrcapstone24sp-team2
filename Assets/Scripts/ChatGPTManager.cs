@@ -10,6 +10,7 @@ using OpenAI;
 public class ChatGPTManager : MonoBehaviour
 {
     public OnResponseEvent OnResponse;
+    public UnityEvent OnResponsesReady;
 
     [System.Serializable]
     public class OnResponseEvent : UnityEvent<string> { }
@@ -111,6 +112,8 @@ public class ChatGPTManager : MonoBehaviour
             string response2FilePath = Path.Combine(Application.dataPath, "TextFiles", "Response2.txt");
             File.WriteAllText(response2FilePath, noviceContent);
         }
+        // Trigger files are updated
+        OnResponsesReady.Invoke(); 
     }
 
     /// <summary>
