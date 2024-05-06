@@ -1,0 +1,17 @@
+Questions:
+Section Motivation
+1. Why is it better to practice presentations in virtual reality compared to just in front of a mirror?
+2. How does speaking to a virtual audience help improve presentation skills?
+
+Section Overview
+1. Can I choose any environment I like for my presentation in Deck Talk?
+2. What exactly do you mean by virtual avatars? Are they like video game characters?
+
+Section Related Work
+1. What is Virtual Speech and how is it different from Deck Talk?
+2. Why is it good that Deck Talk doesn't use PDFs?
+
+Suggestions:
+1. Maybe adding pictures or examples of what the virtual environments and avatars look like could help make it easier to understand.
+2. Including a simple explanation of how to start using Deck Talk might help beginners like me feel less overwhelmed.
+```

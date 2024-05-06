@@ -8,6 +8,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
     private Queue<Question> questionQueue = new Queue<Question>();
+    private bool isQuestionBeingProcessed = false;
 
     [System.Serializable]
     public class QuestionsList
@@ -38,7 +39,7 @@ public class QuestionManager : MonoBehaviour
 
     private void LoadQuestions()
     {
-        string filePath = "Data/questions.json";
+        string filePath = "StreamingAssets/questions.json";
         string fullPath = Path.Combine(Application.dataPath, filePath);
         if (File.Exists(fullPath))
         {
@@ -59,14 +60,15 @@ public class QuestionManager : MonoBehaviour
     public void AskNextQuestion()
     {
         // Check if the audio source is currently playing
-        if (audioSource.isPlaying)
+        if (audioSource.isPlaying || isQuestionBeingProcessed)
         {
-            Debug.Log("Audio is still playing. Waiting until the current audio finishes.");
-            return; // Exit the method if audio is still playing
+            Debug.Log("Waiting: Audio is still playing or question is being processed.");
+            return; // Exit the method if audio is still playing or a question is being processed
         }
 
         if (questionQueue.Count > 0)
         {
+            isQuestionBeingProcessed = true; // Set flag when starting to process a question
             Question question = questionQueue.Dequeue(); // Dequeue the next question
             PlayQuestion(question);
         }
@@ -88,6 +90,7 @@ public class QuestionManager : MonoBehaviour
         Debug.Log("Sending JSON for TTS: " + jsonData);
         StartCoroutine(tts.GetTTS(jsonData, clip =>
         {
+            isQuestionBeingProcessed = false; // Reset flag when audio is ready to play
             if (clip != null)
             {
                 audioSource.clip = clip;

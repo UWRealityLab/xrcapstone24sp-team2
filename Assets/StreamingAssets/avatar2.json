@@ -1,0 +1,22 @@
+{
+  "Persona": "novice",
+  "Voice": "fable",
+  "Sections": {
+    "Motivation": [
+      "Why would practicing in a virtual environment be better than just practicing in front of a mirror?",
+      "How do I see the feedback the AI gives me during my practice session?"
+    ],
+    "Overview": [
+      "What kind of different environments can I choose from in Deck Talk?",
+      "Will the AI audience look and act like real people?"
+    ],
+    "Related Work": [
+      "What is the Virtual Speech app, and why is Deck Talk a better option?",
+      "Why can't I use PDF files with Deck Talk like with the Virtual Speech app?"
+    ]
+  },
+  "Suggestions": [
+    "It would be helpful to include a simple tutorial on how to use the virtual environments and interact with the AI audience.",
+    "Maybe you could add examples of feedback given by the AI to help users understand what kind of advice they might receive."
+  ]
+}
