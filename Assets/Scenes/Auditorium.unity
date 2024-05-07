@@ -338,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &144455516
 Transform:
   m_ObjectHideFlags: 0
@@ -2860,7 +2860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &736127306
 Transform:
   m_ObjectHideFlags: 0
@@ -5202,8 +5202,8 @@ MonoBehaviour:
       m_Calls: []
   transcriptionLogger: {fileID: 1790734354}
   transcriptionProcessor: {fileID: 824604203}
-  ProfessionalButton: {fileID: 1962008933}
-  NoviceButton: {fileID: 292571082}
+  professionalQuestionGameObject: {fileID: 0}
+  noviceQuestionGameObject: {fileID: 0}
 --- !u!1 &1451883725
 GameObject:
   m_ObjectHideFlags: 0
