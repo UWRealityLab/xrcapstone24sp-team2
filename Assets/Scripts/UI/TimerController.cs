@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -13,6 +14,11 @@ namespace UI
 
         [SerializeField]
         private TMP_Text timerStateText;
+        
+        [SerializeField]
+        private GameObject restartButtonGameObject;
+
+        [SerializeField] private GameObject qaButtonGameObject;
 
         #endregion
 
@@ -60,12 +66,20 @@ namespace UI
         {
             _isTimerRunning = true;
             timerStateText.text = "Pause";
+            
+            // Hide reset and QA buttons.
+            restartButtonGameObject.SetActive(false);
+            qaButtonGameObject.SetActive(false);
         }
 
         public void PauseTimer()
         {
             _isTimerRunning = false;
             timerStateText.text = "Resume";
+            
+            // Show reset and QA buttons.
+            restartButtonGameObject.SetActive(true);
+            qaButtonGameObject.SetActive(true);
         }
 
         public void ResetTimer()
