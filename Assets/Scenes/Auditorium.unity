@@ -890,6 +890,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431740039380964138, guid: 85b5374fcc28c11428c4d26cbcbb24f5,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431740039380964138, guid: 85b5374fcc28c11428c4d26cbcbb24f5,
+        type: 3}
       propertyPath: m_keyborad
       value: 
       objectReference: {fileID: 966363678}
