@@ -23,9 +23,6 @@ public class CommunicationManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
-
-    [SerializeField] private GameObject professionalQuestionGameObject;
-    [SerializeField] private GameObject noviceQuestionGameObject;
     void Start()
     {
         transcriptionProcessor.onTranscriptionReady.AddListener(AskChatGPT);
@@ -121,9 +118,6 @@ public class CommunicationManager : MonoBehaviour
         DebugAvatarData(professionalData);
         OnAvatarDataReady.Invoke(professionalData);
 
-        // Show professional question when available.
-        professionalQuestionGameObject.SetActive(true);
-
         // Process Novice Data
         string noviceContent = ExtractContent(response.Content, "Novice:", "EndOfContent");
         AvatarData noviceData = new AvatarData
@@ -135,9 +129,6 @@ public class CommunicationManager : MonoBehaviour
         };
         DebugAvatarData(noviceData);
         OnAvatarDataReady.Invoke(noviceData);
-
-        // Show novice question button when available.
-        noviceQuestionGameObject.SetActive(true);
     }
 
     private string ExtractContent(string content, string startKeyword, string endKeyword)

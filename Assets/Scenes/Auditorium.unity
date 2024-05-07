@@ -338,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &144455516
 Transform:
   m_ObjectHideFlags: 0
@@ -2860,7 +2860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &736127306
 Transform:
   m_ObjectHideFlags: 0
@@ -3278,6 +3278,7 @@ MonoBehaviour:
   audioSource: {fileID: 392276348}
   questions: {fileID: 0}
   personaType: Novice
+  questionButton: {fileID: 292571080}
 --- !u!1 &849946848
 GameObject:
   m_ObjectHideFlags: 0
@@ -5199,11 +5200,45 @@ MonoBehaviour:
       m_Calls: []
   OnResponsesReady:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1675579515}
+        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
+        m_MethodName: ShowQuestionButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 827339887}
+        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
+        m_MethodName: ShowQuestionButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1981693511}
+        m_TargetAssemblyTypeName: UI.PodiumController, Assembly-CSharp
+        m_MethodName: QAReceived
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   transcriptionLogger: {fileID: 1790734354}
   transcriptionProcessor: {fileID: 824604203}
-  professionalQuestionGameObject: {fileID: 0}
-  noviceQuestionGameObject: {fileID: 0}
 --- !u!1 &1451883725
 GameObject:
   m_ObjectHideFlags: 0
@@ -6294,6 +6329,7 @@ MonoBehaviour:
   audioSource: {fileID: 1337743688}
   questions: {fileID: 0}
   personaType: Professional
+  questionButton: {fileID: 1962008931}
 --- !u!1 &1681721101
 GameObject:
   m_ObjectHideFlags: 0
