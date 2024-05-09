@@ -23,10 +23,6 @@ public class CommunicationManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
-    void Start()
-    {
-        transcriptionProcessor.onTranscriptionReady.AddListener(AskChatGPT);
-    }
 
     private string GenerateCombinedText()
     {
