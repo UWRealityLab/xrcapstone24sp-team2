@@ -1,0 +1,13 @@
+{
+    "persona": "novice",
+    "voice": "echo",
+    "sections": {
+        "Motivation": [
+            "Why is this topic important to study?"
+        ],
+        "Overview": [
+            "Can you explain the basic idea of your project in simple terms?",
+            "What were some of the challenges you faced during your research?"
+        ]
+    }
+}

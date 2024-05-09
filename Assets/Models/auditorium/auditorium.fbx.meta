@@ -12,7 +12,17 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Audience
+    second: {fileID: 2100000, guid: 6c57c77cfcfd2435893f7039a6d46fe7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Chair
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chair Arm
     second: {fileID: 2100000, guid: 297617957d88d4272ae40c72a76261af, type: 2}
   - first:
       type: UnityEngine:Material

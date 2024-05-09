@@ -1,0 +1,22 @@
+{
+  "Persona": "novice",
+  "Voice": "echo",
+  "Sections": {
+    "Introduction": [
+      "What is a virtual reality app and how does it help with practicing presentations?",
+      "Why is practicing presentations in front of a wall not very effective?"
+    ],
+    "Design Principles": [
+      "What are virtual avatars and how do they make practicing presentations better?",
+      "What does it mean to interact with an audience via question answering in Deck Talk?"
+    ],
+    "Comparison with Competitor": [
+      "Why do you have to convert presentations to PDFs to use Virtual Speech and not for Deck Talk?",
+      "What is the advantage of Deck Talk being free?"
+    ]
+  },
+  "Suggestions": [
+    "It would help if the presentation included simple definitions of technical terms like virtual reality, interactable AI, etc.",
+    "Adding more visual aids like diagrams or screenshots of the app might make it easier to understand how Deck Talk works."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "Persona": "professional",
+  "Voice": "onyx",
+  "Sections": {
+    "Introduction": [
+      "How does Deck Talk improve upon traditional methods of presentation practice such as practicing in front of a mirror?",
+      "Could you clarify the specific limitations of receiving feedback when practicing against a wall or mirror that Deck Talk addresses?"
+    ],
+    "Design Principles": [
+      "Can you elaborate on the technology used to mimic real audiences within Deck Talk?",
+      "How does the interactability with virtual avatars enhance the speaker’s experience?"
+    ],
+    "Comparison with Competitor": [
+      "Aside from costing and PDF conversion, in what ways does Deck Talk outperform Virtual Speech?",
+      "How significant is the feature of importing presentations via a web browser in real-world application?"
+    ]
+  },
+  "Suggestions": [
+    "Consider providing clearer examples or case studies that demonstrate real-world improvements from using Deck Talk.",
+    "It would be beneficial to include user testimonials or early feedback sessions to underline the effectiveness of the interactive features."
+  ]
+}

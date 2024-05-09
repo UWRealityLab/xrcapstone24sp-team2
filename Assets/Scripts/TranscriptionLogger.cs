@@ -1,52 +1,42 @@
 using System.IO;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
-// Logs the full transcription output to Assets/SpeechLog.txt
+
+using System.Threading.Tasks;
+
+using UnityEngine.Events;
+using Newtonsoft.Json;
+
 public class TranscriptionLogger : MonoBehaviour
 {
-    private TextMeshProUGUI _textComponent;
+    [SerializeField] TextMeshProUGUI _textComponent;
     private string _previousText;
     private string _filePath;
-    private StreamWriter _streamWriter;
+
+    private List<string> transcriptionList;
 
     private void Start()
     {
-        _textComponent = GetComponent<TextMeshProUGUI>();
         _previousText = string.Empty;
-        // Assets/SpeechLog.txt
-        _filePath = Path.Combine(Application.dataPath, "TextFiles", "SpeechLog.txt");
-        // opens the file in truncate mode to clear the content
-        _streamWriter = new StreamWriter(_filePath, false);
-        _streamWriter.Close();
-        // reopens the file in append mode
-        _streamWriter = new StreamWriter(_filePath, true);
+        transcriptionList = new List<string>();
     }
 
-    // Log the transcription when the text input field changes
     private void Update()
     {
         string currentText = _textComponent.text;
         if (currentText != _previousText)
         {
-            LogTranscription(currentText);
+            transcriptionList.Add(currentText);
             _previousText = currentText;
         }
     }
 
-    // Log the transcription immediately
-    private void LogTranscription(string transcription)
+    public List<string> GetTranscriptionList()
     {
-        _streamWriter.WriteLine(transcription);
-        _streamWriter.Flush();
-    }
-
-    // Cleanup
-    private void OnDestroy()
-    {
-        if (_streamWriter != null)
-        {
-            _streamWriter.Close();
-        }
+        return transcriptionList;
     }
 }
+
