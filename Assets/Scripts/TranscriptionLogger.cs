@@ -34,6 +34,12 @@ public class TranscriptionLogger : MonoBehaviour
         }
     }
 
+    public void ResetTranscript()
+    {
+        _previousText = string.Empty;
+        _textComponent.text = string.Empty;
+        transcriptionList.Clear();
+    }
     public List<string> GetTranscriptionList()
     {
         return transcriptionList;

@@ -20,7 +20,8 @@ public class CommunicationManager : MonoBehaviour
 
     public TranscriptionLogger transcriptionLogger;
     public TranscriptionProcessor transcriptionProcessor;
-    private OpenAIApi openAI = new OpenAIApi();
+    // Replace <your-openai-api-key> with your OpenAI API key
+    private OpenAIApi openAI = new OpenAIApi("sk-<your-openai-api-key>");
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
 

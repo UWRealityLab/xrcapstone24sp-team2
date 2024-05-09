@@ -49,6 +49,13 @@ public class AvatarQuestionManager : MonoBehaviour
         }
         Debug.Log($"Data updated for {avatarData.Persona} with voice {CurrentVoice}. Total questions loaded: {questionQueue.Count}");
     }
+
+    public void ClearQuestions()
+    {
+        questionQueue.Clear();
+        allQuestions.Clear();
+    }
+
     // private void UpdateData(CommunicationManager.AvatarData avatarData)
     // {
     //     CurrentVoice = avatarData.Voice;

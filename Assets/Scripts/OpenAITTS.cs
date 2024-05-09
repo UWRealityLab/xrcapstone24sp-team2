@@ -11,8 +11,8 @@ public class OpenAITTS : MonoBehaviour
 
     private void Awake()
     {
-        // Load the API key using the ApiKeyLoader
-        apiKey = "";
+        // Replace <your-openai-api-key> with your OpenAI API key
+        apiKey = "sk-<your-openai-api-key>";
         if (string.IsNullOrEmpty(apiKey))
         {
             Debug.LogError("Failed to load API key for OpenAI TTS.");
