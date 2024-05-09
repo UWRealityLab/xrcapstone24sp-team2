@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+using OpenAI;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using Newtonsoft.Json;
-using OpenAI;
-using System.Linq;
 
 public class CommunicationManager : MonoBehaviour
 {
@@ -28,12 +23,6 @@ public class CommunicationManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi();
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
-    public Button ProfessionalButton;
-    public Button NoviceButton;
-    void Start()
-    {
-        transcriptionProcessor.onTranscriptionReady.AddListener(AskChatGPT);
-    }
 
     private string GenerateCombinedText()
     {
@@ -123,7 +112,6 @@ public class CommunicationManager : MonoBehaviour
             Suggestions = ParseSuggestions(professionalContent)
         };
         DebugAvatarData(professionalData);
-        ProfessionalButton.interactable=true;
         OnAvatarDataReady.Invoke(professionalData);
 
         // Process Novice Data
@@ -136,7 +124,6 @@ public class CommunicationManager : MonoBehaviour
             Suggestions = ParseSuggestions(noviceContent)
         };
         DebugAvatarData(noviceData);
-        NoviceButton.interactable=true;
         OnAvatarDataReady.Invoke(noviceData);
     }
 

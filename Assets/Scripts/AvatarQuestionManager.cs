@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+
 public class AvatarQuestionManager : MonoBehaviour
 {
     [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
@@ -10,6 +11,7 @@ public class AvatarQuestionManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI questions;
     [SerializeField] private string personaType;
+    [SerializeField] private GameObject questionButton;
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
     private Queue<string> questionQueue = new Queue<string>();
@@ -129,11 +131,21 @@ public class AvatarQuestionManager : MonoBehaviour
     //     }));
     // }
 
-    [System.Serializable]
+    [Serializable]
     public class TTSRequestData
     {
         public string model;
         public string input;
         public string voice;
+    }
+
+    public void ShowQuestionButton()
+    {
+        questionButton.SetActive(true);
+    }
+
+    public void HideQuestionButton()
+    {
+        questionButton.SetActive(false);
     }
 }
