@@ -3301,7 +3301,6 @@ MonoBehaviour:
   communicationManager: {fileID: 1428320733}
   tts: {fileID: 591987539}
   audioSource: {fileID: 392276348}
-  questions: {fileID: 0}
   personaType: Novice
   questionButton: {fileID: 292571080}
 --- !u!1 &849946848
@@ -4883,7 +4882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 0
   m_CheckFor2DOcclusion: 0
-  m_CheckFor3DOcclusion: 0
+  m_CheckFor3DOcclusion: 1
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -6400,7 +6399,6 @@ MonoBehaviour:
   communicationManager: {fileID: 1428320733}
   tts: {fileID: 591987539}
   audioSource: {fileID: 1337743688}
-  questions: {fileID: 0}
   personaType: Professional
   questionButton: {fileID: 1962008931}
 --- !u!1 &1681721101

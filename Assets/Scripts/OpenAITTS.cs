@@ -7,11 +7,11 @@ using System.Text;
 public class OpenAITTS : MonoBehaviour
 {
     [SerializeField] private string openAIURL = "https://api.openai.com/v1/audio/speech";
-    private OpenAIApi openAI = new OpenAIApi(OpenAIConfig.ApiKey);
+    string apiKey = OpenAIConfig.ApiKey;
 
     private void Awake()
     {
-        if (string.IsNullOrEmpty(openAI))
+        if (string.IsNullOrEmpty(apiKey))
         {
             Debug.LogError("Failed to load API key for OpenAI TTS.");
         }
@@ -21,7 +21,7 @@ public class OpenAITTS : MonoBehaviour
     {
         Debug.Log($"[TTS Request] Sending JSON: {jsonData}");
 
-        if (string.IsNullOrEmpty(openAI))
+        if (string.IsNullOrEmpty(apiKey))
         {
             Debug.LogError("[TTS Request] API Key is not loaded, aborting TTS request.");
             yield break;
@@ -35,7 +35,7 @@ public class OpenAITTS : MonoBehaviour
                 streamAudio = true
             };
             www.SetRequestHeader("Content-Type", "application/json");
-            www.SetRequestHeader("Authorization", "Bearer " + openAI);
+            www.SetRequestHeader("Authorization", "Bearer " + apiKey);
 
             yield return www.SendWebRequest();
 
