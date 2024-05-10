@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 public class TranscriptionLogger : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _textComponent;
+    [SerializeField] TextMeshProUGUI _partialTextComponent;
     private string _previousText;
     private string _filePath;
 
@@ -37,7 +38,8 @@ public class TranscriptionLogger : MonoBehaviour
     public void ResetTranscript()
     {
         _previousText = string.Empty;
-        _textComponent.text = string.Empty;
+        _textComponent.text = "Full transcription:";
+        _partialTextComponent.text = "Partial transcription:";
         transcriptionList.Clear();
     }
     public List<string> GetTranscriptionList()

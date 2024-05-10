@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OpenAI;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Text.RegularExpressions;
 
 public class CommunicationManager : MonoBehaviour
 {
@@ -20,8 +21,7 @@ public class CommunicationManager : MonoBehaviour
 
     public TranscriptionLogger transcriptionLogger;
     public TranscriptionProcessor transcriptionProcessor;
-    // Replace <your-openai-api-key> with your OpenAI API key
-    private OpenAIApi openAI = new OpenAIApi("sk-<your-openai-api-key>");
+    private OpenAIApi openAI = new OpenAIApi(OpenAIConfig.ApiKey);
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
 
@@ -68,6 +68,7 @@ public class CommunicationManager : MonoBehaviour
         for (int i = 0; i < list.Count; i++) {
             speechLogText += list[i];
         }
+        Debug.Log("Speech Text: " + speechLogText);
 
         return promptText + "\n" + speechLogText;
     }
@@ -89,6 +90,7 @@ public class CommunicationManager : MonoBehaviour
             var response = await openAI.CreateChatCompletion(request);
             if (response.Choices != null && response.Choices.Count > 0)
             {
+                Debug.Log(response.Choices[0].Message);
                 ProcessResponse(response.Choices[0].Message);
             }
         }
@@ -105,24 +107,34 @@ public class CommunicationManager : MonoBehaviour
 
         // Process Professional Data
         string professionalContent = ExtractContent(response.Content, "Professional:", "Novice:");
+        Debug.Log($"Professional content: {professionalContent}");
+        var professionalSections = ParseSections(professionalContent);
+        Debug.Log($"Professional sections: {string.Join(", ", professionalSections.Keys)}");
+        var professionalSuggestions = ParseSuggestions(professionalContent);
+        Debug.Log($"Professional suggestions: {string.Join(", ", professionalSuggestions)}");
         AvatarData professionalData = new AvatarData
         {
             Persona = "Professional",
             Voice = "alloy",
-            Sections = ParseSections(professionalContent),
-            Suggestions = ParseSuggestions(professionalContent)
+            Sections = professionalSections,
+            Suggestions = professionalSuggestions
         };
         DebugAvatarData(professionalData);
         OnAvatarDataReady.Invoke(professionalData);
 
         // Process Novice Data
         string noviceContent = ExtractContent(response.Content, "Novice:", "EndOfContent");
+        Debug.Log($"Novice content: {noviceContent}");
+        var noviceSections = ParseSections(noviceContent);
+        Debug.Log($"Novice sections: {string.Join(", ", noviceSections.Keys)}");
+        var noviceSuggestions = ParseSuggestions(noviceContent);
+        Debug.Log($"Novice suggestions: {string.Join(", ", noviceSuggestions)}");
         AvatarData noviceData = new AvatarData
         {
             Persona = "Novice",
             Voice = "onyx",
-            Sections = ParseSections(noviceContent),
-            Suggestions = ParseSuggestions(noviceContent)
+            Sections = noviceSections,
+            Suggestions = noviceSuggestions
         };
         DebugAvatarData(noviceData);
         OnAvatarDataReady.Invoke(noviceData);
@@ -130,43 +142,49 @@ public class CommunicationManager : MonoBehaviour
 
     private string ExtractContent(string content, string startKeyword, string endKeyword)
     {
-        int startIndex = content.IndexOf(startKeyword);
-        if (startIndex == -1)
+        // Adjust regex to optionally include endKeyword if it exists
+        var regex = new Regex($"{Regex.Escape(startKeyword)}(.*?)(?:{Regex.Escape(endKeyword)}|$)", RegexOptions.Singleline);
+        var match = regex.Match(content);
+        if (match.Success)
         {
-            Debug.LogError($"Start keyword '{startKeyword}' not found.");
-            return string.Empty;
+            return match.Groups[1].Value.Trim();
         }
-
-        startIndex += startKeyword.Length;
-        int endIndex = content.IndexOf(endKeyword, startIndex);
-        if (endIndex == -1)
+        else
         {
-            Debug.LogWarning($"End keyword '{endKeyword}' not found after start keyword. Assuming end of content.");
-            endIndex = content.Length; // If not found, assume end of content
+            Debug.LogWarning($"Start keyword '{startKeyword}' not found. Returning full content.");
+            return content;
         }
-
-        return content.Substring(startIndex, endIndex - startIndex).Trim();
     }
 
     private Dictionary<string, List<string>> ParseSections(string responseData)
     {
         var sections = new Dictionary<string, List<string>>();
         var lines = responseData.Split('\n');
-        for (int i = 0; i < lines.Length; i++)
+        bool inSection = false;
+        string currentSection = "";
+
+        foreach (var line in lines)
         {
-            if (lines[i].StartsWith("Section"))
+            if (line.StartsWith("Section"))
             {
-                string sectionTitle = lines[i].Substring(lines[i].IndexOf(' ') + 1).Trim();
-                sections[sectionTitle] = new List<string>
+                if (inSection && sections.ContainsKey(currentSection))
                 {
-                    lines[++i].Substring(3).Trim(), // Increment i to skip to the question, and substring to remove numbering like '1. '
-                    lines[++i].Substring(3).Trim()  // Same here for the second question
-                };
+                    // This handles the switch to a new section
+                    inSection = false;
+                }
+
+                currentSection = line.Substring(line.IndexOf(' ') + 1).Trim();
+                sections[currentSection] = new List<string>();
+                inSection = true;
             }
-            else if (lines[i].StartsWith("Suggestions:"))
+            else if (inSection && !string.IsNullOrEmpty(line.Trim()))
             {
-                // Once we hit "Suggestions:", we stop processing as no more sections are expected.
-                break;
+                sections[currentSection].Add(line.Substring(3).Trim()); // Assume line starts with '1. ' or similar
+            }
+            else if (string.IsNullOrEmpty(line.Trim()) || line.StartsWith("Suggestions:"))
+            {
+                // Handle blank line or end of section signal by Suggestions
+                inSection = false;
             }
         }
 
@@ -183,15 +201,20 @@ public class CommunicationManager : MonoBehaviour
             if (line.StartsWith("Suggestions:"))
             {
                 collecting = true;
-                continue; // Move to next iteration to skip "Suggestions:" line itself
+                continue; // Skip the "Suggestions:" line itself
             }
             if (collecting && !string.IsNullOrEmpty(line.Trim()))
             {
-                suggestions.Add(line.Substring(3).Trim()); // Remove the number and trim the string
+                suggestions.Add(line.Substring(3).Trim()); // Remove numbering like '1. ' and trim
             }
         }
 
         return suggestions;
+    }
+
+    public void ClearMessages()
+    {
+        messages.Clear();
     }
 
     private void DebugAvatarData(AvatarData avatarData)

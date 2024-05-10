@@ -8,8 +8,6 @@ public class AvatarQuestionManager : MonoBehaviour
     [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
-
-    [SerializeField] private TextMeshProUGUI questions;
     [SerializeField] private string personaType;
     [SerializeField] private GameObject questionButton;
     public string CurrentVoice { get; private set; }
@@ -54,6 +52,7 @@ public class AvatarQuestionManager : MonoBehaviour
     {
         questionQueue.Clear();
         allQuestions.Clear();
+        communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
     }
 
     // private void UpdateData(CommunicationManager.AvatarData avatarData)

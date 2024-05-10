@@ -3452,18 +3452,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1790734354}
-        m_TargetAssemblyTypeName: TranscriptionLogger, Assembly-CSharp
-        m_MethodName: ResetTranscript
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1675579515}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: ClearQuestions
@@ -3479,6 +3467,42 @@ MonoBehaviour:
       - m_Target: {fileID: 827339887}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: ClearQuestions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1790734354}
+        m_TargetAssemblyTypeName: TranscriptionLogger, Assembly-CSharp
+        m_MethodName: ResetTranscript
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1099491833}
+        m_TargetAssemblyTypeName: UI.TimerController, Assembly-CSharp
+        m_MethodName: ResetTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1428320733}
+        m_TargetAssemblyTypeName: CommunicationManager, Assembly-CSharp
+        m_MethodName: ClearMessages
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7545,6 +7569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textComponent: {fileID: 1790734353}
+  _partialTextComponent: {fileID: 399625863}
 --- !u!222 &1790734355
 CanvasRenderer:
   m_ObjectHideFlags: 0
