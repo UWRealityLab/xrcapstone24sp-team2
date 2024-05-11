@@ -223,3 +223,6 @@ Assets/APIKey.txt
 Assets/APIKey.txt.meta
 Assets/Oculus
 Assets/Oculus.meta
+
+# Misc
+mono_crash*
