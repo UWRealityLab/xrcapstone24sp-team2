@@ -5,20 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Browser.unity
-    guid: 2d3951738ad6d1442a5cbc4b01e38439
+    guid: f0b83dacca6e0684d9ea1e84fdb723a6
   - enabled: 0
     path: Assets/Scenes/SpeechToText.unity
     guid: 7d804614863ad4b48a50ca5e045eefed
   - enabled: 0
     path: Assets/Scenes/Auditorium.unity
-    guid: 6c4f4ee3e8cfa477c9ddbf80d2e73d51
+    guid: 3954276cb790c47eba6afa1d391021ff
   - enabled: 0
     path: Assets/Scenes/Auditorium UI.unity
     guid: 6e89a89d337af477ea399d4eaefb4d1e
-    path: Assets/Scenes/SpeechToText.unity
-    guid: 7d804614863ad4b48a50ca5e045eefed
   - enabled: 0
     path: Assets/Scenes/Auditorium opt.unity
     guid: 5393791d2f95d1a489623eaebd700020

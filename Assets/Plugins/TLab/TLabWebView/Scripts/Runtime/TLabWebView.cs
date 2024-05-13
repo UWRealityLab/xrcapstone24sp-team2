@@ -44,7 +44,6 @@ namespace TLab.Android.WebView
 		}
 
 		[SerializeField] private RawImage m_rawImage;
-		[SerializeField] private RawImage m_rawImageBig;
 		[SerializeField] private string m_url = "https://youtube.com";
 
 		[Header("File Download Settings")]
@@ -830,7 +829,6 @@ namespace TLab.Android.WebView
 			if ((newPtr != IntPtr.Zero) && (newPtr != oldPtr))
 			{
 				((Texture2D)m_rawImage.texture).UpdateExternalTexture(newPtr);
-				((Texture2D)m_rawImageBig.texture).UpdateExternalTexture(newPtr);
 			}
 		}
 
