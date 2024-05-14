@@ -28,7 +28,7 @@ public class CommunicationManager : MonoBehaviour
     private string GenerateCombinedText()
     {
         string promptText = @"
-        Given the full transcription for a presentation, do the following:
+        Given the full timestamped transcription for a presentation, do the following:
         1. Read the full transcript and divide it into separate sections (e.g., motivation, overview, related work).
         2. Pretend you are a professional well-versed in the topic.
         3. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Novice' in the question.
@@ -63,12 +63,24 @@ public class CommunicationManager : MonoBehaviour
         '''";
 
         string speechLogText = "";
-
-        List<string> list = transcriptionLogger.GetTranscriptionList();
-        for (int i = 0; i < list.Count; i++) {
-            speechLogText += list[i];
+        
+        // transcription without timestamps
+        // List<string> list = transcriptionLogger.GetTranscriptionList();
+        // foreach (string transcription in list)
+        // {
+        //     speechLogText += transcription + "\n";
+        // }
+        
+        // timestamped transcriptione
+        // example format:
+        // 00:01 - Good morning, everyone.
+        // 00:10 - Today, we are going to discuss the latest trends in technology.
+        List<(string, string)> timeList = transcriptionLogger.GetTranscriptionTimeList();
+        foreach (var (time, transcription) in timeList)
+        {
+            speechLogText += $"{time} - {transcription}\n";
         }
-        Debug.Log("Speech Text: " + speechLogText);
+                Debug.Log("Speech Text: " + speechLogText);
 
         return promptText + "\n" + speechLogText;
     }
