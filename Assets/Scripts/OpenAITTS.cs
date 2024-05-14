@@ -13,7 +13,7 @@ public class OpenAITTS : MonoBehaviour
     {
         if (string.IsNullOrEmpty(apiKey))
         {
-            Debug.LogError("Failed to load API key for OpenAI TTS.");
+            Debug.LogError("Failed to load API key for OpenAI TTS. Please ensure that the API key is correctly set in the OpenAIConfig.cs file.");
         }
     }
 

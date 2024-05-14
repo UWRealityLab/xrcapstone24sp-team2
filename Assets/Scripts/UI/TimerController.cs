@@ -13,7 +13,7 @@ namespace UI
 
         [SerializeField]
         private TMP_Text timerStateText;
-        
+
         [SerializeField]
         private GameObject restartButtonGameObject;
 
@@ -65,7 +65,7 @@ namespace UI
         {
             _isTimerRunning = true;
             timerStateText.text = "Pause";
-            
+
             // Hide reset and QA buttons.
             restartButtonGameObject.SetActive(false);
             qaButtonGameObject.SetActive(false);
@@ -75,7 +75,7 @@ namespace UI
         {
             _isTimerRunning = false;
             timerStateText.text = "Resume";
-            
+
             // Show reset and QA buttons.
             restartButtonGameObject.SetActive(true);
             qaButtonGameObject.SetActive(true);
@@ -90,7 +90,7 @@ namespace UI
                 timerStateText.text = "Start";
             }
         }
-        
+
         // return the current time of the timer (format = 'mm:ss')
         public string GetCurrentTime()
         {
@@ -98,7 +98,17 @@ namespace UI
             return time.ToString("mm':'ss");
         }
 
+        public float GetElapsedTimeInSeconds()
+        {
+            return _elapsedTime;
+        }
+
+        public bool IsRunning()
+        {
+            return _isTimerRunning;
+        }
+
         #endregion
     }
-    
+
 }
