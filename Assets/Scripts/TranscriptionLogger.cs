@@ -30,9 +30,9 @@ public class TranscriptionLogger : MonoBehaviour
         _previousText = string.Empty;
         transcriptionList = new List<string>();
         transcriptionTimeList = new List<(string, string)>();
-        sectionStartTime = Time.time; // Initialize the start time of the first section
-        lastUpdateTime = Time.time; // Initialize lastUpdateTime to the current time
-        lastWpmUpdateTime = 0; // Initialize lastWpmUpdateTime to 0
+        sectionStartTime = Time.time;
+        lastUpdateTime = Time.time;
+        lastWpmUpdateTime = 0;
     }
 
     private void Update()
@@ -148,7 +148,10 @@ public class TranscriptionLogger : MonoBehaviour
         totalWordCount = 0;
         totalTimeElapsed = 0;
         wordCountThisSection = 0;
-        sectionStartTime = Time.time;
+        sectionStartTime = 0;
+        overallAverageWPM = 0;
+        lastUpdateTime = 0;
+        lastWpmUpdateTime = 0;
     }
 
     public List<string> GetTranscriptionList()
