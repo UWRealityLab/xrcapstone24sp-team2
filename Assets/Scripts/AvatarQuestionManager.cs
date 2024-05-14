@@ -10,9 +10,16 @@ public class AvatarQuestionManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string personaType;
     [SerializeField] private GameObject questionButton;
+    [SerializeField] private GameObject replayButton;
+    [SerializeField] private GameObject suggestionButton;
+    [SerializeField] private GameObject replaySuggestionButton;
+
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
     private Queue<string> questionQueue = new Queue<string>();
+    private Queue<string> suggestionQueue = new Queue<string>();
+    private string lastQuestionText; // track last question
+    private string lastSuggestionText; // track last suggestion
 
     private bool isQuestionBeingProcessed = false;
 
@@ -45,7 +52,12 @@ public class AvatarQuestionManager : MonoBehaviour
                 questionQueue.Enqueue(question);
             }
         }
+        foreach (var suggestion in avatarData.Suggestions)
+        {
+            suggestionQueue.Enqueue(suggestion);
+        }
         Debug.Log($"Data updated for {avatarData.Persona} with voice {CurrentVoice}. Total questions loaded: {questionQueue.Count}");
+        Debug.Log($"Total suggestions loaded: {suggestionQueue.Count}");
     }
 
     public void ClearQuestions()
@@ -79,6 +91,7 @@ public class AvatarQuestionManager : MonoBehaviour
 
         isQuestionBeingProcessed = true;
         string questionText = questionQueue.Dequeue(); // Get the next question
+        lastQuestionText = questionText; // Update the last question
 
         string jsonData = JsonUtility.ToJson(new TTSRequestData
         {
@@ -99,6 +112,107 @@ public class AvatarQuestionManager : MonoBehaviour
             else
             {
                 Debug.LogError("Failed to load audio for question: " + questionText);
+            }
+        }));
+    }
+
+    public void ReplayLastQuestion()
+    {
+        if (audioSource.isPlaying || isQuestionBeingProcessed || string.IsNullOrEmpty(lastQuestionText))
+        {
+            Debug.Log("Waiting: Audio is still playing, question is being processed, or no last question is available.");
+            return;
+        }
+
+        isQuestionBeingProcessed = true;
+
+        string jsonData = JsonUtility.ToJson(new TTSRequestData
+        {
+            model = "tts-1",
+            input = lastQuestionText,
+            voice = CurrentVoice
+        });
+
+        StartCoroutine(tts.GetTTS(jsonData, clip =>
+        {
+            isQuestionBeingProcessed = false;
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing audio for question: " + lastQuestionText);
+            }
+            else
+            {
+                Debug.LogError("Failed to load audio for question: " + lastQuestionText);
+            }
+        }));
+    }
+
+    public void AskSuggestion()
+    {
+        if (audioSource.isPlaying || isQuestionBeingProcessed || suggestionQueue.Count == 0)
+        {
+            Debug.Log("Waiting: Audio is still playing, question is being processed, or no suggestions are available.");
+            return;
+        }
+
+        isQuestionBeingProcessed = true;
+        string suggestionText = suggestionQueue.Dequeue();
+        lastSuggestionText = suggestionText;
+
+        string jsonData = JsonUtility.ToJson(new TTSRequestData
+        {
+            model = "tts-1",
+            input = suggestionText,
+            voice = CurrentVoice
+        });
+
+        StartCoroutine(tts.GetTTS(jsonData, clip =>
+        {
+            isQuestionBeingProcessed = false;
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing audio for suggestion: " + suggestionText);
+            }
+            else
+            {
+                Debug.LogError("Failed to load audio for suggestion: " + suggestionText);
+            }
+        }));
+    }
+
+    public void ReplayLastSuggestion()
+    {
+        if (audioSource.isPlaying || isQuestionBeingProcessed || string.IsNullOrEmpty(lastSuggestionText))
+        {
+            Debug.Log("Waiting: Audio is still playing, question is being processed, or no last suggestion is available.");
+            return;
+        }
+
+        isQuestionBeingProcessed = true;
+
+        string jsonData = JsonUtility.ToJson(new TTSRequestData
+        {
+            model = "tts-1",
+            input = lastSuggestionText,
+            voice = CurrentVoice
+        });
+
+        StartCoroutine(tts.GetTTS(jsonData, clip =>
+        {
+            isQuestionBeingProcessed = false;
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing audio for suggestion: " + lastSuggestionText);
+            }
+            else
+            {
+                Debug.LogError("Failed to load audio for suggestion: " + lastSuggestionText);
             }
         }));
     }
@@ -153,5 +267,35 @@ public class AvatarQuestionManager : MonoBehaviour
     public void HideQuestionButton()
     {
         questionButton.SetActive(false);
+    }
+
+    public void ShowReplayButton()
+    {
+        replayButton.SetActive(true);
+    }
+
+    public void HideReplayButton()
+    {
+        replayButton.SetActive(false);
+    }
+
+    public void ShowSuggestionButton()
+    {
+        suggestionButton.SetActive(true);
+    }
+
+    public void HideSuggestionButton()
+    {
+        suggestionButton.SetActive(false);
+    }
+
+    public void ShowReplaySuggestionButton()
+    {
+        replaySuggestionButton.SetActive(true);
+    }
+
+    public void HideReplaySuggestionButton()
+    {
+        replaySuggestionButton.SetActive(false);
     }
 }

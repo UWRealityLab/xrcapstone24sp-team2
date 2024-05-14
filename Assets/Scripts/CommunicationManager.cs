@@ -203,9 +203,13 @@ public class CommunicationManager : MonoBehaviour
                 collecting = true;
                 continue; // Skip the "Suggestions:" line itself
             }
-            if (collecting && !string.IsNullOrEmpty(line.Trim()))
+            if (collecting)
             {
-                suggestions.Add(line.Substring(3).Trim()); // Remove numbering like '1. ' and trim
+                string suggestion = line.Substring(3).Trim(); // Remove numbering like '1. ' and trim
+                if (!string.IsNullOrEmpty(suggestion))
+                {
+                    suggestions.Add(suggestion);
+                }
             }
         }
 
