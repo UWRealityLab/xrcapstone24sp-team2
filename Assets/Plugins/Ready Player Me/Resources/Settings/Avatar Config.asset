@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3663d6a9358ae4149aad3496e56d4601, type: 3}
   m_Name: Avatar Config
   m_EditorClassIdentifier: 
-  Lod: 2
+  Lod: 1
   Pose: 0
   TextureAtlas: 3
   TextureSizeLimit: 1024
-  TextureChannel: 0000000001000000
-  UseHands: 0
+  TextureChannel: 00000000
+  UseHands: 1
   UseDracoCompression: 0
   UseMeshOptCompression: 0
   Shader: {fileID: 0}
@@ -33,6 +33,4 @@ MonoBehaviour:
   - TextureChannel: 4
     PropertyName: 
   MorphTargets:
-  - Oculus Visemes
-  - eyeBlinkLeft
-  - eyeBlinkRight
+  - mouthOpen
