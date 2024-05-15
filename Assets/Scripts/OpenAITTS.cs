@@ -7,15 +7,13 @@ using System.Text;
 public class OpenAITTS : MonoBehaviour
 {
     [SerializeField] private string openAIURL = "https://api.openai.com/v1/audio/speech";
-    private string apiKey;
+    string apiKey = OpenAIConfig.ApiKey;
 
     private void Awake()
     {
-        // Load the API key using the ApiKeyLoader
-        apiKey = "";
         if (string.IsNullOrEmpty(apiKey))
         {
-            Debug.LogError("Failed to load API key for OpenAI TTS.");
+            Debug.LogError("Failed to load API key for OpenAI TTS. Please ensure that the API key is correctly set in the OpenAIConfig.cs file.");
         }
     }
 
