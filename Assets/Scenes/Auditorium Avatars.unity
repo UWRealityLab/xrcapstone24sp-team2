@@ -3174,9 +3174,11 @@ MonoBehaviour:
   communicationManager: {fileID: 1428320733}
   tts: {fileID: 591987539}
   audioSource: {fileID: 7102778402898732261}
-  questions: {fileID: 0}
   personaType: Novice
   questionButton: {fileID: 292571080}
+  replayButton: {fileID: 0}
+  suggestionButton: {fileID: 0}
+  replaySuggestionButton: {fileID: 0}
 --- !u!1 &849946848
 GameObject:
   m_ObjectHideFlags: 0
@@ -4088,7 +4090,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: c92e5839bb3d1493a9ac1d4837023223, type: 2}
+    witConfiguration: {fileID: 11400000, guid: c8f7533581dd5428aa1b5394893c0f5a, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
@@ -6350,9 +6352,11 @@ MonoBehaviour:
   communicationManager: {fileID: 1428320733}
   tts: {fileID: 591987539}
   audioSource: {fileID: 8898406791221330177}
-  questions: {fileID: 0}
   personaType: Professional
   questionButton: {fileID: 1962008931}
+  replayButton: {fileID: 0}
+  suggestionButton: {fileID: 0}
+  replaySuggestionButton: {fileID: 0}
 --- !u!1 &1681721101
 GameObject:
   m_ObjectHideFlags: 0
@@ -7521,6 +7525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textComponent: {fileID: 1790734353}
   _timerController: {fileID: 1099491833}
+  _partialTextComponent: {fileID: 0}
 --- !u!222 &1790734355
 CanvasRenderer:
   m_ObjectHideFlags: 0

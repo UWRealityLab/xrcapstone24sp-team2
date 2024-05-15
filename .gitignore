@@ -228,3 +228,5 @@ Assets/Oculus.meta
 mono_crash*
 
 Assets/Plugins/Ready Player Me/Resources/Settings/CoreSettings.asset
+
+Assets/Scripts/OpenAIConfig.cs
