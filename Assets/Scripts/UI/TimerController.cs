@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -91,7 +90,15 @@ namespace UI
                 timerStateText.text = "Start";
             }
         }
+        
+        // return the current time of the timer (format = 'mm:ss')
+        public string GetCurrentTime()
+        {
+            TimeSpan time = TimeSpan.FromSeconds(_elapsedTime);
+            return time.ToString("mm':'ss");
+        }
 
         #endregion
     }
+    
 }
