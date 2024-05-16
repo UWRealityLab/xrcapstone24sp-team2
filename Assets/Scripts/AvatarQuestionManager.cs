@@ -63,6 +63,7 @@ public class AvatarQuestionManager : MonoBehaviour
     public void ClearQuestions()
     {
         questionQueue.Clear();
+        suggestionQueue.Clear();
         allQuestions.Clear();
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
     }
