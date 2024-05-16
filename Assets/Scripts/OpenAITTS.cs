@@ -1,8 +1,8 @@
 using System;
-using UnityEngine;
-using UnityEngine.Networking;
 using System.Collections;
 using System.Text;
+using UnityEngine;
+using UnityEngine.Networking;
 
 public class OpenAITTS : MonoBehaviour
 {
@@ -31,9 +31,7 @@ public class OpenAITTS : MonoBehaviour
         {
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            www.downloadHandler = new DownloadHandlerAudioClip(www.url, AudioType.MPEG) {
-                streamAudio = true
-            };
+            www.downloadHandler = new DownloadHandlerAudioClip(www.url, AudioType.MPEG);
             www.SetRequestHeader("Content-Type", "application/json");
             www.SetRequestHeader("Authorization", "Bearer " + apiKey);
 
