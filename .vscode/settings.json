@@ -51,5 +51,11 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "xrcapstone24sp-team2.sln"
+    "dotnet.defaultSolution": "xrcapstone24sp-team2.sln",
+    "python.analysis.extraPaths": [
+        "/Users/zacharygreenman/.vscode/extensions/savvyanalyst.msc-adams-0.4.2/resources/adamspy"
+    ],
+    "python.autoComplete.extraPaths": [
+        "/Users/zacharygreenman/.vscode/extensions/savvyanalyst.msc-adams-0.4.2/resources/adamspy"
+    ]
 }
