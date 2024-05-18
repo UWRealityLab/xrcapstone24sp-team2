@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10764596, g: 0.07115336, b: 0.049950995, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.10625559, g: 0.06950926, b: 0.047635145, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4725,7 +4725,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: c8f7533581dd5428aa1b5394893c0f5a, type: 2}
+    witConfiguration: {fileID: 11400000, guid: 7ea62e27e62143e4da2c2a519e43a897, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
