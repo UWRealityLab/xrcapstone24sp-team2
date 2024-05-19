@@ -16,8 +16,8 @@ public class TranscriptionLogger : MonoBehaviour
     #region Transcriptions
 
     private string _previousText; // previously saved text
-    private List<string> transcriptionList = new List<string>(); // full transcript (without timestamps)
-    private List<(string, string)> transcriptionTimeList = new List<(string, string)>(); // full transcript (with timestamps)
+    private List<string> transcriptionList; // full transcript (without timestamps)
+    private List<(string, string)> transcriptionTimeList; // full transcript (with timestamps)
 
     #endregion
 
@@ -32,7 +32,6 @@ public class TranscriptionLogger : MonoBehaviour
     private float overallAverageWPM;
     private int totalWordCount;
     private float startTime;
-    private bool isFirstSectionProcessed;
 
     #endregion
 
@@ -42,24 +41,27 @@ public class TranscriptionLogger : MonoBehaviour
     {
         // transcriptions
         _previousText = string.Empty;
+        transcriptionList = new List<string>();
+        transcriptionTimeList = new List<(string, string)>();
 
-        // speaking pace
+        // section
         sectionInterval = 10.0f; // each section is 10 seconds
-        updateWpmInterval = 2.0f; // update wpm every 2 seconds
-        lastWpmUpdateTime = Time.time;
-        sectionAverages = new List<float>();
-        sectionStartTime = Time.time;
         sectionWordCount = 0;
-        overallAverageWPM = 0.0f;
+        sectionStartTime = _timerController.GetElapsedTimeInSeconds();
+        sectionAverages = new List<float>();
+
+        // total
+        updateWpmInterval = 2.0f; // update wpm every 2 seconds
+        lastWpmUpdateTime = _timerController.GetElapsedTimeInSeconds();
         totalWordCount = 0;
-        startTime = Time.time;
-        isFirstSectionProcessed = false;
+        startTime = _timerController.GetElapsedTimeInSeconds();
+        overallAverageWPM = 0.0f;
     }
 
     private void Update()
     {
         // Component checks
-        if (_fullText == null || _timerController == null)
+        if (_timerController == null || _fullText == null)
         {
             return;
         }
@@ -78,27 +80,20 @@ public class TranscriptionLogger : MonoBehaviour
             _previousText = currentText;
         }
 
-        // Calculate the section average WPM
-        if (Time.time - sectionStartTime >= sectionInterval)
+        // Calculate the overall average WPM
+        if (_timerController.GetElapsedTimeInSeconds() - lastWpmUpdateTime >= updateWpmInterval)
         {
-            if (!isFirstSectionProcessed)
-            {
-                isFirstSectionProcessed = true;
-                sectionStartTime = Time.time; // Reset start time for the first interval
-                return; // Skip the first premature calculation
-            }
-            float wpm = (sectionWordCount / sectionInterval) * 60.0f;
-            sectionAverages.Add(wpm);
-            sectionStartTime = Time.time;
-            sectionWordCount = 0;
+            overallAverageWPM = (totalWordCount / (_timerController.GetElapsedTimeInSeconds() - startTime)) * 60.0f;
+            lastWpmUpdateTime =  _timerController.GetElapsedTimeInSeconds();
         }
 
-        // Calculate the overall average WPM
-        if (Time.time - lastWpmUpdateTime >= updateWpmInterval)
+        // Calculate the section average WPM
+        if (_timerController.GetElapsedTimeInSeconds() - sectionStartTime >= sectionInterval)
         {
-            float elapsedTime = Time.time - startTime;
-            overallAverageWPM = (totalWordCount / elapsedTime) * 60.0f;
-            lastWpmUpdateTime = Time.time;
+            float wpm = (sectionWordCount / sectionInterval) * 60.0f;
+            sectionAverages.Add(wpm);
+            sectionStartTime = _timerController.GetElapsedTimeInSeconds();
+            sectionWordCount = 0;
         }
     }
 
@@ -133,10 +128,10 @@ public class TranscriptionLogger : MonoBehaviour
 
         // speaking pace
         sectionAverages.Clear();
-        sectionStartTime = Time.time;
+        sectionStartTime = _timerController.GetElapsedTimeInSeconds();
         sectionWordCount = 0;
         overallAverageWPM = 0;
-        startTime = Time.time;
+        startTime = _timerController.GetElapsedTimeInSeconds();
         totalWordCount = 0;
 
         // UI text

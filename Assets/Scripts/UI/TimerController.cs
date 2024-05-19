@@ -8,14 +8,11 @@ namespace UI
     {
         #region Components
 
-        [SerializeField]
-        private TMP_Text timerText;
+        [SerializeField] private TMP_Text timerText;
 
-        [SerializeField]
-        private TMP_Text timerStateText;
+        [SerializeField] private TMP_Text timerStateText;
 
-        [SerializeField]
-        private GameObject restartButtonGameObject;
+        [SerializeField] private GameObject restartButtonGameObject;
 
         [SerializeField] private GameObject qaButtonGameObject;
 
