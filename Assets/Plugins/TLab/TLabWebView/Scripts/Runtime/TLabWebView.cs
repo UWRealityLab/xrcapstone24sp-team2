@@ -305,10 +305,12 @@ namespace TLab.Android.WebView
 		/// <param name="url"></param>
 		public void LoadUrl(string url)
 		{
-			if (m_state != State.INITIALIZED)
+            Debug.Log("Searching 1");
+            if (m_state != State.INITIALIZED)
 			{
 				return;
 			}
+			Debug.Log("Searching 2");
 
 #if UNITY_ANDROID && !UNITY_EDITOR || DEBUG
 			m_NativePlugin.Call("loadUrl", url);
