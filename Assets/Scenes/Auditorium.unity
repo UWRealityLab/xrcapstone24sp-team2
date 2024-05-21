@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10625559, g: 0.06950926, b: 0.047635145, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.11796006, g: 0.08084667, b: 0.060867075, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5597,6 +5597,7 @@ MonoBehaviour:
         m_CallState: 2
   transcriptionLogger: {fileID: 1790734354}
   transcriptionProcessor: {fileID: 824604203}
+  timerController: {fileID: 1099491833}
 --- !u!1 &1451883725
 GameObject:
   m_ObjectHideFlags: 0
@@ -6847,9 +6848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8cafa2e5ec64e44837b8a3c913fbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textComponent: {fileID: 1790734353}
   _timerController: {fileID: 1099491833}
-  _partialTextComponent: {fileID: 399625863}
+  _fullText: {fileID: 1790734353}
 --- !u!222 &1790734355
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8153,7 +8153,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: 7ea62e27e62143e4da2c2a519e43a897, type: 2}
+    witConfiguration: {fileID: 11400000, guid: bfdfa3e04c8764660ba03d64aa58eb42, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
