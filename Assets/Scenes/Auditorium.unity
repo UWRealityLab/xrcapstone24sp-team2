@@ -5825,6 +5825,7 @@ MonoBehaviour:
         m_CallState: 2
   transcriptionLogger: {fileID: 1790734354}
   transcriptionProcessor: {fileID: 824604203}
+  timerController: {fileID: 1099491833}
 --- !u!1 &1451883725
 GameObject:
   m_ObjectHideFlags: 0
@@ -7182,9 +7183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8cafa2e5ec64e44837b8a3c913fbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textComponent: {fileID: 1790734353}
   _timerController: {fileID: 1099491833}
-  _partialTextComponent: {fileID: 399625863}
+  _fullText: {fileID: 1790734353}
 --- !u!222 &1790734355
 CanvasRenderer:
   m_ObjectHideFlags: 0
