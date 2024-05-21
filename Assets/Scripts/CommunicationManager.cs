@@ -112,6 +112,45 @@ public class CommunicationManager : MonoBehaviour
         }
     }
 
+    public async void GenerateResponse(string systemPrompt, string userInput, Action<string> callback)
+    {
+        Debug.Log("OpenAI request initiated.");
+        try
+        {
+            // Create messages list with system and user messages
+            var messages = new List<ChatMessage>
+            {
+                new ChatMessage { Content = systemPrompt, Role = "system" },
+                new ChatMessage { Content = userInput, Role = "user" }
+            };
+
+            // Create the request for chat completion
+            CreateChatCompletionRequest request = new CreateChatCompletionRequest
+            {
+                Messages = messages,
+                Model = "gpt-4-turbo"
+            };
+
+            // Send the request to OpenAI
+            var response = await openAI.CreateChatCompletion(request);
+
+            // Check if response is valid and process the first choice
+            if (response.Choices != null && response.Choices.Count > 0)
+            {
+                Debug.Log(response.Choices[0].Message.Content);
+                callback(response.Choices[0].Message.Content);
+            }
+            else
+            {
+                Debug.LogError("No choices were returned by the API.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error while processing chat response: {ex.Message}");
+        }
+    }
+
     private void ProcessResponse(ChatMessage response)
     {
         Debug.Log(response.Content);

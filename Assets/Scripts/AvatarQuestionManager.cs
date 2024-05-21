@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
-    [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
+    [SerializeField] private OutputAudioRecorder audioRecorder;
+    [SerializeField] private Button recordButton;
+    [SerializeField] private Text buttonText;
+    [SerializeField] private CommunicationManager communicationManager;
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string personaType;
@@ -67,20 +71,28 @@ public class AvatarQuestionManager : MonoBehaviour
         allQuestions.Clear();
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
     }
+    public void StartRecordingResponse()
+    {
+        audioRecorder.StartRecording();
+        buttonText.text = "Stop Recording";
+        recordButton.onClick.RemoveAllListeners();
+        recordButton.onClick.AddListener(StopRecordingResponse);
+    }
 
-    // private void UpdateData(CommunicationManager.AvatarData avatarData)
-    // {
-    //     CurrentVoice = avatarData.Voice;
-    //     allQuestions.Clear();
-    //     foreach (var section in avatarData.Sections)
-    //     {
-    //         allQuestions.AddRange(section.Value);
-    //     }
-    //     foreach (string q in allQuestions) {
-    //         questions.text = q + "\n";
-    //     }
-    //     Debug.Log("Data updated for " + avatarData.Persona + " with voice " + CurrentVoice);
-    // }
+    public void StopRecordingResponse()
+    {
+        audioRecorder.StopRecording();
+        audioRecorder.SendWavToOpenAI(audioRecorder.FileName, HandleTranscription);
+        buttonText.text = "Start Recording";
+        recordButton.onClick.RemoveAllListeners();
+        recordButton.onClick.AddListener(StartRecordingResponse);
+    }
+
+    public void HandleTranscription(string transcription)
+    {
+        string combinedText = $"Q: {lastQuestionText}\nA: {transcription}";
+        GenerateResponse(combinedText);
+    }
 
     public void AskQuestion()
     {
@@ -217,40 +229,40 @@ public class AvatarQuestionManager : MonoBehaviour
             }
         }));
     }
-    // public void AskRandomQuestion()
-    // {
-    //     if (audioSource.isPlaying || isQuestionBeingProcessed || allQuestions.Count == 0)
-    //     {
-    //         Debug.Log("Waiting: Audio is still playing or question is being processed, or no questions are available.");
-    //         return;
-    //     }
 
-    //     isQuestionBeingProcessed = true;
-    //     int randomIndex = UnityEngine.Random.Range(0, allQuestions.Count);
-    //     string questionText = allQuestions[randomIndex];
+    private void GenerateResponse(string combinedText)
+    {
+        string systemPrompt = "You are an AI that generates insightful responses based on user input and context.";
 
-    //     string jsonData = JsonUtility.ToJson(new TTSRequestData
-    //     {
-    //         model = "tts-1",
-    //         input = questionText,
-    //         voice = CurrentVoice
-    //     });
+        communicationManager.GenerateResponse(systemPrompt, combinedText, response =>
+        {
+            PlayResponse(response);
+        });
+    }
 
-    //     StartCoroutine(tts.GetTTS(jsonData, clip =>
-    //     {
-    //         isQuestionBeingProcessed = false;
-    //         if (clip != null)
-    //         {
-    //             audioSource.clip = clip;
-    //             audioSource.Play();
-    //             Debug.Log("Playing audio for question: " + questionText);
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Failed to load audio for question: " + questionText);
-    //         }
-    //     }));
-    // }
+    private void PlayResponse(string responseText)
+    {
+        string jsonData = JsonUtility.ToJson(new TTSRequestData
+        {
+            model = "tts-1",
+            input = responseText,
+            voice = CurrentVoice
+        });
+
+        StartCoroutine(tts.GetTTS(jsonData, clip =>
+        {
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing AI response: " + responseText);
+            }
+            else
+            {
+                Debug.LogError("Failed to load audio for AI response: " + responseText);
+            }
+        }));
+    }
 
     [Serializable]
     public class TTSRequestData
