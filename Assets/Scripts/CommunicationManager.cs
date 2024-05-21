@@ -4,6 +4,7 @@ using OpenAI;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class CommunicationManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class CommunicationManager : MonoBehaviour
     {
         string promptText = @"
         Given the full timestamped transcription for a presentation, do the following:
+
         1. Read the full transcript and divide it into separate sections (e.g., motivation, overview, related work).
         2. Pretend you are a professional well-versed in the topic.
         3. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Novice' in the question.
@@ -36,7 +38,13 @@ public class CommunicationManager : MonoBehaviour
         5. Pretend you are a novice who is not well-versed in the topic.
         6. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Professional' in the question.
         7. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Professional' in the suggestion.
-        8. Output your answer in the following format:
+        8. Give the user a grade based on the following rubric with a scale 1-10 
+        - How well it keeps the audience engaged
+        - How organized the speech is
+        - How humorous and the effective language the speech uses
+        - The amount of filler words and stutters in the speech
+        - The articulation of the speech
+        9. Output your answer in the following format:
         '''
         Professional:
         Questions:
@@ -60,8 +68,14 @@ public class CommunicationManager : MonoBehaviour
         Suggestions:
         1. ...
         2. ...
+        Rubric:
+        1. <rubric name>
+        <grade>
+        <feedback>
+        2. <rubric name>
+        <grade>
+        <feedback>
         '''";
-
         string speechLogText = "";
         
         // transcription without timestamps
@@ -135,7 +149,7 @@ public class CommunicationManager : MonoBehaviour
         OnAvatarDataReady.Invoke(professionalData);
 
         // Process Novice Data
-        string noviceContent = ExtractContent(response.Content, "Novice:", "EndOfContent");
+        string noviceContent = ExtractContent(response.Content, "Novice:", "Rubric:");
         Debug.Log($"Novice content: {noviceContent}");
         var noviceSections = ParseSections(noviceContent);
         Debug.Log($"Novice sections: {string.Join(", ", noviceSections.Keys)}");
@@ -150,6 +164,12 @@ public class CommunicationManager : MonoBehaviour
         };
         DebugAvatarData(noviceData);
         OnAvatarDataReady.Invoke(noviceData);
+
+        // Process Rubric
+        string rubricContent = ExtractContent(response.Content, "Rubric", "EndOfContent");
+        Debug.Log($"RubricContent content: {rubricContent}");
+        var rubric = ParseSections(rubricContent);
+        Debug.Log($"Rubric grade: {rubric}");
     }
 
     private string ExtractContent(string content, string startKeyword, string endKeyword)
@@ -252,5 +272,34 @@ public class CommunicationManager : MonoBehaviour
             Debug.Log(suggestion);
         }
 
+    }
+
+    private (string, int, string)[] ParseRubric(string responseData)
+    {
+        int amountOfGrades = 5;
+        var grades = new (string rubric, int grade, string feedback)[amountOfGrades];
+        bool collecting = false;
+        int index = 0;
+        foreach (string line in responseData.Split('\n'))
+        {
+            if (line.StartsWith("Rubric:"))
+            {
+                collecting = true;
+                continue; // Skip the "Suggestions:" line itself
+            }
+            if (collecting)
+            {
+                string[] grade = line.Split(',');
+                if (grade.Length == 3)
+                {
+                    grades[index] = (grade[0], Int32.Parse(grade[1]), grade[2]);
+                }
+            }
+            if (string.IsNullOrEmpty(line.Trim())) 
+            {
+                break;
+            }
+        }
+        return grades;
     }
 }
