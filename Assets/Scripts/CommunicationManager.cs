@@ -4,6 +4,7 @@ using OpenAI;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
+using UI;
 
 public class CommunicationManager : MonoBehaviour
 {
@@ -24,6 +25,24 @@ public class CommunicationManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi(OpenAIConfig.ApiKey);
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
+
+    private float chatGPTRequestInterval = 30.0f;
+    private float lastChatGPTRequestTime;
+    public TimerController timerController;
+
+    private void Start()
+    {
+        lastChatGPTRequestTime = timerController.GetElapsedTimeInSeconds();
+    }
+
+    private void Update()
+    {
+        if (timerController.GetElapsedTimeInSeconds() - lastChatGPTRequestTime >= chatGPTRequestInterval)
+        {
+            AskChatGPT();
+            lastChatGPTRequestTime = timerController.GetElapsedTimeInSeconds();
+        }
+    }
 
     private string GenerateCombinedText()
     {
@@ -63,14 +82,14 @@ public class CommunicationManager : MonoBehaviour
         '''";
 
         string speechLogText = "";
-        
+
         // transcription without timestamps
         // List<string> list = transcriptionLogger.GetTranscriptionList();
         // foreach (string transcription in list)
         // {
         //     speechLogText += transcription + "\n";
         // }
-        
+
         // timestamped transcriptione
         // example format:
         // 00:01 - Good morning, everyone.
