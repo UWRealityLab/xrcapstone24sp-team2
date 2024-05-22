@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Recording data.unity
     guid: 8a3b8f86b88c5cf49acdabdcb616bd89
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Auditorium.unity
     guid: bb030c1b0576c41a68bb3e38f426a71e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Conference.unity
     guid: 23b68f2391ab5144b8a849fd765491b1
   m_configObjects:
