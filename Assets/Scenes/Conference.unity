@@ -9430,7 +9430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timerController: {fileID: 1099491833}
-  _fullText: {fileID: 0}
+  _fullText: {fileID: 1790734353}
 --- !u!222 &1790734355
 CanvasRenderer:
   m_ObjectHideFlags: 0
