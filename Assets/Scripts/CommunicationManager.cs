@@ -10,6 +10,7 @@ public class CommunicationManager : MonoBehaviour
 {
     public UnityEvent<AvatarData> OnAvatarDataReady;
     public UnityEvent OnResponsesReady;
+    [SerializeField] public GradeDisplay gradeDisplay;
 
     [Serializable]
     public class AvatarData
@@ -25,6 +26,9 @@ public class CommunicationManager : MonoBehaviour
     private OpenAIApi openAI = new OpenAIApi(OpenAIConfig.ApiKey);
     private List<ChatMessage> messages = new List<ChatMessage>();
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
+    private static readonly string[] rubricTitles = { "Engagement", "Organization", "Storytelling", "Filler words", "Articulation"};
+    public (string, int, string)[] grade;
+    
 
     private string GenerateCombinedText()
     {
@@ -38,10 +42,10 @@ public class CommunicationManager : MonoBehaviour
         5. Pretend you are a novice who is not well-versed in the topic.
         6. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Professional' in the question.
         7. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Professional' in the suggestion.
-        8. Give the user a grade based on the following rubric with a scale 1-10 
+        8. Give the user a grade based on the following rubric with a scale 1-10. 
         - How well it keeps the audience engaged
         - How organized the speech is
-        - How humorous and the effective language the speech uses
+        - The storytelling of the speech
         - The amount of filler words and stutters in the speech
         - The articulation of the speech
         9. Output your answer in the following format:
@@ -69,12 +73,8 @@ public class CommunicationManager : MonoBehaviour
         1. ...
         2. ...
         Rubric:
-        1. <rubric name>
-        <grade>
-        <feedback>
-        2. <rubric name>
-        <grade>
-        <feedback>
+        <rubric name>+<grade>+<feedback>
+        <rubric name>+<grade>+<feedback>
         '''";
         string speechLogText = "";
         
@@ -168,8 +168,8 @@ public class CommunicationManager : MonoBehaviour
         // Process Rubric
         string rubricContent = ExtractContent(response.Content, "Rubric", "EndOfContent");
         Debug.Log($"RubricContent content: {rubricContent}");
-        var rubric = ParseSections(rubricContent);
-        Debug.Log($"Rubric grade: {rubric}");
+        grade = ParseRubric(rubricContent);
+
     }
 
     private string ExtractContent(string content, string startKeyword, string endKeyword)
@@ -278,22 +278,15 @@ public class CommunicationManager : MonoBehaviour
     {
         int amountOfGrades = 5;
         var grades = new (string rubric, int grade, string feedback)[amountOfGrades];
-        bool collecting = false;
         int index = 0;
         foreach (string line in responseData.Split('\n'))
         {
-            if (line.StartsWith("Rubric:"))
+            string[] grade = line.Split('+');
+            Debug.Log(grade);
+            if (grade.Length == 3)
             {
-                collecting = true;
-                continue; // Skip the "Suggestions:" line itself
-            }
-            if (collecting)
-            {
-                string[] grade = line.Split(',');
-                if (grade.Length == 3)
-                {
-                    grades[index] = (grade[0], Int32.Parse(grade[1]), grade[2]);
-                }
+                grades[index] = (rubricTitles[index], Int32.Parse(grade[1]), grade[2]);
+                index++;
             }
             if (string.IsNullOrEmpty(line.Trim())) 
             {
@@ -301,5 +294,10 @@ public class CommunicationManager : MonoBehaviour
             }
         }
         return grades;
+    }
+
+    public (string, int, string)[] GetGrade()
+    {
+        return grade;
     }
 }

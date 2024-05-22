@@ -10,14 +10,13 @@ public class Recording : MonoBehaviour
     [SerializeField] GameObject controllerLeft;
     [SerializeField] GameObject controllerRight;
     [SerializeField] GameObject graphObject;
-    [SerializeField] UnityEngine.Camera recordingCamera;
-    int i;
-    Vector3 lastPositionLeft;
-    Vector3 lastPositionRight;
-    public float speedLeft = 0;
-    public float speedRight = 0;
+    private Vector3 lastPositionLeft;
+    private Vector3 lastPositionRight;
+    private float speedLeft = 0;
+    private float speedRight = 0;
+    private Boolean recording = false;
 
-    public float TimeT;
+    private float TimeT;
 
 
     public float totalMovement;
@@ -25,10 +24,9 @@ public class Recording : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastPositionLeft = Vector3.zero;
-        lastPositionRight = Vector3.zero;
+        lastPositionLeft = controllerLeft.transform.position;
+        lastPositionRight = controllerRight.transform.position;
         totalMovement = 0;
-        i = 0;
         TimeT = 0;
         
     }
@@ -36,19 +34,51 @@ public class Recording : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        TimeT += Time.deltaTime;
-        i++;
-        speedLeft = (controllerLeft.transform.position - lastPositionLeft).magnitude;
-        lastPositionLeft = controllerLeft.transform.position;
-        speedRight = (controllerRight.transform.position - lastPositionRight).magnitude;
-        lastPositionRight = controllerRight.transform.position;
-        totalMovement += (speedLeft + speedRight);
-        if (i == 20)
+        if (recording)
+        {
+            TimeT += Time.deltaTime;
+            speedLeft = (controllerLeft.transform.position - lastPositionLeft).magnitude;
+            lastPositionLeft = controllerLeft.transform.position;
+            speedRight = (controllerRight.transform.position - lastPositionRight).magnitude;
+            lastPositionRight = controllerRight.transform.position;
+            totalMovement += (speedLeft + speedRight);
+        }
+    }
+
+    IEnumerator WaitAndUpload()
+    {
+        while (recording)
         {
             movementData.Add(totalMovement);
-            graphObject.GetComponent<Graph>().ShowGraph(movementData, (int _i) => Mathf.RoundToInt(_i * 1f * TimeT / 15f) + "s", (float _f) => Mathf.RoundToInt(_f) + "m/s");
             totalMovement = 0;
-            i = 0;
+            yield return new WaitForSeconds(2);
         }
+    }
+
+    public void CreateGraph()
+    {
+        graphObject.SetActive(true);
+        graphObject.GetComponent<Graph>().ShowGraph(movementData, (int _i) => Mathf.RoundToInt(_i * 1f * TimeT / 15f) + "s", (float _f) => Mathf.RoundToInt(_f) + "m/s");
+    }
+
+    public void ToggleRecording()
+    {
+        recording = !recording;
+        if (recording)
+        {
+            TimeT = 0;
+            StartCoroutine(WaitAndUpload());
+        }
+    }
+
+    public void ClearData()
+    {
+        movementData.Clear();
+    }
+
+    public void DisableGraph()
+    {
+        graphObject.SetActive(false);
+        movementData.Clear();
     }
 }
