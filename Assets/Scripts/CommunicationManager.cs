@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UI;
 
 public class CommunicationManager : MonoBehaviour
 {
@@ -29,6 +30,24 @@ public class CommunicationManager : MonoBehaviour
     private static readonly string[] rubricTitles = { "Engagement", "Organization", "Storytelling", "Filler words", "Articulation"};
     public (string, int, string)[] grade;
     
+
+    private float chatGPTRequestInterval = 30.0f;
+    private float lastChatGPTRequestTime;
+    public TimerController timerController;
+
+    private void Start()
+    {
+        lastChatGPTRequestTime = timerController.GetElapsedTimeInSeconds();
+    }
+
+    private void Update()
+    {
+        if (timerController.GetElapsedTimeInSeconds() - lastChatGPTRequestTime >= chatGPTRequestInterval)
+        {
+            AskChatGPT();
+            lastChatGPTRequestTime = timerController.GetElapsedTimeInSeconds();
+        }
+    }
 
     private string GenerateCombinedText()
     {
@@ -77,14 +96,14 @@ public class CommunicationManager : MonoBehaviour
         <rubric name>+<grade>+<feedback>
         '''";
         string speechLogText = "";
-        
+
         // transcription without timestamps
         // List<string> list = transcriptionLogger.GetTranscriptionList();
         // foreach (string transcription in list)
         // {
         //     speechLogText += transcription + "\n";
         // }
-        
+
         // timestamped transcriptione
         // example format:
         // 00:01 - Good morning, everyone.
@@ -282,15 +301,10 @@ public class CommunicationManager : MonoBehaviour
         foreach (string line in responseData.Split('\n'))
         {
             string[] grade = line.Split('+');
-            Debug.Log(grade);
             if (grade.Length == 3)
             {
                 grades[index] = (rubricTitles[index], Int32.Parse(grade[1]), grade[2]);
                 index++;
-            }
-            if (string.IsNullOrEmpty(line.Trim())) 
-            {
-                break;
             }
         }
         return grades;
