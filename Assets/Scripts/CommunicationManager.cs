@@ -42,7 +42,7 @@ public class CommunicationManager : MonoBehaviour
         5. Pretend you are a novice who is not well-versed in the topic.
         6. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Professional' in the question.
         7. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Professional' in the suggestion.
-        8. Give the user a grade based on the following rubric with a scale 1-10. 
+        8. Give the user a grade based on the following rubric with a scale 0-10. 
         - How well it keeps the audience engaged
         - How organized the speech is
         - The storytelling of the speech
