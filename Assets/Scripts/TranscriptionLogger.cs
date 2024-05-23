@@ -118,6 +118,14 @@ public class TranscriptionLogger : MonoBehaviour
         totalWordCount += words.Length;
     }
 
+    public void AddEndOfTranscriptMarker()
+    {
+        string endMarker = "###Transcript end###";
+        transcriptionList.Add(endMarker);
+        string currentTime = _timerController.GetCurrentTime();
+        transcriptionTimeList.Add((currentTime, endMarker));
+    }
+
     // Reset the transcription lists and word counts
     public void ResetTranscript()
     {

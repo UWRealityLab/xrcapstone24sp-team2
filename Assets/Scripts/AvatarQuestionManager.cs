@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
-    [SerializeField] private OutputAudioRecorder audioRecorder;
-    [SerializeField] private Button recordButton;
-    [SerializeField] private Text buttonText;
-    [SerializeField] private CommunicationManager communicationManager;
+    [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
+    // [SerializeField] private OutputAudioRecorder audioRecorder; // Reference to the OutputAudioRecorder
+    [SerializeField] private BackAndForthTranscriptionManager transcriptionManager; // Reference to the BackAndForthTranscriptionManager
     [SerializeField] private string personaType;
     [SerializeField] private GameObject questionButton;
     [SerializeField] private GameObject replayButton;
     [SerializeField] private GameObject suggestionButton;
     [SerializeField] private GameObject replaySuggestionButton;
+    [SerializeField] private Button recordButton; // Reference to the UI Button
+    [SerializeField] private TextMeshProUGUI buttonText; // Reference to the Button's TextMeshPro component
+    private List<string> conversationHistory = new List<string>();
 
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
@@ -30,6 +33,7 @@ public class AvatarQuestionManager : MonoBehaviour
     void Start()
     {
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
+        recordButton.onClick.AddListener(StartRecordingResponse);
     }
 
     void OnDestroy()
@@ -45,6 +49,7 @@ public class AvatarQuestionManager : MonoBehaviour
             UpdateData(avatarData);
         }
     }
+
     private void UpdateData(CommunicationManager.AvatarData avatarData)
     {
         CurrentVoice = avatarData.Voice;
@@ -70,28 +75,6 @@ public class AvatarQuestionManager : MonoBehaviour
         suggestionQueue.Clear();
         allQuestions.Clear();
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
-    }
-    public void StartRecordingResponse()
-    {
-        audioRecorder.StartRecording();
-        buttonText.text = "Stop Recording";
-        recordButton.onClick.RemoveAllListeners();
-        recordButton.onClick.AddListener(StopRecordingResponse);
-    }
-
-    public void StopRecordingResponse()
-    {
-        audioRecorder.StopRecording();
-        audioRecorder.SendWavToOpenAI(audioRecorder.FileName, HandleTranscription);
-        buttonText.text = "Start Recording";
-        recordButton.onClick.RemoveAllListeners();
-        recordButton.onClick.AddListener(StartRecordingResponse);
-    }
-
-    public void HandleTranscription(string transcription)
-    {
-        string combinedText = $"Q: {lastQuestionText}\nA: {transcription}";
-        GenerateResponse(combinedText);
     }
 
     public void AskQuestion()
@@ -162,83 +145,171 @@ public class AvatarQuestionManager : MonoBehaviour
         }));
     }
 
-    public void AskSuggestion()
+    // public void StartRecordingResponse()
+    // {
+    //     transcriptionManager.StartTimer();
+    //     dictationService.Toggle(); // Start dictation
+    //     buttonText.text = "Stop Recording";
+    //     recordButton.onClick.RemoveAllListeners();
+    //     recordButton.onClick.AddListener(StopRecordingResponse);
+    // }
+
+    // public void StopRecordingResponse()
+    // {
+    //     transcriptionManager.StopTimer();
+    //     dictationService.Toggle(); // Stop dictation
+    //     string relevantTranscript = transcriptionManager.GetRelevantTranscript();
+    //     HandleTranscription(relevantTranscript);
+    //     buttonText.text = "Start Recording";
+    //     recordButton.onClick.RemoveAllListeners();
+    //     recordButton.onClick.AddListener(StartRecordingResponse);
+    // }
+
+    public void StartRecordingResponse()
     {
-        if (audioSource.isPlaying || isQuestionBeingProcessed || suggestionQueue.Count == 0)
-        {
-            Debug.Log("Waiting: Audio is still playing, question is being processed, or no suggestions are available.");
-            return;
-        }
-
-        isQuestionBeingProcessed = true;
-        string suggestionText = suggestionQueue.Dequeue();
-        lastSuggestionText = suggestionText;
-
-        string jsonData = JsonUtility.ToJson(new TTSRequestData
-        {
-            model = "tts-1",
-            input = suggestionText,
-            voice = CurrentVoice
-        });
-
-        StartCoroutine(tts.GetTTS(jsonData, clip =>
-        {
-            isQuestionBeingProcessed = false;
-            if (clip != null)
-            {
-                audioSource.clip = clip;
-                audioSource.Play();
-                Debug.Log("Playing audio for suggestion: " + suggestionText);
-            }
-            else
-            {
-                Debug.LogError("Failed to load audio for suggestion: " + suggestionText);
-            }
-        }));
+        transcriptionManager.StartTimer();
+        // audioRecorder.StartRecording();
+        buttonText.text = "Stop Recording";
+        recordButton.onClick.RemoveAllListeners();
+        recordButton.onClick.AddListener(StopRecordingResponse);
     }
 
-    public void ReplayLastSuggestion()
+    public void StopRecordingResponse()
     {
-        if (audioSource.isPlaying || isQuestionBeingProcessed || string.IsNullOrEmpty(lastSuggestionText))
-        {
-            Debug.Log("Waiting: Audio is still playing, question is being processed, or no last suggestion is available.");
-            return;
-        }
+        transcriptionManager.StopTimer();
+        // audioRecorder.StopRecording();
+        string relevantTranscript = transcriptionManager.GetRelevantTranscript();
+        HandleTranscription(relevantTranscript);
+        buttonText.text = "Start Recording";
+        recordButton.onClick.RemoveAllListeners();
+        recordButton.onClick.AddListener(StartRecordingResponse);
+    }
 
-        isQuestionBeingProcessed = true;
-
-        string jsonData = JsonUtility.ToJson(new TTSRequestData
-        {
-            model = "tts-1",
-            input = lastSuggestionText,
-            voice = CurrentVoice
-        });
-
-        StartCoroutine(tts.GetTTS(jsonData, clip =>
-        {
-            isQuestionBeingProcessed = false;
-            if (clip != null)
-            {
-                audioSource.clip = clip;
-                audioSource.Play();
-                Debug.Log("Playing audio for suggestion: " + lastSuggestionText);
-            }
-            else
-            {
-                Debug.LogError("Failed to load audio for suggestion: " + lastSuggestionText);
-            }
-        }));
+    public void HandleTranscription(string transcription)
+    {
+        string combinedText = $"Q: {lastQuestionText}\nA: {transcription}";
+        GenerateResponse(combinedText);
     }
 
     private void GenerateResponse(string combinedText)
     {
-        string systemPrompt = "You are an AI that generates insightful responses based on user input and context.";
+        // Append the user's response to the conversation history
+        conversationHistory.Add($"Q: {lastQuestionText}\nA: {combinedText}");
 
-        communicationManager.GenerateResponse(systemPrompt, combinedText, response =>
+        // Combine the conversation history for context
+        string conversationContext = string.Join("\n", conversationHistory);
+
+        // Check if the conversation is during the Q/A portion
+        bool isQA = conversationHistory.Any(entry => entry.Contains("###Transcript end###"));
+
+        string systemPrompt;
+
+        if (personaType == "Professional")
         {
+            systemPrompt = "Pretend you are a professional well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+        }
+        else if (personaType == "Novice")
+        {
+            systemPrompt = "Pretend you are a novice who is not well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+        }
+        else
+        {
+            systemPrompt = "You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+        }
+
+        if (isQA)
+        {
+            systemPrompt += " This is during the Q/A portion of the talk.";
+        }
+
+        communicationManager.GenerateResponse(systemPrompt, conversationContext, response =>
+        {
+            // Append the AI's response to the conversation history
+            conversationHistory.Add($"AI: {response}");
+
             PlayResponse(response);
         });
     }
+    // private void GenerateResponse(string combinedText)
+    // {
+    //     // Append the user's response to the conversation history
+    //     conversationHistory.Add($"Q: {lastQuestionText}\nA: {combinedText}");
+
+    //     // Combine the conversation history for context
+    //     string conversationContext = string.Join("\n", conversationHistory);
+
+    //     string systemPrompt;
+
+    //     if (personaType == "Professional")
+    //     {
+    //         systemPrompt = "Pretend you are a professional well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+    //     else if (personaType == "Novice")
+    //     {
+    //         systemPrompt = "Pretend you are a novice who is not well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+    //     else
+    //     {
+    //         systemPrompt = "You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+
+    //     communicationManager.GenerateResponse(systemPrompt, conversationContext, response =>
+    //     {
+    //         // Append the AI's response to the conversation history
+    //         conversationHistory.Add($"AI: {response}");
+
+    //         PlayResponse(response);
+    //     });
+    // }
+
+    // private void GenerateResponse(string combinedText)
+    // {
+    //     string systemPrompt;
+
+    //     if (personaType == "Professional")
+    //     {
+    //         systemPrompt = "Pretend you are a professional well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+    //     else if (personaType == "Novice")
+    //     {
+    //         systemPrompt = "Pretend you are a novice who is not well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+    //     else
+    //     {
+    //         systemPrompt = "You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+
+    //     communicationManager.GenerateResponse(systemPrompt, combinedText, response =>
+    //     {
+    //         PlayResponse(response);
+    //     });
+    // }
+
+    // private void GenerateResponse(string combinedText)
+    // {
+    //     string systemPrompt = "You are an AI that generates insightful responses based on user input and context.";
+
+    //     communicationManager.GenerateResponse(systemPrompt, combinedText, response =>
+    //     {
+    //         // Limit response to a certain number of characters (approximate token count)
+    //         int maxLength = 200; // Adjust as needed to approximate 50 tokens
+    //         if (response.Length > maxLength)
+    //         {
+    //             response = response.Substring(0, maxLength) + "...";
+    //         }
+
+    //         PlayResponse(response);
+    //     });
+    // }
+    // private void GenerateResponse(string combinedText)
+    // {
+    //     string systemPrompt = "You are an AI that generates insightful responses based on user input and context.";
+
+    //     communicationManager.GenerateResponse(systemPrompt, combinedText, response =>
+    //     {
+    //         PlayResponse(response);
+    //     });
+    // }
 
     private void PlayResponse(string responseText)
     {

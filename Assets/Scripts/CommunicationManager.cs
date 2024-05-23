@@ -115,7 +115,8 @@ public class CommunicationManager : MonoBehaviour
             CreateChatCompletionRequest request = new CreateChatCompletionRequest
             {
                 Messages = messages,
-                Model = "gpt-4-turbo"
+                // Model = "gpt-4-turbo"
+                Model = "gpt-4o"
             };
 
             var response = await openAI.CreateChatCompletion(request);
@@ -130,6 +131,35 @@ public class CommunicationManager : MonoBehaviour
             Debug.LogError($"Error while processing chat response: {ex.Message}");
         }
     }
+
+    // public async void GenerateResponse(string systemPrompt, string userInput, Action<string> callback)
+    // {
+    //     var messages = new List<ChatMessage>
+    //     {
+    //         new ChatMessage { Role = "system", Content = systemPrompt },
+    //         new ChatMessage { Role = "user", Content = userInput }
+    //     };
+
+    //     var request = new CreateChatCompletionRequest
+    //     {
+    //         Model = "gpt-4",
+    //         Messages = messages,
+    //         MaxTokens = 50 // Limit response to 50 tokens
+    //     };
+
+    //     var response = await openai.CreateChatCompletion(request);
+
+    //     if (response.Choices != null && response.Choices.Count > 0)
+    //     {
+    //         var message = response.Choices[0].Message;
+    //         callback(message.Content.Trim());
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("No response generated from the prompt.");
+    //         callback(string.Empty);
+    //     }
+    // }
 
     public async void GenerateResponse(string systemPrompt, string userInput, Action<string> callback)
     {
