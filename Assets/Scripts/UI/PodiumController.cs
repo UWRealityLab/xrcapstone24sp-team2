@@ -42,6 +42,8 @@ namespace UI
                 record.CreateGraph();
                 displayGrade.SetActive(true);
                 gradeDisplay.DisplayGrade();
+                startButtonGameObject.SetActive(false);
+                qaButton.gameObject.SetActive(false);
                 
             }
             
@@ -49,14 +51,18 @@ namespace UI
 
         public void QAReceived()
         {
-            // Show other podium buttons.
-            restartButtonGameObject.SetActive(true);
-            startButtonGameObject.SetActive(true);
+            if (!isDone)
+            {
+                // Show other podium buttons.
+                restartButtonGameObject.SetActive(true);
+                startButtonGameObject.SetActive(true);
+
+                // Re-enable Q/A button and display Q/A
+                qaButton.interactable = true;
+                qaButtonText.text = "Done";
+                isDone = true;
+            }
             
-            // Re-enable Q/A button and display Q/A
-            qaButton.interactable = true;
-            qaButtonText.text = "Done";
-            isDone = true;
         }
 
         public void ClearResults()
@@ -65,6 +71,8 @@ namespace UI
             record.DisableGraph();
             isDone = false;
             qaButtonText.text = "Q/A";
+            restartButtonGameObject.SetActive(false);
+            startButtonGameObject.SetActive(true);
         }
 
         #endregion
