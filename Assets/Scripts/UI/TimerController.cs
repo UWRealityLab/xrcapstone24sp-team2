@@ -19,12 +19,17 @@ namespace UI
 
         [SerializeField] private GameObject qaButtonGameObject;
 
+        [SerializeField]
+        private TMP_Text qaButtonText;
+
+
         #endregion
 
         #region Properties
 
         private bool _isTimerRunning;
         private float _elapsedTime;
+        public bool isDone;
 
         #endregion
 
@@ -107,6 +112,8 @@ namespace UI
         {
             return _isTimerRunning;
         }
+
+
 
         #endregion
     }
