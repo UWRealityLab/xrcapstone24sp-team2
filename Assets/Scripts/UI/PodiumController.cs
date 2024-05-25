@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,10 @@ namespace UI
 
         [SerializeField] private Button qaButton;
         [SerializeField] private TMP_Text qaButtonText;
+        [SerializeField] Recording record;
+        [SerializeField] GameObject displayGrade;
+        [SerializeField] GradeDisplay gradeDisplay;
+        private Boolean isDone = false;
 
         #endregion
 
@@ -23,24 +28,51 @@ namespace UI
 
         public void QAPressed()
         {
-            // Hide other podium buttons.
-            restartButtonGameObject.SetActive(false);
-            startButtonGameObject.SetActive(false);
+            if (!isDone)
+            {
+                // Hide other podium buttons.
+                restartButtonGameObject.SetActive(false);
+                startButtonGameObject.SetActive(false);
+
+                // Disable Q/A button and display loading
+                qaButton.interactable = false;
+                qaButtonText.text = "Loading...";
+            } else
+            {
+                record.CreateGraph();
+                displayGrade.SetActive(true);
+                gradeDisplay.DisplayGrade();
+                startButtonGameObject.SetActive(false);
+                qaButton.gameObject.SetActive(false);
+                
+            }
             
-            // Disable Q/A button and display loading
-            qaButton.interactable = false;
-            qaButtonText.text = "Loading...";
         }
 
         public void QAReceived()
         {
-            // Show other podium buttons.
-            restartButtonGameObject.SetActive(true);
-            startButtonGameObject.SetActive(true);
+            if (!isDone)
+            {
+                // Show other podium buttons.
+                restartButtonGameObject.SetActive(true);
+                startButtonGameObject.SetActive(true);
+
+                // Re-enable Q/A button and display Q/A
+                qaButton.interactable = true;
+                qaButtonText.text = "Done";
+                isDone = true;
+            }
             
-            // Re-enable Q/A button and display Q/A
-            qaButton.interactable = true;
+        }
+
+        public void ClearResults()
+        {
+            displayGrade.SetActive(false);
+            record.DisableGraph();
+            isDone = false;
             qaButtonText.text = "Q/A";
+            restartButtonGameObject.SetActive(false);
+            startButtonGameObject.SetActive(true);
         }
 
         #endregion
