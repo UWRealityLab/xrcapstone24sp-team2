@@ -11,8 +11,8 @@ public class AvatarQuestionManager : MonoBehaviour
     [SerializeField] private string personaType;
     [SerializeField] private GameObject questionButton;
     [SerializeField] private GameObject replayButton;
-    [SerializeField] private GameObject suggestionButton;
-    [SerializeField] private GameObject replaySuggestionButton;
+    // [SerializeField] private GameObject suggestionButton;
+    // [SerializeField] private GameObject replaySuggestionButton;
 
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
@@ -282,21 +282,21 @@ public class AvatarQuestionManager : MonoBehaviour
 
     public void ShowSuggestionButton()
     {
-        suggestionButton.SetActive(true);
+        // suggestionButton.SetActive(true);
     }
-
+    
     public void HideSuggestionButton()
     {
-        suggestionButton.SetActive(false);
+        // suggestionButton.SetActive(false);
     }
-
+    
     public void ShowReplaySuggestionButton()
     {
-        replaySuggestionButton.SetActive(true);
+        // replaySuggestionButton.SetActive(true);
     }
-
+    
     public void HideReplaySuggestionButton()
     {
-        replaySuggestionButton.SetActive(false);
+        // replaySuggestionButton.SetActive(false);
     }
 }

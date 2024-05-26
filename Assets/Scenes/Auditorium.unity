@@ -6437,6 +6437,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1076458849379266349, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
+      propertyPath: m_lockKeyborad
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076458849379266349, guid: 38285747716ff59419a495b709b12c5c,
+        type: 3}
       propertyPath: m_activeOnAwake
       value: 1
       objectReference: {fileID: 0}
@@ -6939,6 +6944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 38285747716ff59419a495b709b12c5c,
+        type: 3}
+      propertyPath: m_keyStroke
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4449721481549372445, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
