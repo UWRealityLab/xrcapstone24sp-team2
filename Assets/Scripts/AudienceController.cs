@@ -20,7 +20,6 @@ public class AudienceController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        CallRaiseHand();
     }
 
     // Update is called once per frame
@@ -31,25 +30,24 @@ public class AudienceController : MonoBehaviour
     #region Trigger animations
 
     public void CallFidget()
-        {
-            animator.SetTrigger(Fidget);
-        }
-    
+    {
+        animator.SetTrigger(Fidget);
+    }
+
     public void CallCross()
     {
         animator.SetTrigger(Cross);
     }
-    
+
     public void CallRaiseHand()
     {
         animator.SetBool(IsHandRaised, true);
     }
-    
+
     public void CallLowerHand(ActivateEventArgs args)
     {
         animator.SetBool(IsHandRaised, false);
     }
 
     #endregion
-    
 }
