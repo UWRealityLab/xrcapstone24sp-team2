@@ -44,7 +44,7 @@ public class AudienceController : MonoBehaviour
         animator.SetBool(IsHandRaised, true);
     }
 
-    public void CallLowerHand(ActivateEventArgs args)
+    public void CallLowerHand()
     {
         animator.SetBool(IsHandRaised, false);
     }
