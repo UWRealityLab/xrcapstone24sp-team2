@@ -5307,6 +5307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bbdc42775b041149408bf0c2b819bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transcriptionLogger: {fileID: 399625866}
   timerText: {fileID: 1099491834}
   timerStateText: {fileID: 968334561}
   restartButtonGameObject: {fileID: 867690258}

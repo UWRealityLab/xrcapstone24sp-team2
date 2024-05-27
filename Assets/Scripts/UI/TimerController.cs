@@ -6,6 +6,9 @@ namespace UI
 {
     public class TimerController : MonoBehaviour
     {
+        [SerializeField]
+        private TranscriptionLogger transcriptionLogger;
+
         #region Components
 
         [SerializeField]
@@ -95,6 +98,7 @@ namespace UI
             {
                 timerStateText.text = "Start";
             }
+            transcriptionLogger.ResetTranscript();
         }
 
         public string GetCurrentTime()
