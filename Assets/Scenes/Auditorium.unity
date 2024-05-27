@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10764596, g: 0.07115336, b: 0.049950995, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.10625559, g: 0.06950926, b: 0.047635145, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1990,7 +1990,7 @@ PrefabInstance:
     - target: {fileID: 1583961085851987129, guid: 373cb8769f5bf462090643bec06e0734,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.069
+      value: -3.527
       objectReference: {fileID: 0}
     - target: {fileID: 1583961085851987129, guid: 373cb8769f5bf462090643bec06e0734,
         type: 3}
@@ -2645,7 +2645,7 @@ PrefabInstance:
     - target: {fileID: 4035792817613281187, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.88
+      value: 3.802
       objectReference: {fileID: 0}
     - target: {fileID: 4035792817613281187, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
@@ -2697,6 +2697,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 405820148}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &405820150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 405820148}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa30208d47b1446958c345d99960b2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &408196475
 GameObject:
   m_ObjectHideFlags: 0
@@ -7163,7 +7175,7 @@ PrefabInstance:
     - target: {fileID: 7988958578244570381, guid: 7e1e3d69fbb2c474296cda9f4fecbc10,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.02
+      value: -2.347
       objectReference: {fileID: 0}
     - target: {fileID: 7988958578244570381, guid: 7e1e3d69fbb2c474296cda9f4fecbc10,
         type: 3}
@@ -7411,17 +7423,17 @@ PrefabInstance:
     - target: {fileID: 7701214775320959318, guid: addd536c85fc842fd8c100f9fc8d0df6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.282
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 7701214775320959318, guid: addd536c85fc842fd8c100f9fc8d0df6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.55671775
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 7701214775320959318, guid: addd536c85fc842fd8c100f9fc8d0df6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.961549
+      value: 10.83
       objectReference: {fileID: 0}
     - target: {fileID: 7701214775320959318, guid: addd536c85fc842fd8c100f9fc8d0df6,
         type: 3}
@@ -7628,17 +7640,17 @@ PrefabInstance:
     - target: {fileID: 1824622907619073673, guid: a7c650c2eac294b48ae307525eff8a75,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.437
+      value: -4.738
       objectReference: {fileID: 0}
     - target: {fileID: 1824622907619073673, guid: a7c650c2eac294b48ae307525eff8a75,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5397178
+      value: -0.182
       objectReference: {fileID: 0}
     - target: {fileID: 1824622907619073673, guid: a7c650c2eac294b48ae307525eff8a75,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.8935485
+      value: 9.605
       objectReference: {fileID: 0}
     - target: {fileID: 1824622907619073673, guid: a7c650c2eac294b48ae307525eff8a75,
         type: 3}
@@ -7771,7 +7783,7 @@ MonoBehaviour:
   OnResponsesReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1970933117}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: ShowQuestionButton
         m_Mode: 1
@@ -7783,7 +7795,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 405820150}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: ShowQuestionButton
         m_Mode: 1
@@ -7798,30 +7810,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1981693511}
         m_TargetAssemblyTypeName: UI.PodiumController, Assembly-CSharp
         m_MethodName: QAReceived
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowSuggestionButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowSuggestionButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8699,7 +8687,7 @@ PrefabInstance:
     - target: {fileID: 324599047071862845, guid: 74e2193f38c974bfcbbd86a24e88d262,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.869
+      value: 3.791
       objectReference: {fileID: 0}
     - target: {fileID: 324599047071862845, guid: 74e2193f38c974bfcbbd86a24e88d262,
         type: 3}
@@ -9092,7 +9080,7 @@ PrefabInstance:
     - target: {fileID: 4035792817613281187, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.067
+      value: -3.5249999
       objectReference: {fileID: 0}
     - target: {fileID: 4035792817613281187, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
@@ -9144,6 +9132,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1970933115}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1970933117 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1970933115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa30208d47b1446958c345d99960b2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1981693510 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a372c2f83778044b6a4e76c1128cf93c,
@@ -9921,7 +9921,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: 8301da7d06eed462b8e55a9db36bc9ca, type: 2}
+    witConfiguration: {fileID: 11400000, guid: 7ea62e27e62143e4da2c2a519e43a897, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
