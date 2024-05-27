@@ -64,6 +64,36 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Stage Carpet
     second: {fileID: 2100000, guid: 918bb7c88796144a1a8c166cef28871b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: f1
+    second: {fileID: 2100000, guid: 23eff80e26f340749a859ee6f6534aa9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: f2
+    second: {fileID: 2100000, guid: b18f500b4b9c6d34e9537c44bc22812d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: f3
+    second: {fileID: 2100000, guid: 721902584adee224f8c4beb8c23b3d72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m1
+    second: {fileID: 2100000, guid: 14df7217ea65c6944b8d32f60afe9c11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m2
+    second: {fileID: 2100000, guid: c715c3ca93ae37b4e90d45671f989566, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m3
+    second: {fileID: 2100000, guid: 5c53d8e37d0d16f47859494e12c24639, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
