@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Random = UnityEngine.Random;
 
 public class AudienceController : MonoBehaviour
 {
@@ -17,24 +20,50 @@ public class AudienceController : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
+    #region Unity
+
     private void Start()
     {
+        // Start non-verbal movements.
+        StartCoroutine(CallFidgetOrCrossRandomly());
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-    }
+    #endregion
+
 
     #region Trigger animations
 
-    public void CallFidget()
+    private IEnumerator CallFidgetOrCrossRandomly()
+    {
+        while (true)
+        {
+            // Randomly wait between 10 and 30 seconds.
+            yield return new WaitForSeconds(Random.Range(10, 31));
+
+            // Skip if hand is raised.
+            if (animator.GetBool(IsHandRaised))
+            {
+                continue;
+            }
+
+            // Randomly choose between fidget and cross.
+            if (Random.value < 0.5f)
+            {
+                CallFidget();
+            }
+            else
+            {
+                CallCross();
+            }
+        }
+    }
+
+    private void CallFidget()
     {
         animator.SetTrigger(Fidget);
     }
 
-    public void CallCross()
+    private void CallCross()
     {
         animator.SetTrigger(Cross);
     }
