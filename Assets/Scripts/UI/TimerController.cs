@@ -37,16 +37,17 @@ namespace UI
 
         private void FixedUpdate()
         {
+            // No updates when the timer is not running
             if (!_isTimerRunning)
             {
                 return;
             }
 
-            // Convert elapsed time to a TimeSpan object.
+            // update timer text
             var time = TimeSpan.FromSeconds(_elapsedTime);
             timerText.text = time.ToString("mm':'ss");
 
-            // Increment elapsed time.
+            // increment elapsed time
             _elapsedTime += Time.fixedDeltaTime;
         }
 
@@ -96,7 +97,6 @@ namespace UI
             }
         }
 
-        // return the current time of the timer (format = 'mm:ss')
         public string GetCurrentTime()
         {
             TimeSpan time = TimeSpan.FromSeconds(_elapsedTime);
@@ -112,8 +112,6 @@ namespace UI
         {
             return _isTimerRunning;
         }
-
-
 
         #endregion
     }

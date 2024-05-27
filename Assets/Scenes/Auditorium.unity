@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10756228, g: 0.071127065, b: 0.049919784, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.11796006, g: 0.08084667, b: 0.060867075, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2525,6 +2525,8 @@ GameObject:
   - component: {fileID: 399625862}
   - component: {fileID: 399625864}
   - component: {fileID: 399625863}
+  - component: {fileID: 399625866}
+  - component: {fileID: 399625865}
   m_Layer: 5
   m_Name: PartialTranscription
   m_TagString: Untagged
@@ -2571,7 +2573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Partial transcription:'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2648,6 +2650,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399625861}
   m_CullTransparentMesh: 1
+--- !u!114 &399625865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399625861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43aebf736f544ba59764c7f468b4c0fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transcriptionLogger: {fileID: 399625866}
+  paceInfoText: {fileID: 1158985140}
+--- !u!114 &399625866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399625861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8cafa2e5ec64e44837b8a3c913fbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerController: {fileID: 1099491833}
+  _partialText: {fileID: 399625863}
 --- !u!1 &408196475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4337,7 +4367,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1790734354}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TranscriptionLogger, Assembly-CSharp
         m_MethodName: ResetTranscript
         m_Mode: 1
@@ -8271,7 +8301,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   gradeDisplay: {fileID: 489640861}
-  transcriptionLogger: {fileID: 1790734354}
+  transcriptionLogger: {fileID: 399625866}
   transcriptionProcessor: {fileID: 824604203}
   timerController: {fileID: 1099491833}
 --- !u!1 &1451883725
@@ -9661,8 +9691,6 @@ GameObject:
   - component: {fileID: 1790734356}
   - component: {fileID: 1790734355}
   - component: {fileID: 1790734353}
-  - component: {fileID: 1790734354}
-  - component: {fileID: 1790734357}
   m_Layer: 5
   m_Name: FullTranscription
   m_TagString: Untagged
@@ -9759,20 +9787,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1790734354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790734352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c8cafa2e5ec64e44837b8a3c913fbcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timerController: {fileID: 1099491833}
-  _fullText: {fileID: 1790734353}
 --- !u!222 &1790734355
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9800,20 +9814,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1790734357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790734352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43aebf736f544ba59764c7f468b4c0fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transcriptionLogger: {fileID: 1790734354}
-  paceInfoText: {fileID: 1158985140}
 --- !u!1 &1799275955
 GameObject:
   m_ObjectHideFlags: 0
@@ -11454,8 +11454,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: 8301da7d06eed462b8e55a9db36bc9ca, type: 2}
-    minKeepAliveVolume: 50
+    witConfiguration: {fileID: 11400000, guid: 66f5d4bf18cbb4045ab7180fd357cfdc, type: 2}
+    minKeepAliveVolume: 10
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
     maxRecordingTime: 300

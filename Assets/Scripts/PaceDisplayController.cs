@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 
+// debugging only
 public class PaceDisplayController : MonoBehaviour
 {
     public TranscriptionLogger transcriptionLogger;
