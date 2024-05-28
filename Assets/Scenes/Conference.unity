@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10651426, g: 0.13335606, b: 0.18265821, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.10656982, g: 0.13342255, b: 0.1827363, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5821,6 +5821,11 @@ PrefabInstance:
       objectReference: {fileID: 591987539}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
+      propertyPath: record
+      value: 
+      objectReference: {fileID: 1828484938}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 6195980375617359239}
@@ -5829,6 +5834,11 @@ PrefabInstance:
       propertyPath: personaType
       value: Novice
       objectReference: {fileID: 0}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: startButton
+      value: 
+      objectReference: {fileID: 826963870}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: communicationManager
@@ -9992,9 +10002,19 @@ PrefabInstance:
       objectReference: {fileID: 591987539}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
+      propertyPath: record
+      value: 
+      objectReference: {fileID: 1828484938}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 6583179033297720895}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: startButton
+      value: 
+      objectReference: {fileID: 826963870}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: suggestionButton
