@@ -355,4 +355,9 @@ public class CommunicationManager : MonoBehaviour
     {
         return proSuggestions;
     }
+
+    public void ResetLastGPTRequestTime()
+    {
+        lastChatGPTRequestTime = timerController.GetElapsedTimeInSeconds();
+    }
 }
