@@ -10072,7 +10072,7 @@ MonoBehaviour:
     _onPartialTranscription:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1461815552}
           m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_MethodName: set_text
           m_Mode: 0
