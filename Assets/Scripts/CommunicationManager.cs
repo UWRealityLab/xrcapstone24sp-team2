@@ -9,9 +9,11 @@ using UI;
 
 public class CommunicationManager : MonoBehaviour
 {
+    private Dictionary<string, HashSet<string>> previousQuestions = new Dictionary<string, HashSet<string>>();
     public UnityEvent<AvatarData> OnAvatarDataReady;
     public UnityEvent OnResponsesReady;
-    [SerializeField] public GradeDisplay gradeDisplay;
+    [SerializeField]
+    public GradeDisplay gradeDisplay;
 
     [Serializable]
     public class AvatarData
@@ -29,7 +31,7 @@ public class CommunicationManager : MonoBehaviour
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
     private static readonly string[] rubricTitles = { "Engagement", "Organization", "Storytelling", "Filler words", "Articulation"};
     public (string, int, string)[] grade;
-    
+
 
     private float chatGPTRequestInterval = 30.0f;
     private float lastChatGPTRequestTime;
@@ -52,16 +54,16 @@ public class CommunicationManager : MonoBehaviour
     private string GenerateCombinedText()
     {
         string promptText = @"
-        Given the full timestamped transcription for a presentation, do the following:
+        Given the full transcription for a presentation, do the following:
 
         1. Read the full transcript and divide it into separate sections (e.g., motivation, overview, related work).
         2. Pretend you are a professional well-versed in the topic.
-        3. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Novice' in the question.
+        3. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Novice' in the question. Avoid repeating these questions: " + GetPreviousQuestionsText("Professional") + @"
         4. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Novice' in the suggestion.
         5. Pretend you are a novice who is not well-versed in the topic.
-        6. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Professional' in the question.
+        6. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Professional' in the question. Avoid repeating these questions: " + GetPreviousQuestionsText("Novice") + @"
         7. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Professional' in the suggestion.
-        8. Give the user a grade based on the following rubric with a scale 0-10. 
+        8. Give the user a grade based on the following rubric with a scale 0-10.
         - How well it keeps the audience engaged
         - How organized the speech is
         - The storytelling of the speech
@@ -98,22 +100,23 @@ public class CommunicationManager : MonoBehaviour
         string speechLogText = "";
 
         // transcription without timestamps
-        // List<string> list = transcriptionLogger.GetTranscriptionList();
-        // foreach (string transcription in list)
-        // {
-        //     speechLogText += transcription + "\n";
-        // }
+        List<string> list = transcriptionLogger.GetTranscriptionList();
+        foreach (string transcription in list)
+        {
+            speechLogText += transcription + "\n";
+        }
 
         // timestamped transcriptione
         // example format:
         // 00:01 - Good morning, everyone.
         // 00:10 - Today, we are going to discuss the latest trends in technology.
-        List<(string, string)> timeList = transcriptionLogger.GetTranscriptionTimeList();
-        foreach (var (time, transcription) in timeList)
-        {
-            speechLogText += $"{time} - {transcription}\n";
-        }
-                Debug.Log("Speech Text: " + speechLogText);
+        // List<(string, string)> timeList = transcriptionLogger.GetTranscriptionTimeList();
+        // foreach (var (time, transcription) in timeList)
+        // {
+        //     speechLogText += $"{time} - {transcription}\n";
+        // }
+
+        Debug.Log("Speech Text: " + speechLogText);
 
         return promptText + "\n" + speechLogText;
     }
@@ -129,7 +132,7 @@ public class CommunicationManager : MonoBehaviour
             CreateChatCompletionRequest request = new CreateChatCompletionRequest
             {
                 Messages = messages,
-                Model = "gpt-4-turbo"
+                Model = "gpt-4o"
             };
 
             var response = await openAI.CreateChatCompletion(request);
@@ -152,10 +155,12 @@ public class CommunicationManager : MonoBehaviour
 
         // Process Professional Data
         string professionalContent = ExtractContent(response.Content, "Professional:", "Novice:");
-        Debug.Log($"Professional content: {professionalContent}");
         var professionalSections = ParseSections(professionalContent);
-        Debug.Log($"Professional sections: {string.Join(", ", professionalSections.Keys)}");
+        StoreQuestions("Professional", professionalSections);
         var professionalSuggestions = ParseSuggestions(professionalContent);
+
+        Debug.Log($"Professional content: {professionalContent}");
+        Debug.Log($"Professional sections: {string.Join(", ", professionalSections.Keys)}");
         Debug.Log($"Professional suggestions: {string.Join(", ", professionalSuggestions)}");
         AvatarData professionalData = new AvatarData
         {
@@ -169,10 +174,12 @@ public class CommunicationManager : MonoBehaviour
 
         // Process Novice Data
         string noviceContent = ExtractContent(response.Content, "Novice:", "Rubric:");
-        Debug.Log($"Novice content: {noviceContent}");
         var noviceSections = ParseSections(noviceContent);
-        Debug.Log($"Novice sections: {string.Join(", ", noviceSections.Keys)}");
+        StoreQuestions("Novice", noviceSections);
         var noviceSuggestions = ParseSuggestions(noviceContent);
+
+        Debug.Log($"Novice content: {noviceContent}");
+        Debug.Log($"Novice sections: {string.Join(", ", noviceSections.Keys)}");
         Debug.Log($"Novice suggestions: {string.Join(", ", noviceSuggestions)}");
         AvatarData noviceData = new AvatarData
         {
@@ -313,5 +320,31 @@ public class CommunicationManager : MonoBehaviour
     public (string, int, string)[] GetGrade()
     {
         return grade;
+    }
+
+    private void StoreQuestions(string persona, Dictionary<string, List<string>> sections)
+    {
+        if (!previousQuestions.ContainsKey(persona))
+        {
+            previousQuestions[persona] = new HashSet<string>();
+        }
+
+        foreach (var section in sections)
+        {
+            foreach (var question in section.Value)
+            {
+                previousQuestions[persona].Add(question);
+            }
+        }
+    }
+
+    private string GetPreviousQuestionsText(string persona)
+    {
+        if (!previousQuestions.ContainsKey(persona))
+        {
+            return string.Empty;
+        }
+
+        return string.Join(", ", previousQuestions[persona]);
     }
 }
