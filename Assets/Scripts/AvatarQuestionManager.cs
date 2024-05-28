@@ -30,7 +30,7 @@ public class AvatarQuestionManager : MonoBehaviour
     void Start()
     {
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
-        recordButton.onClick.AddListener(StartRecordingResponse);
+        // recordButton.onClick.AddListener(StartRecordingResponse);
     }
 
     void OnDestroy()
@@ -162,71 +162,71 @@ public class AvatarQuestionManager : MonoBehaviour
     //     recordButton.onClick.AddListener(StartRecordingResponse);
     // }
 
-    public void StartRecordingResponse()
-    {
-        transcriptionManager.StartTimer();
-        // audioRecorder.StartRecording();
-        buttonText.text = "Stop Recording";
-        recordButton.onClick.RemoveAllListeners();
-        recordButton.onClick.AddListener(StopRecordingResponse);
-    }
+    // public void StartRecordingResponse()
+    // {
+    //     transcriptionManager.StartTimer();
+    //     // audioRecorder.StartRecording();
+    //     buttonText.text = "Stop Recording";
+    //     recordButton.onClick.RemoveAllListeners();
+    //     recordButton.onClick.AddListener(StopRecordingResponse);
+    // }
 
-    public void StopRecordingResponse()
-    {
-        transcriptionManager.StopTimer();
-        // audioRecorder.StopRecording();
-        string relevantTranscript = transcriptionManager.GetRelevantTranscript();
-        HandleTranscription(relevantTranscript);
-        buttonText.text = "Start Recording";
-        recordButton.onClick.RemoveAllListeners();
-        recordButton.onClick.AddListener(StartRecordingResponse);
-    }
+    // public void StopRecordingResponse()
+    // {
+    //     transcriptionManager.StopTimer();
+    //     // audioRecorder.StopRecording();
+    //     string relevantTranscript = transcriptionManager.GetRelevantTranscript();
+    //     HandleTranscription(relevantTranscript);
+    //     buttonText.text = "Start Recording";
+    //     recordButton.onClick.RemoveAllListeners();
+    //     recordButton.onClick.AddListener(StartRecordingResponse);
+    // }
 
-    public void HandleTranscription(string transcription)
-    {
-        string combinedText = $"Q: {lastQuestionText}\nA: {transcription}";
-        GenerateResponse(combinedText);
-    }
+    // public void HandleTranscription(string transcription)
+    // {
+    //     string combinedText = $"Q: {lastQuestionText}\nA: {transcription}";
+    //     GenerateResponse(combinedText);
+    // }
 
-    private void GenerateResponse(string combinedText)
-    {
-        // Append the user's response to the conversation history
-        conversationHistory.Add($"Q: {lastQuestionText}\nA: {combinedText}");
+    // private void GenerateResponse(string combinedText)
+    // {
+    //     // Append the user's response to the conversation history
+    //     conversationHistory.Add($"Q: {lastQuestionText}\nA: {combinedText}");
 
-        // Combine the conversation history for context
-        string conversationContext = string.Join("\n", conversationHistory);
+    //     // Combine the conversation history for context
+    //     string conversationContext = string.Join("\n", conversationHistory);
 
-        // Check if the conversation is during the Q/A portion
-        bool isQA = conversationHistory.Any(entry => entry.Contains("###Transcript end###"));
+    //     // Check if the conversation is during the Q/A portion
+    //     bool isQA = conversationHistory.Any(entry => entry.Contains("###Transcript end###"));
 
-        string systemPrompt;
+    //     string systemPrompt;
 
-        if (personaType == "Professional")
-        {
-            systemPrompt = "Pretend you are a professional well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
-        }
-        else if (personaType == "Novice")
-        {
-            systemPrompt = "Pretend you are a novice who is not well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
-        }
-        else
-        {
-            systemPrompt = "You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
-        }
+    //     if (personaType == "Professional")
+    //     {
+    //         systemPrompt = "Pretend you are a professional well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+    //     else if (personaType == "Novice")
+    //     {
+    //         systemPrompt = "Pretend you are a novice who is not well-versed in the topic. You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
+    //     else
+    //     {
+    //         systemPrompt = "You are an AI that generates concise and insightful responses based on user input and context. Make sure to keep your response concise and directly address the user's answer, staying on topic.";
+    //     }
 
-        if (isQA)
-        {
-            systemPrompt += " This is during the Q/A portion of the talk.";
-        }
+    //     if (isQA)
+    //     {
+    //         systemPrompt += " This is during the Q/A portion of the talk.";
+    //     }
 
-        communicationManager.GenerateResponse(systemPrompt, conversationContext, response =>
-        {
-            // Append the AI's response to the conversation history
-            conversationHistory.Add($"AI: {response}");
+    //     communicationManager.GenerateResponse(systemPrompt, conversationContext, response =>
+    //     {
+    //         // Append the AI's response to the conversation history
+    //         conversationHistory.Add($"AI: {response}");
 
-            PlayResponse(response);
-        });
-    }
+    //         PlayResponse(response);
+    //     });
+    // }
     // private void GenerateResponse(string combinedText)
     // {
     //     // Append the user's response to the conversation history
