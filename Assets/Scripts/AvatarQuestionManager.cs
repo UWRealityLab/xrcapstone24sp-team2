@@ -15,8 +15,8 @@ public class AvatarQuestionManager : MonoBehaviour
 
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
-    private Queue<string> questionQueue = new Queue<string>();
-    private Queue<string> suggestionQueue = new Queue<string>();
+    private Stack<string> questionQueue = new();
+    private Stack<string> suggestionQueue = new();
     private string lastQuestionText; // track last question
     private string lastSuggestionText; // track last suggestion
 
@@ -48,12 +48,12 @@ public class AvatarQuestionManager : MonoBehaviour
         {
             foreach (var question in section.Value)
             {
-                questionQueue.Enqueue(question);
+                questionQueue.Push(question);
             }
         }
         foreach (var suggestion in avatarData.Suggestions)
         {
-            suggestionQueue.Enqueue(suggestion);
+            suggestionQueue.Push(suggestion);
         }
         Debug.Log($"Data updated for {avatarData.Persona} with voice {CurrentVoice}. Total questions loaded: {questionQueue.Count}");
         Debug.Log($"Total suggestions loaded: {suggestionQueue.Count}");
@@ -91,7 +91,7 @@ public class AvatarQuestionManager : MonoBehaviour
         }
 
         isQuestionBeingProcessed = true;
-        string questionText = questionQueue.Dequeue(); // Get the next question
+        string questionText = questionQueue.Pop(); // Get the next question
         lastQuestionText = questionText; // Update the last question
 
         string jsonData = JsonUtility.ToJson(new TTSRequestData
@@ -159,7 +159,7 @@ public class AvatarQuestionManager : MonoBehaviour
         }
 
         isQuestionBeingProcessed = true;
-        string suggestionText = suggestionQueue.Dequeue();
+        string suggestionText = suggestionQueue.Pop();
         lastSuggestionText = suggestionText;
 
         string jsonData = JsonUtility.ToJson(new TTSRequestData
