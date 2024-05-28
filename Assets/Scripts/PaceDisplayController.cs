@@ -5,19 +5,17 @@ using TMPro;
 public class PaceDisplayController : MonoBehaviour
 {
     public TranscriptionLogger transcriptionLogger;
-    public TextMeshProUGUI paceInfoText;
+    [SerializeField] GameObject graphObject;
+    [SerializeField] Recording time;
 
-    void Update()
+    public void CreateGraph()
     {
-        if (transcriptionLogger == null || paceInfoText == null)
-            return;
+        graphObject.SetActive(true);
+        graphObject.GetComponent<Graph>().ShowGraph(transcriptionLogger.GetSectionAverages(), (int _i) => Mathf.RoundToInt(_i * 1f * time.GetTime() / 15f) + "s", (float _f) => Mathf.RoundToInt(_f) + "WPM");
+    }
 
-        paceInfoText.text = $"Overall Average WPM: {transcriptionLogger.GetOverallAverage():F2}\n";
-        paceInfoText.text += "Section Averages:\n";
-
-        foreach (float avg in transcriptionLogger.GetSectionAverages())
-        {
-            paceInfoText.text += $"{avg:F2} WPM\n";
-        }
+    public void HideGraph()
+    {
+        graphObject.SetActive(false);
     }
 }

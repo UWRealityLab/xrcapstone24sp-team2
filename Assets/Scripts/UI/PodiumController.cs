@@ -18,9 +18,11 @@ namespace UI
         [SerializeField] private Button qaButton;
         [SerializeField] private TMP_Text qaButtonText;
         [SerializeField] Recording record;
+        [SerializeField] PaceDisplayController paceDisplay;
         [SerializeField] GameObject displayGrade;
         [SerializeField] GradeDisplay gradeDisplay;
         private Boolean isDone = false;
+        private Boolean buttonPressed = false;
 
         #endregion
 
@@ -37,6 +39,7 @@ namespace UI
                 // Disable Q/A button and display loading
                 qaButton.interactable = false;
                 qaButtonText.text = "Loading...";
+                buttonPressed = true;
             } else
             {
                 record.CreateGraph();
@@ -44,14 +47,15 @@ namespace UI
                 gradeDisplay.DisplayGrade();
                 startButtonGameObject.SetActive(false);
                 qaButton.gameObject.SetActive(false);
-                
+                paceDisplay.CreateGraph();
+
             }
             
         }
 
         public void QAReceived()
         {
-            if (!isDone)
+            if (!isDone && buttonPressed)
             {
                 // Show other podium buttons.
                 restartButtonGameObject.SetActive(true);
@@ -73,6 +77,14 @@ namespace UI
             qaButtonText.text = "Q/A";
             restartButtonGameObject.SetActive(false);
             startButtonGameObject.SetActive(true);
+            paceDisplay.HideGraph();
+            buttonPressed = false;
+            qaButton.gameObject.SetActive(false);
+        }
+
+        public Boolean done()
+        {
+            return isDone;
         }
 
         #endregion

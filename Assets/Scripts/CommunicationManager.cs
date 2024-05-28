@@ -31,6 +31,7 @@ public class CommunicationManager : MonoBehaviour
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
     private static readonly string[] rubricTitles = { "Engagement", "Organization", "Storytelling", "Filler words", "Articulation"};
     public (string, int, string)[] grade;
+    public List<string> proSuggestions;
 
 
     private float chatGPTRequestInterval = 30.0f;
@@ -169,6 +170,7 @@ public class CommunicationManager : MonoBehaviour
             Sections = professionalSections,
             Suggestions = professionalSuggestions
         };
+        proSuggestions = professionalSuggestions;
         DebugAvatarData(professionalData);
         OnAvatarDataReady.Invoke(professionalData);
 
@@ -346,5 +348,10 @@ public class CommunicationManager : MonoBehaviour
         }
 
         return string.Join(", ", previousQuestions[persona]);
+    }
+
+    public List<string> GetSuggestions()
+    {
+        return proSuggestions;
     }
 }
