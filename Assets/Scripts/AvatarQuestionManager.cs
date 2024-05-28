@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
     [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
+    [SerializeField] private Recording record; // Reference to the Recording Script
+    [SerializeField] private Button startButton;
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string personaType;
@@ -115,6 +118,10 @@ public class AvatarQuestionManager : MonoBehaviour
                 Debug.LogError("Failed to load audio for question: " + questionText);
             }
         }));
+        if (record.GetRecording())
+        {
+            startButton.onClick.Invoke();
+        }
     }
 
     public void ReplayLastQuestion()

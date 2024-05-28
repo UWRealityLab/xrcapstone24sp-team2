@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System.Linq;
-using UI;
+using UnityEngine.UI;
 
 public class CommunicationManager : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class CommunicationManager : MonoBehaviour
     public UnityEvent OnResponsesReady;
     [SerializeField]
     public GradeDisplay gradeDisplay;
+    [SerializeField] Button startButton;
 
     [Serializable]
     public class AvatarData

@@ -86,4 +86,9 @@ public class Recording : MonoBehaviour
     {
         return TimeT;
     }
+
+    public Boolean GetRecording()
+    {
+        return recording;
+    }
 }
