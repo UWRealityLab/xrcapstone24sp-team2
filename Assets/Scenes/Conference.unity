@@ -2420,8 +2420,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542841037}
   m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: -65.5}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -133.4}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1558538245}
@@ -2430,7 +2430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -79.1, y: -36.7}
+  m_AnchoredPosition: {x: -70.7, y: -31.6}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &591987537
@@ -4662,7 +4662,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  podiumController: {fileID: 0}
+  podiumController: {fileID: 2051864312}
 --- !u!4 &824604204
 Transform:
   m_ObjectHideFlags: 0
@@ -6120,7 +6120,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: c8f7533581dd5428aa1b5394893c0f5a, type: 2}
+    witConfiguration: {fileID: 11400000, guid: 8301da7d06eed462b8e55a9db36bc9ca, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
@@ -6210,7 +6210,7 @@ MonoBehaviour:
   timerStateText: {fileID: 968334561}
   restartButtonGameObject: {fileID: 867690258}
   qaButtonGameObject: {fileID: 527575276}
-  qaButtonText: {fileID: 0}
+  qaButtonText: {fileID: 2029946518}
   isDone: 0
 --- !u!114 &1099491834
 MonoBehaviour:
@@ -6481,7 +6481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: asdfasdfasdf
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6726,14 +6726,14 @@ RectTransform:
   m_GameObject: {fileID: 1262466211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.05, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1323792743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 5.2}
+  m_AnchoredPosition: {x: -3.6, y: 5.200001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262466213
@@ -7018,8 +7018,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323792742}
   m_LocalRotation: {x: -0, y: 0.2588191, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: -42.899895}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -133.4}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1262466212}
@@ -7028,7 +7028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -51.200012, y: -83.09999}
+  m_AnchoredPosition: {x: -70.7, y: -83.09999}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1323792744
@@ -7909,19 +7909,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561370847}
-  m_LocalRotation: {x: -0, y: -0.42261827, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 0, z: -37.499958}
-  m_LocalScale: {x: 1.3267906, y: 1.25, z: 1.1627932}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: -0.6427876, z: 0, w: 0.7660445}
+  m_LocalPosition: {x: 0, y: 0, z: -139.7}
+  m_LocalScale: {x: 1, y: 0.94212306, z: 0.8763954}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 863949869}
   - {fileID: 1299043999}
   - {fileID: 459934772}
   m_Father: {fileID: 1458282867}
-  m_LocalEulerAnglesHint: {x: 0, y: -50, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -80, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -138.25, y: 0.000022888184}
+  m_AnchoredPosition: {x: -97.3, y: 1.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1561370849
@@ -9145,7 +9145,7 @@ MonoBehaviour:
   qaButton: {fileID: 527575278}
   qaButtonText: {fileID: 2029946518}
   record: {fileID: 1828484938}
-  paceDisplay: {fileID: 0}
+  paceDisplay: {fileID: 1964753975}
   displayGrade: {fileID: 1458282866}
   gradeDisplay: {fileID: 1458282868}
 --- !u!1001 &2059211572
