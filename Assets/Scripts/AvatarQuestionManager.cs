@@ -121,6 +121,7 @@ public class AvatarQuestionManager : MonoBehaviour
         if (record.GetRecording())
         {
             startButton.onClick.Invoke();
+            Debug.Log("Paused");
         }
     }
 
