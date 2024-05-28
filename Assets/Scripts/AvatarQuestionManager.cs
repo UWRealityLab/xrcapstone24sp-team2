@@ -156,6 +156,11 @@ public class AvatarQuestionManager : MonoBehaviour
                 Debug.LogError("Failed to load audio for question: " + lastQuestionText);
             }
         }));
+        if (record.GetRecording())
+        {
+            startButton.onClick.Invoke();
+            Debug.Log("Paused");
+        }
     }
 
     public void AskSuggestion()

@@ -15,7 +15,6 @@ public class CommunicationManager : MonoBehaviour
     public UnityEvent OnResponsesReady;
     [SerializeField]
     public GradeDisplay gradeDisplay;
-    [SerializeField] Button startButton;
 
     [Serializable]
     public class AvatarData
