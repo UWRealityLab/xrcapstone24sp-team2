@@ -132,7 +132,7 @@ public class CommunicationManager : MonoBehaviour
             CreateChatCompletionRequest request = new CreateChatCompletionRequest
             {
                 Messages = messages,
-                Model = "gpt-4-turbo"
+                Model = "gpt-4o"
             };
 
             var response = await openAI.CreateChatCompletion(request);
