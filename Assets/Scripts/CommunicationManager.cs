@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UnityEngine.UI;
 using UI;
 
 public class CommunicationManager : MonoBehaviour

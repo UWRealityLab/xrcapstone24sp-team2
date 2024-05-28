@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10764596, g: 0.07115336, b: 0.049950995, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.11787034, g: 0.08078635, b: 0.06082632, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2733,6 +2733,11 @@ PrefabInstance:
       objectReference: {fileID: 591987539}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
+      propertyPath: record
+      value: 
+      objectReference: {fileID: 810660278}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1910438208}
@@ -2741,6 +2746,11 @@ PrefabInstance:
       propertyPath: personaType
       value: Novice
       objectReference: {fileID: 0}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: startButton
+      value: 
+      objectReference: {fileID: 826963870}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: communicationManager
@@ -10233,9 +10243,19 @@ PrefabInstance:
       objectReference: {fileID: 591987539}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
+      propertyPath: record
+      value: 
+      objectReference: {fileID: 810660278}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 342840103}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: startButton
+      value: 
+      objectReference: {fileID: 826963870}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: suggestionButton
@@ -11085,7 +11105,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: c8f7533581dd5428aa1b5394893c0f5a, type: 2}
+    witConfiguration: {fileID: 11400000, guid: 7bcb0dd2a08aff346b64d2c33cdac6f9, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
