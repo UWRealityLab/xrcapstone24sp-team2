@@ -8,8 +8,10 @@ public class TranscriptionLogger : MonoBehaviour
 {
     #region UI
 
-    [SerializeField] private TimerController _timerController;
-    [SerializeField] private TextMeshProUGUI _fullText; // complete sentence with no pauses
+    [SerializeField]
+    private TimerController _timerController;
+    [SerializeField]
+    private TextMeshProUGUI _partialText; // partial transcription
 
     #endregion
 
@@ -18,6 +20,9 @@ public class TranscriptionLogger : MonoBehaviour
     private string _previousText; // previously saved text
     private List<string> transcriptionList; // full transcript (without timestamps)
     private List<(string, string)> transcriptionTimeList; // full transcript (with timestamps)
+
+    private float updateTranscriptionInterval;
+    private float lastTranscriptionUpdateTime;
 
     #endregion
 
@@ -43,6 +48,8 @@ public class TranscriptionLogger : MonoBehaviour
         _previousText = string.Empty;
         transcriptionList = new List<string>();
         transcriptionTimeList = new List<(string, string)>();
+        updateTranscriptionInterval = 0.5f;
+        lastTranscriptionUpdateTime = _timerController.GetElapsedTimeInSeconds();
 
         // section
         sectionInterval = 10.0f; // each section is 10 seconds
@@ -52,8 +59,8 @@ public class TranscriptionLogger : MonoBehaviour
 
         // total
         updateWpmInterval = 2.0f; // update wpm every 2 seconds
-        lastWpmUpdateTime = _timerController.GetElapsedTimeInSeconds();
         totalWordCount = 0;
+        lastWpmUpdateTime = _timerController.GetElapsedTimeInSeconds();
         startTime = _timerController.GetElapsedTimeInSeconds();
         overallAverageWPM = 0.0f;
     }
@@ -61,7 +68,7 @@ public class TranscriptionLogger : MonoBehaviour
     private void Update()
     {
         // Component checks
-        if (_timerController == null || _fullText == null)
+        if (_timerController == null || _partialText == null)
         {
             return;
         }
@@ -71,13 +78,16 @@ public class TranscriptionLogger : MonoBehaviour
             return;
         }
 
-        // Update the transcription list and word counts
-        string currentText = _fullText.text;
-        if (currentText != _previousText)
+        // Update transcription lists (with and without timestamps) and word counts (section and total)
+        string currentText = _partialText.text;
+        if (_timerController.GetElapsedTimeInSeconds() - lastTranscriptionUpdateTime >= updateTranscriptionInterval)
         {
-            UpdateTranscriptionLists(currentText);
-            UpdateWordCounts(currentText);
-            _previousText = currentText;
+            if (currentText != _previousText)
+            {
+                UpdateTranscriptionLists(currentText);
+                UpdateWordCounts(currentText);
+                _previousText = currentText;
+            }
         }
 
         // Calculate the overall average WPM
@@ -102,9 +112,23 @@ public class TranscriptionLogger : MonoBehaviour
     #region Helper Methods
     private void UpdateTranscriptionLists(string currentText)
     {
-        transcriptionList.Add(currentText);
-        string currentTime = _timerController.GetCurrentTime();
-        transcriptionTimeList.Add((currentTime, currentText)); // logged time is when the sentence ended
+        string newText = string.Empty;
+
+        if (!string.IsNullOrEmpty(_previousText) && currentText.StartsWith(_previousText))
+        {
+            newText = currentText.Substring(_previousText.Length).Trim();
+        }
+        else
+        {
+            newText = currentText;
+        }
+
+        if (!string.IsNullOrEmpty(newText))
+        {
+            transcriptionList.Add(newText);
+            string currentTime = _timerController.GetCurrentTime();
+            transcriptionTimeList.Add((currentTime, newText));
+        }
     }
 
     private void UpdateWordCounts(string currentText)
@@ -113,9 +137,24 @@ public class TranscriptionLogger : MonoBehaviour
         {
             return;
         }
-        string[] words = currentText.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        sectionWordCount += words.Length;
-        totalWordCount += words.Length;
+
+        string newText = string.Empty;
+
+        if (!string.IsNullOrEmpty(_previousText) && currentText.StartsWith(_previousText))
+        {
+            newText = currentText.Substring(_previousText.Length).Trim();
+        }
+        else
+        {
+            newText = currentText;
+        }
+
+        if (!string.IsNullOrEmpty(newText))
+        {
+            string[] words = newText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            sectionWordCount += words.Length;
+            totalWordCount += words.Length;
+        }
     }
 
     public void AddEndOfTranscriptMarker()
@@ -143,9 +182,9 @@ public class TranscriptionLogger : MonoBehaviour
         totalWordCount = 0;
 
         // UI text
-        if (_fullText != null)
+        if (_partialText != null)
         {
-            _fullText.text = string.Empty;
+            _partialText.text = string.Empty;
         }
     }
 

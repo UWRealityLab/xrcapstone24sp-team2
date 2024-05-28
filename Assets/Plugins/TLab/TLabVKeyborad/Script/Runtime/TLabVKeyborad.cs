@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace TLab.InputField
 {
@@ -163,6 +164,36 @@ namespace TLab.InputField
             m_started = true;
         }
 
+        private void OnEnable()
+        {
+            InputSystem.onDeviceChange += OnDeviceChange;
+        }
+
+        private void OnDisable()
+        {
+            InputSystem.onDeviceChange -= OnDeviceChange;
+        }
+
+        private void OnDeviceChange(InputDevice device, InputDeviceChange change)
+        {
+            if (device is Keyboard keyboard)
+            {
+                if (change == InputDeviceChange.Added)
+                {
+                    keyboard.onTextInput += OnTextInput;
+                }
+                else if (change == InputDeviceChange.Removed)
+                {
+                    keyboard.onTextInput -= OnTextInput;
+                }
+            }
+        }
+
+        private void OnTextInput(char character)
+        {
+            m_inputFieldBase?.OnKeyPressed(character.ToString());
+        }
+
         private void Update()
         {
             if (!m_initialized)
@@ -221,32 +252,28 @@ namespace TLab.InputField
             {
                 m_inertia += Time.deltaTime;
 
-                if (Input.anyKey)
-                {
-                    string inputString = Input.inputString;
+                var keyboard = Keyboard.current;
 
-                    if (Input.GetKeyDown(KeyCode.Return))
+                if (keyboard != null)
+                {
+                    if (keyboard.enterKey.wasPressedThisFrame)
                     {
                         m_inputFieldBase?.OnEnterPressed();
                     }
-                    else if (Input.GetKeyDown(KeyCode.Tab))
+                    else if (keyboard.tabKey.wasPressedThisFrame)
                     {
                         m_inputFieldBase?.OnTabPressed();
                     }
-                    else if (Input.GetKeyDown(KeyCode.Space))
+                    else if (keyboard.spaceKey.wasPressedThisFrame)
                     {
                         m_inputFieldBase?.OnSpacePressed();
                     }
-                    else if (Input.GetKey(KeyCode.Backspace) && m_inertia > INERTIA)
+                    else if (keyboard.backspaceKey.isPressed && m_inertia > INERTIA)
                     {
                         m_inputFieldBase?.OnBackSpacePressed();
                         m_inertia = 0.0f;
                     }
-                    else if (inputString != "" && inputString != "")
-                    {
-                        m_inputFieldBase?.OnKeyPressed(inputString);
-                    }
-                    else if (Input.GetMouseButtonDown(1))
+                    else if (Mouse.current.rightButton.wasPressedThisFrame)
                     {
                         m_inputFieldBase?.OnKeyPressed(GUIUtility.systemCopyBuffer);
                     }

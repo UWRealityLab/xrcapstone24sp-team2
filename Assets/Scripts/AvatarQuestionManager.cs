@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,6 +69,7 @@ public class AvatarQuestionManager : MonoBehaviour
         questionQueue.Clear();
         suggestionQueue.Clear();
         allQuestions.Clear();
+        lastQuestionText = null;
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
     }
 
