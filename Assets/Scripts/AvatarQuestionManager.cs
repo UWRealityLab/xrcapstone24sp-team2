@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
     [SerializeField] private CommunicationManager communicationManager; // Reference to the CommunicationManager
+    [SerializeField] private Recording record; // Reference to the Recording Script
+    [SerializeField] private Button startButton;
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
     // [SerializeField] private OutputAudioRecorder audioRecorder; // Reference to the OutputAudioRecorder
@@ -18,8 +21,8 @@ public class AvatarQuestionManager : MonoBehaviour
 
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
-    private Queue<string> questionQueue = new Queue<string>();
-    private Queue<string> suggestionQueue = new Queue<string>();
+    private Stack<string> questionQueue = new();
+    private Stack<string> suggestionQueue = new();
     private string lastQuestionText; // track last question
     private string lastSuggestionText; // track last suggestion
 
@@ -53,12 +56,12 @@ public class AvatarQuestionManager : MonoBehaviour
         {
             foreach (var question in section.Value)
             {
-                questionQueue.Enqueue(question);
+                questionQueue.Push(question);
             }
         }
         foreach (var suggestion in avatarData.Suggestions)
         {
-            suggestionQueue.Enqueue(suggestion);
+            suggestionQueue.Push(suggestion);
         }
         Debug.Log($"Data updated for {avatarData.Persona} with voice {CurrentVoice}. Total questions loaded: {questionQueue.Count}");
         Debug.Log($"Total suggestions loaded: {suggestionQueue.Count}");
@@ -82,7 +85,7 @@ public class AvatarQuestionManager : MonoBehaviour
         }
 
         isQuestionBeingProcessed = true;
-        string questionText = questionQueue.Dequeue(); // Get the next question
+        string questionText = questionQueue.Pop(); // Get the next question
         lastQuestionText = questionText; // Update the last question
 
         string jsonData = JsonUtility.ToJson(new TTSRequestData
@@ -106,6 +109,11 @@ public class AvatarQuestionManager : MonoBehaviour
                 Debug.LogError("Failed to load audio for question: " + questionText);
             }
         }));
+        if (record.GetRecording())
+        {
+            startButton.onClick.Invoke();
+            Debug.Log("Paused");
+        }
     }
 
     public void ReplayLastQuestion()
@@ -139,7 +147,24 @@ public class AvatarQuestionManager : MonoBehaviour
                 Debug.LogError("Failed to load audio for question: " + lastQuestionText);
             }
         }));
+        if (record.GetRecording())
+        {
+            startButton.onClick.Invoke();
+            Debug.Log("Paused");
+        }
     }
+
+    public void AskSuggestion()
+    {
+        if (audioSource.isPlaying || isQuestionBeingProcessed || suggestionQueue.Count == 0)
+        {
+            Debug.Log("Waiting: Audio is still playing, question is being processed, or no suggestions are available.");
+            return;
+        }
+
+        isQuestionBeingProcessed = true;
+        string suggestionText = suggestionQueue.Pop();
+        lastSuggestionText = suggestionText;
 
     // public void StartRecordingResponse()
     // {

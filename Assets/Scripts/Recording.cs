@@ -81,4 +81,14 @@ public class Recording : MonoBehaviour
         graphObject.SetActive(false);
         movementData.Clear();
     }
+
+    public float GetTime()
+    {
+        return TimeT;
+    }
+
+    public Boolean GetRecording()
+    {
+        return recording;
+    }
 }

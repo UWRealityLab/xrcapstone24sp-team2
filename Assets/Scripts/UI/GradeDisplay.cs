@@ -9,6 +9,7 @@ public class GradeDisplay : MonoBehaviour
 {
     [SerializeField] CommunicationManager communicationManager;
     [SerializeField] TMP_Text text;
+    [SerializeField] TMP_Text textSuggestions;
 
     public void DisplayGrade()
     {
@@ -23,6 +24,14 @@ public class GradeDisplay : MonoBehaviour
         }
         display += "Total Grade: " + totalGrade + "/50";
         text.text = display;
+        string suggestionsText = "Suggestions:\n";
+        List<string> suggestionList = communicationManager.GetSuggestions();
+        for (int i = 0; i < suggestionList.Count; i++)
+        {
+            suggestionsText += " * " + suggestionList[i]  + "\n\n";
+        }
+        textSuggestions.text = suggestionsText;
+
     }
 
 }

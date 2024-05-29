@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UnityEngine.UI;
 using UI;
 
 public class CommunicationManager : MonoBehaviour
@@ -31,6 +32,7 @@ public class CommunicationManager : MonoBehaviour
     private static readonly List<string> voices = new List<string> { "alloy", "echo", "fable", "onyx", "nova", "shimmer" };
     private static readonly string[] rubricTitles = { "Engagement", "Organization", "Storytelling", "Filler words", "Articulation"};
     public (string, int, string)[] grade;
+    public List<string> proSuggestions;
 
 
     private float chatGPTRequestInterval = 30.0f;
@@ -59,17 +61,17 @@ public class CommunicationManager : MonoBehaviour
         1. Read the full transcript and divide it into separate sections (e.g., motivation, overview, related work).
         2. Pretend you are a professional well-versed in the topic.
         3. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Novice' in the question. Avoid repeating these questions: " + GetPreviousQuestionsText("Professional") + @"
-        4. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Novice' in the suggestion.
+        4. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is in one short sentence. Do not contain the word 'Novice' in the suggestion.
         5. Pretend you are a novice who is not well-versed in the topic.
         6. Ask questions targeted for each section. Make sure to include at least one question for each section. Make sure the questions fit your character. Make sure each question is no more than two sentences. Do not contain the word 'Professional' in the question. Avoid repeating these questions: " + GetPreviousQuestionsText("Novice") + @"
-        7. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is no more than two sentences. Do not contain the word 'Professional' in the suggestion.
+        7. List at least two areas of improvement in the presentation. Make sure the suggestions fit your character. Make sure each suggestion is in one short sentence. Do not contain the word 'Professional' in the suggestion.
         8. Give the user a grade based on the following rubric with a scale 0-10.
-        - How well it keeps the audience engaged
-        - How organized the speech is
-        - The storytelling of the speech
-        - The amount of filler words and stutters in the speech
-        - The articulation of the speech
-        9. Output your answer in the following format:
+        - How well it keeps the audience engaged.
+        - How organized the speech is.
+        - The storytelling of the speech.
+        - The amount of filler words and stutters in the speech.
+        - The articulation of the speech.
+        9. Output your answer in the following format and in plain text (e.g., no Markdown, no HTML):
         '''
         Professional:
         Questions:
@@ -103,7 +105,7 @@ public class CommunicationManager : MonoBehaviour
         List<string> list = transcriptionLogger.GetTranscriptionList();
         foreach (string transcription in list)
         {
-            speechLogText += transcription + "\n";
+            speechLogText += transcription + " ";
         }
 
         // timestamped transcriptione
@@ -237,6 +239,7 @@ public class CommunicationManager : MonoBehaviour
             Sections = professionalSections,
             Suggestions = professionalSuggestions
         };
+        proSuggestions = professionalSuggestions;
         DebugAvatarData(professionalData);
         OnAvatarDataReady.Invoke(professionalData);
 
@@ -414,5 +417,15 @@ public class CommunicationManager : MonoBehaviour
         }
 
         return string.Join(", ", previousQuestions[persona]);
+    }
+
+    public List<string> GetSuggestions()
+    {
+        return proSuggestions;
+    }
+
+    public void ResetLastGPTRequestTime()
+    {
+        lastChatGPTRequestTime = timerController.GetElapsedTimeInSeconds();
     }
 }
