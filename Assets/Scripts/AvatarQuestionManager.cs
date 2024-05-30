@@ -118,10 +118,18 @@ public class AvatarQuestionManager : MonoBehaviour
                 Debug.LogError("Failed to load audio for question: " + questionText);
             }
         }));
+
+        // Autopause
         if (record.GetRecording())
         {
             startButton.onClick.Invoke();
             Debug.Log("Paused");
+        }
+
+        // Hide the button when no more questions
+        if (questionQueue.Count == 0)
+        {
+            questionButton.SetActive(false);
         }
     }
 

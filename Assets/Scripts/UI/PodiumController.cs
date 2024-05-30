@@ -45,6 +45,7 @@ namespace UI
                 record.CreateGraph();
                 displayGrade.SetActive(true);
                 gradeDisplay.DisplayGrade();
+                restartButtonGameObject.gameObject.SetActive(true);
                 startButtonGameObject.SetActive(false);
                 qaButton.gameObject.SetActive(false);
                 paceDisplay.CreateGraph();
@@ -57,13 +58,9 @@ namespace UI
         {
             if (!isDone && buttonPressed)
             {
-                // Show other podium buttons.
-                restartButtonGameObject.SetActive(true);
-                startButtonGameObject.SetActive(true);
-
                 // Re-enable Q/A button and display Q/A
                 qaButton.interactable = true;
-                qaButtonText.text = "Done";
+                qaButtonText.text = "Show Grade";
                 isDone = true;
             }
             
