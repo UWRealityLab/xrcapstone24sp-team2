@@ -15,6 +15,9 @@ namespace UI
         [SerializeField]
         private AvatarQuestionManager noviceQuestionManager;
 
+        [SerializeField]
+        private CommunicationManager communicationManager;
+
         #region Components
 
         [SerializeField]
