@@ -67,6 +67,8 @@ public class Recording : MonoBehaviour
         if (recording)
         {
             TimeT = 0;
+            lastPositionLeft = controllerLeft.transform.position;
+            lastPositionRight = controllerRight.transform.position;
             StartCoroutine(WaitAndUpload());
         }
     }
