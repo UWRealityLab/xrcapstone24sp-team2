@@ -12,8 +12,6 @@ public class TranscriptionLogger : MonoBehaviour
     private TimerController _timerController;
     [SerializeField]
     private TextMeshProUGUI _partialText; // partial transcription
-    // [SerializeField]
-    // // private TextMeshProUGUI _responseText; // response transcription
 
     #endregion
 
@@ -242,10 +240,6 @@ public class TranscriptionLogger : MonoBehaviour
         {
             _partialText.text = string.Empty;
         }
-        // if (_responseText != null)
-        // {
-        //     _responseText.text = string.Empty;
-        // }
     }
 
     public void ResetResponseTranscript()

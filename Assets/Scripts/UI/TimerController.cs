@@ -9,6 +9,12 @@ namespace UI
         [SerializeField]
         private TranscriptionLogger transcriptionLogger;
 
+        [SerializeField]
+        private AvatarQuestionManager professorQuestionManager;
+
+        [SerializeField]
+        private AvatarQuestionManager noviceQuestionManager;
+
         #region Components
 
         [SerializeField]
@@ -78,6 +84,10 @@ namespace UI
             // Hide reset and QA buttons.
             restartButtonGameObject.SetActive(false);
             qaButtonGameObject.SetActive(false);
+
+            // Hide QA buttons
+            professorQuestionManager.hideAllButtons();
+            noviceQuestionManager.hideAllButtons();
         }
 
         public void PauseTimer()
