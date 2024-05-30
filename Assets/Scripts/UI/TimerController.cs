@@ -9,6 +9,9 @@ namespace UI
         [SerializeField]
         private TranscriptionLogger transcriptionLogger;
 
+        [SerializeField]
+        private CommunicationManager communicationManager; // Reference to communication manager
+
         #region Components
 
         [SerializeField]
@@ -67,6 +70,8 @@ namespace UI
             else
             {
                 ResumeTimer();
+                // Reset ChatGPT timer
+                communicationManager.ResetLastGPTRequestTime();
             }
         }
 

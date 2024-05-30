@@ -4877,6 +4877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transcriptionLogger: {fileID: 1461815551}
+  communicationManager: {fileID: 1428320733}
   timerText: {fileID: 1099491834}
   timerStateText: {fileID: 968334561}
   restartButtonGameObject: {fileID: 867690258}
@@ -11105,7 +11106,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: 7bcb0dd2a08aff346b64d2c33cdac6f9, type: 2}
+    witConfiguration: {fileID: 11400000, guid: dbc6a9fec31b2004c8b674a3b8470f29, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
