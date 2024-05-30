@@ -12,6 +12,8 @@ public class TranscriptionLogger : MonoBehaviour
     private TimerController _timerController;
     [SerializeField]
     private TextMeshProUGUI _partialText; // partial transcription
+    // [SerializeField]
+    // // private TextMeshProUGUI _responseText; // response transcription
 
     #endregion
 
@@ -21,8 +23,13 @@ public class TranscriptionLogger : MonoBehaviour
     private List<string> transcriptionList; // full transcript (without timestamps)
     private List<(string, string)> transcriptionTimeList; // full transcript (with timestamps)
 
+    private string _previousResponseText; // previously saved response text
+    private List<string> responseList; // full response transcript
+
     private float updateTranscriptionInterval;
     private float lastTranscriptionUpdateTime;
+
+    private bool isResponseActive;
 
     #endregion
 
@@ -51,6 +58,11 @@ public class TranscriptionLogger : MonoBehaviour
         updateTranscriptionInterval = 0.5f;
         lastTranscriptionUpdateTime = _timerController.GetElapsedTimeInSeconds();
 
+        // response
+        _previousResponseText = string.Empty;
+        responseList = new List<string>();
+        isResponseActive = false;
+
         // section
         sectionInterval = 10.0f; // each section is 10 seconds
         sectionWordCount = 0;
@@ -73,6 +85,22 @@ public class TranscriptionLogger : MonoBehaviour
             return;
         }
 
+        // Handle response transcription
+        if (isResponseActive)
+        {
+            if (_partialText != null)
+            {
+                string currentResponseText = _partialText.text;
+                if (currentResponseText != _previousResponseText)
+                {
+                    UpdateResponseTranscriptionLists(currentResponseText);
+                    _previousResponseText = currentResponseText;
+                }
+            }
+            return;
+        }
+
+        // Check if the timer is running
         if (!_timerController.IsRunning())
         {
             return;
@@ -157,6 +185,31 @@ public class TranscriptionLogger : MonoBehaviour
         }
     }
 
+    private void UpdateResponseTranscriptionLists(string currentResponseText)
+    {
+        string newText = string.Empty;
+
+        if (!string.IsNullOrEmpty(_previousResponseText) && currentResponseText.StartsWith(_previousResponseText))
+        {
+            newText = currentResponseText.Substring(_previousResponseText.Length).Trim();
+        }
+        else
+        {
+            newText = currentResponseText;
+        }
+
+        if (!string.IsNullOrEmpty(newText))
+        {
+            responseList.Add(newText);
+            string currentTime = _timerController.GetCurrentTime();
+        }
+    }
+
+    public void SetResponseActive(bool isActive)
+    {
+        isResponseActive = isActive;
+    }
+
     public void AddEndOfTranscriptMarker()
     {
         string endMarker = "###Transcript end###";
@@ -173,6 +226,9 @@ public class TranscriptionLogger : MonoBehaviour
         transcriptionList.Clear();
         transcriptionTimeList.Clear();
 
+        // response
+        ResetResponseTranscript();
+
         // speaking pace
         sectionAverages.Clear();
         sectionStartTime = _timerController.GetElapsedTimeInSeconds();
@@ -186,6 +242,16 @@ public class TranscriptionLogger : MonoBehaviour
         {
             _partialText.text = string.Empty;
         }
+        // if (_responseText != null)
+        // {
+        //     _responseText.text = string.Empty;
+        // }
+    }
+
+    public void ResetResponseTranscript()
+    {
+        _previousResponseText = string.Empty;
+        responseList.Clear();
     }
 
     #endregion
@@ -199,6 +265,11 @@ public class TranscriptionLogger : MonoBehaviour
     public List<(string, string)> GetTranscriptionTimeList()
     {
         return transcriptionTimeList;
+    }
+
+    public List<string> GetResponseList()
+    {
+        return responseList;
     }
 
     public List<float> GetSectionAverages()

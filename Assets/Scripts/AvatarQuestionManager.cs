@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UI;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
@@ -11,27 +10,26 @@ public class AvatarQuestionManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private OpenAITTS tts;
     [SerializeField] private AudioSource audioSource;
-    // [SerializeField] private OutputAudioRecorder audioRecorder; // Reference to the OutputAudioRecorder
-    [SerializeField] private BackAndForthTranscriptionManager transcriptionManager; // Reference to the BackAndForthTranscriptionManager
     [SerializeField] private string personaType;
     [SerializeField] private GameObject questionButton;
     [SerializeField] private GameObject replayButton;
-    // [SerializeField] private GameObject suggestionButton;
-    // [SerializeField] private GameObject replaySuggestionButton;
+    [SerializeField] private GameObject startResponseButton; // Button to start response
+    [SerializeField] private GameObject stopResponseButton; // Button to stop response
 
+    public TranscriptionLogger transcriptionLogger; // Reference to the TranscriptLogger
     public string CurrentVoice { get; private set; }
     public List<string> allQuestions { get; private set; } = new List<string>();
     private Stack<string> questionQueue = new();
     private Stack<string> suggestionQueue = new();
     private string lastQuestionText; // track last question
     private string lastSuggestionText; // track last suggestion
+    private string conversationHistory = ""; // track conversation history
 
     private bool isQuestionBeingProcessed = false;
 
     void Start()
     {
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
-        // recordButton.onClick.AddListener(StartRecordingResponse);
     }
 
     void OnDestroy()
@@ -45,7 +43,7 @@ public class AvatarQuestionManager : MonoBehaviour
         {
             Debug.Log($"Received data for: {avatarData.Persona}, Expected: {personaType}");
             UpdateData(avatarData);
-        }
+            }
     }
 
     private void UpdateData(CommunicationManager.AvatarData avatarData)
@@ -74,6 +72,16 @@ public class AvatarQuestionManager : MonoBehaviour
         allQuestions.Clear();
         lastQuestionText = null;
         communicationManager.OnAvatarDataReady.AddListener(HandleAvatarDataReceived);
+        conversationHistory = "";
+        hideAllButtons();
+    }
+
+    public void hideAllButtons()
+    {
+        HideQuestionButton();
+        HideReplayButton();
+        HideStartResponseButton();
+        HideStopResponseButton();
     }
 
     public void AskQuestion()
@@ -87,6 +95,7 @@ public class AvatarQuestionManager : MonoBehaviour
         isQuestionBeingProcessed = true;
         string questionText = questionQueue.Pop(); // Get the next question
         lastQuestionText = questionText; // Update the last question
+        initConversation(); // Initialize conversation history
 
         string jsonData = JsonUtility.ToJson(new TTSRequestData
         {
@@ -114,6 +123,12 @@ public class AvatarQuestionManager : MonoBehaviour
             startButton.onClick.Invoke();
             Debug.Log("Paused");
         }
+    }
+
+    public void initConversation()
+    {
+        conversationHistory += $"You are a {personaType} on the topic. You have been listening to the user give a talk. During the talk or during the Q&A session, you asked the user a question related to their talk. The user has now responded to your question. You may ask a follow-up question or provide a comment. Ensure your responses are concise, directly address the user's answer, and stay on topic. Limit the number of responses you give to allow time for others to ask questions.";
+        conversationHistory += "\n";
     }
 
     public void ReplayLastQuestion()
@@ -165,6 +180,196 @@ public class AvatarQuestionManager : MonoBehaviour
         isQuestionBeingProcessed = true;
         string suggestionText = suggestionQueue.Pop();
         lastSuggestionText = suggestionText;
+
+        string jsonData = JsonUtility.ToJson(new TTSRequestData
+        {
+            model = "tts-1",
+            input = suggestionText,
+            voice = CurrentVoice
+        });
+
+        StartCoroutine(tts.GetTTS(jsonData, clip =>
+        {
+            isQuestionBeingProcessed = false;
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing audio for suggestion: " + suggestionText);
+            }
+            else
+            {
+                Debug.LogError("Failed to load audio for suggestion: " + suggestionText);
+            }
+        }));
+        if (record.GetRecording())
+        {
+            startButton.onClick.Invoke();
+            Debug.Log("Paused");
+        }
+    }
+
+    private void PlayResponse(string responseText)
+    {
+        isQuestionBeingProcessed = true;
+        lastQuestionText = responseText;
+
+        string jsonData = JsonUtility.ToJson(new TTSRequestData
+        {
+            model = "tts-1",
+            input = responseText,
+            voice = CurrentVoice
+        });
+
+        StartCoroutine(tts.GetTTS(jsonData, clip =>
+        {
+            if (clip != null)
+            {
+                isQuestionBeingProcessed = false;
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing AI response: " + responseText);
+            }
+            else
+            {
+                Debug.LogError("Failed to load audio for AI response: " + responseText);
+            }
+        }));
+    }
+
+    public void StartResponse()
+    {
+        if (audioSource.isPlaying || isQuestionBeingProcessed)
+        {
+            Debug.Log("Waiting: Audio is still playing or question is being processed.");
+            return;
+        }
+        transcriptionLogger.SetResponseActive(true);
+        HideStartResponseButton();
+    }
+
+    public void StopResponse()
+    {
+        transcriptionLogger.SetResponseActive(false);
+        HideStopResponseButton();
+
+        string responseTranscript = string.Join(" ", transcriptionLogger.GetResponseList());
+
+        // Update conversation history
+        conversationHistory += $"{personaType}: {lastQuestionText}\n";
+        conversationHistory += $"User: {responseTranscript}\n";
+
+        // Clear the response transcript in TranscriptionLogger
+        transcriptionLogger.ResetResponseTranscript();
+
+        MakeApiCall(conversationHistory);
+    }
+
+    private void MakeApiCall(string data)
+    {
+        Debug.Log("Making API call with data: " + data);
+        communicationManager.GenerateResponse(data, response =>
+        {
+            // Append the AI's response to the conversation history
+            conversationHistory += $"AI: {response}\n";
+
+            PlayResponse(response);
+        },
+        error =>
+        {
+            // Handle error by playing a default response
+            Debug.LogError(error);
+            string defaultResponse = "No further questions";
+            conversationHistory += $"AI: {defaultResponse}\n";
+            PlayResponse(defaultResponse);
+        });
+    }
+
+    [Serializable]
+    public class TTSRequestData
+    {
+        public string model;
+        public string input;
+        public string voice;
+    }
+
+    public void ShowStartResponseButton()
+    {
+        startResponseButton.gameObject.SetActive(true);
+    }
+
+    public void HideStartResponseButton()
+    {
+        startResponseButton.gameObject.SetActive(false);
+    }
+
+    public void ShowStopResponseButton()
+    {
+        stopResponseButton.gameObject.SetActive(true);
+    }
+
+    public void HideStopResponseButton()
+    {
+        stopResponseButton.gameObject.SetActive(false);
+    }
+
+    public void ShowQuestionButton()
+    {
+        questionButton.SetActive(true);
+    }
+
+    public void HideQuestionButton()
+    {
+        questionButton.SetActive(false);
+    }
+
+    public void ShowReplayButton()
+    {
+        replayButton.SetActive(true);
+    }
+
+    public void HideReplayButton()
+    {
+        replayButton.SetActive(false);
+    }
+
+    public void ShowSuggestionButton()
+    {
+        // suggestionButton.SetActive(true);
+    }
+    
+    public void HideSuggestionButton()
+    {
+        // suggestionButton.SetActive(false);
+    }
+    
+    public void ShowReplaySuggestionButton()
+    {
+        // replaySuggestionButton.SetActive(true);
+    }
+    
+    public void HideReplaySuggestionButton()
+    {
+        // replaySuggestionButton.SetActive(false);
+    }
+}
+
+        // recordButton.onClick.AddListener(StartRecordingResponse);
+    // [SerializeField] private OutputAudioRecorder audioRecorder; // Reference to the OutputAudioRecorder
+    // [SerializeField] private BackAndForthTranscriptionManager transcriptionManager; // Reference to the BackAndForthTranscriptionManager
+    // [SerializeField] private Recording record; // Reference to the Recording Script
+    // [SerializeField] private GameObject suggestionButton;
+    // [SerializeField] private GameObject replaySuggestionButton;
+
+
+    // public void StartResponse()
+    // {
+    //     transcriptionManager.StartTimer();
+    //     dictationService.Toggle(); // Start dictation
+    //     buttonText.text = "Stop Recording";
+    //     recordButton.onClick.RemoveAllListeners();
+    //     recordButton.onClick.AddListener(StopRecordingResponse);
+    // }
 
     // public void StartRecordingResponse()
     // {
@@ -331,76 +536,3 @@ public class AvatarQuestionManager : MonoBehaviour
     //         PlayResponse(response);
     //     });
     // }
-
-    private void PlayResponse(string responseText)
-    {
-        string jsonData = JsonUtility.ToJson(new TTSRequestData
-        {
-            model = "tts-1",
-            input = responseText,
-            voice = CurrentVoice
-        });
-
-        StartCoroutine(tts.GetTTS(jsonData, clip =>
-        {
-            if (clip != null)
-            {
-                audioSource.clip = clip;
-                audioSource.Play();
-                Debug.Log("Playing AI response: " + responseText);
-            }
-            else
-            {
-                Debug.LogError("Failed to load audio for AI response: " + responseText);
-            }
-        }));
-    }
-
-    [Serializable]
-    public class TTSRequestData
-    {
-        public string model;
-        public string input;
-        public string voice;
-    }
-
-    public void ShowQuestionButton()
-    {
-        questionButton.SetActive(true);
-    }
-
-    public void HideQuestionButton()
-    {
-        questionButton.SetActive(false);
-    }
-
-    public void ShowReplayButton()
-    {
-        replayButton.SetActive(true);
-    }
-
-    public void HideReplayButton()
-    {
-        replayButton.SetActive(false);
-    }
-
-    public void ShowSuggestionButton()
-    {
-        // suggestionButton.SetActive(true);
-    }
-    
-    public void HideSuggestionButton()
-    {
-        // suggestionButton.SetActive(false);
-    }
-    
-    public void ShowReplaySuggestionButton()
-    {
-        // replaySuggestionButton.SetActive(true);
-    }
-    
-    public void HideReplaySuggestionButton()
-    {
-        // replaySuggestionButton.SetActive(false);
-    }
-}
