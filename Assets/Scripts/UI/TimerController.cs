@@ -76,6 +76,8 @@ namespace UI
             else
             {
                 ResumeTimer();
+                // Reset ChatGPT timer
+                communicationManager.ResetLastGPTRequestTime();
             }
         }
 
