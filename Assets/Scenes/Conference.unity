@@ -397,18 +397,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1541422177}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStopResponseButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &98095548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6824,7 +6812,7 @@ PrefabInstance:
         type: 3}
       propertyPath: stopResponseButton
       value: 
-      objectReference: {fileID: 1219662987}
+      objectReference: {fileID: 1219662989}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: startResponseButton
@@ -6840,6 +6828,11 @@ PrefabInstance:
       propertyPath: communicationManager
       value: 
       objectReference: {fileID: 1428320733}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: stopResponseButtonText
+      value: 
+      objectReference: {fileID: 1163190043}
     - target: {fileID: 6179276553679932995, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: m_fontSize
@@ -8056,18 +8049,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1028386404}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStartResponseButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1219662990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8506,18 +8487,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1541422177}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: StopResponse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1541422177}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStartResponseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10244,18 +10213,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1028386404}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: StartResponse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1028386404}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStopResponseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12471,7 +12428,7 @@ PrefabInstance:
         type: 3}
       propertyPath: stopResponseButton
       value: 
-      objectReference: {fileID: 1317814636}
+      objectReference: {fileID: 1317814638}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: startResponseButton
@@ -12492,6 +12449,11 @@ PrefabInstance:
       propertyPath: replaySuggestionButton
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: stopResponseButtonText
+      value: 
+      objectReference: {fileID: 1020941738}
     - target: {fileID: 6179276553679932995, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: m_fontSize

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AvatarQuestionManager : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class AvatarQuestionManager : MonoBehaviour
     [SerializeField] private GameObject questionButton;
     [SerializeField] private GameObject replayButton;
     [SerializeField] private GameObject startResponseButton; // Button to start response
-    [SerializeField] private GameObject stopResponseButton; // Button to stop response
+    [SerializeField] private TMP_Text stopResponseButtonText; // Text on the stop response button
+    [SerializeField] private Button stopResponseButton; // Button to stop response
 
     public TranscriptionLogger transcriptionLogger; // Reference to the TranscriptLogger
     public string CurrentVoice { get; private set; }
@@ -248,19 +250,23 @@ public class AvatarQuestionManager : MonoBehaviour
 
     public void StartResponse()
     {
+        HideStartResponseButton();
+        HideQuestionButton();
+        HideReplayButton();
+        ShowStopResponseButton();
         if (audioSource.isPlaying || isQuestionBeingProcessed)
         {
             Debug.Log("Waiting: Audio is still playing or question is being processed.");
             return;
         }
         transcriptionLogger.SetResponseActive(true);
-        HideStartResponseButton();
     }
 
     public void StopResponse()
     {
         transcriptionLogger.SetResponseActive(false);
-        HideStopResponseButton();
+        stopResponseButton.interactable = false;
+        stopResponseButtonText.text = "Thinking...";
 
         string responseTranscript = string.Join(" ", transcriptionLogger.GetResponseList());
 
@@ -283,6 +289,10 @@ public class AvatarQuestionManager : MonoBehaviour
             conversationHistory += $"AI: {response}\n";
 
             PlayResponse(response);
+            ShowQuestionButton();
+            ShowReplayButton();
+            ShowStartResponseButton();
+            HideStopResponseButton();
         },
         error =>
         {
@@ -291,6 +301,10 @@ public class AvatarQuestionManager : MonoBehaviour
             string defaultResponse = "No further questions";
             conversationHistory += $"AI: {defaultResponse}\n";
             PlayResponse(defaultResponse);
+            ShowQuestionButton();
+            ShowReplayButton();
+            ShowStartResponseButton();
+            HideStopResponseButton();
         });
     }
 
@@ -315,6 +329,8 @@ public class AvatarQuestionManager : MonoBehaviour
     public void ShowStopResponseButton()
     {
         stopResponseButton.gameObject.SetActive(true);
+        stopResponseButton.interactable = true;
+        stopResponseButtonText.text = "Stop Response";
     }
 
     public void HideStopResponseButton()

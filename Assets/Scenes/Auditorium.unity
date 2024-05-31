@@ -602,18 +602,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1970933117}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStopResponseButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &130682023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3200,7 +3188,7 @@ PrefabInstance:
         type: 3}
       propertyPath: stopResponseButton
       value: 
-      objectReference: {fileID: 968100404}
+      objectReference: {fileID: 968100406}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: startResponseButton
@@ -3216,6 +3204,11 @@ PrefabInstance:
       propertyPath: communicationManager
       value: 
       objectReference: {fileID: 1428320733}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: stopResponseButtonText
+      value: 
+      objectReference: {fileID: 520086904}
     - target: {fileID: 6179276553679932995, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: m_fontSize
@@ -3462,18 +3455,6 @@ MonoBehaviour:
       - m_Target: {fileID: 405820150}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: StartResponse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 405820150}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStopResponseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5618,18 +5599,6 @@ MonoBehaviour:
       - m_Target: {fileID: 405820150}
         m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
         m_MethodName: StopResponse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 405820150}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStartResponseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12822,7 +12791,7 @@ PrefabInstance:
         type: 3}
       propertyPath: stopResponseButton
       value: 
-      objectReference: {fileID: 2043157517}
+      objectReference: {fileID: 2043157519}
     - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: startResponseButton
@@ -12843,6 +12812,11 @@ PrefabInstance:
       propertyPath: replaySuggestionButton
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4269547759309826027, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
+        type: 3}
+      propertyPath: stopResponseButtonText
+      value: 
+      objectReference: {fileID: 2078829790}
     - target: {fileID: 6179276553679932995, guid: 1abda0ccdefa3f1488c173e0b86a62c6,
         type: 3}
       propertyPath: m_fontSize
@@ -13590,18 +13564,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1970933117}
-        m_TargetAssemblyTypeName: AvatarQuestionManager, Assembly-CSharp
-        m_MethodName: ShowStartResponseButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2043157520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14106,7 +14068,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: c8f7533581dd5428aa1b5394893c0f5a, type: 2}
+    witConfiguration: {fileID: 0}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
