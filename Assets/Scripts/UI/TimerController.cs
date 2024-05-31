@@ -10,13 +10,13 @@ namespace UI
         private TranscriptionLogger transcriptionLogger;
 
         [SerializeField]
+        private CommunicationManager communicationManager; // Reference to communication manager
+
+        [SerializeField]
         private AvatarQuestionManager professorQuestionManager;
 
         [SerializeField]
         private AvatarQuestionManager noviceQuestionManager;
-
-        [SerializeField]
-        private CommunicationManager communicationManager;
 
         #region Components
 
