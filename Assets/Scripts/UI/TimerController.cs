@@ -93,6 +93,7 @@ namespace UI
             // Hide QA buttons
             professorQuestionManager.hideAllButtons();
             noviceQuestionManager.hideAllButtons();
+            transcriptionLogger.ResetResponseTranscript();
         }
 
         public void PauseTimer()

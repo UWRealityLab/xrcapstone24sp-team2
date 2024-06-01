@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UI;
+using UnityEngine.UI;
 
 public class TranscriptionLogger : MonoBehaviour
 {
@@ -199,7 +200,6 @@ public class TranscriptionLogger : MonoBehaviour
         if (!string.IsNullOrEmpty(newText))
         {
             responseList.Add(newText);
-            string currentTime = _timerController.GetCurrentTime();
         }
     }
 
@@ -242,8 +242,10 @@ public class TranscriptionLogger : MonoBehaviour
         }
     }
 
+    // Reset the response transcription list and the partial text
     public void ResetResponseTranscript()
     {
+        _partialText.text = string.Empty;
         _previousResponseText = string.Empty;
         responseList.Clear();
     }
