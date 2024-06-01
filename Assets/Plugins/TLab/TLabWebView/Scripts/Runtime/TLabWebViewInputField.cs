@@ -44,7 +44,7 @@ namespace TLab.Android.WebView
             if (m_keyborad.mobile && notActive)
             {
                 m_keyborad.SwitchInputField(this);
-                m_keyborad.HideKeyborad(false);
+                //m_keyborad.HideKeyborad(false);
             }
         }
 

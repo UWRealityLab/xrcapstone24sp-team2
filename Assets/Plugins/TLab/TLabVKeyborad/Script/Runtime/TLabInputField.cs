@@ -55,18 +55,8 @@ namespace TLab.InputField
         {
             base.OnFocus(active);
 
-            m_openImage.SetActive(active);
-            m_lockImage.SetActive(!active);
 
             m_focusButton.enabled = !active;
-
-            if (m_keyborad.mobile)
-            {
-                foreach (GameObject hideObject in m_hideObjects)
-                    hideObject.SetActive(!active);
-
-                m_keyborad.HideKeyborad(!active);
-            }
 
             AudioUtility.ShotAudio(m_audioSource, m_lockKeyborad, IMMEDIATELY);
         }
