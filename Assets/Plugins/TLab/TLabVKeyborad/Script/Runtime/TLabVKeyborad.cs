@@ -18,6 +18,10 @@ namespace TLab.InputField
         [SerializeField] private GameObject m_symbolBOX;
         [SerializeField] private GameObject m_operatorBOX;
 
+        [Header("Image")]
+        [SerializeField] private GameObject m_openImage;
+        [SerializeField] private GameObject m_lockImage;
+
         [Header("Settings")]
         [SerializeField] private bool m_hideOnStart = false;
         [SerializeField] private bool m_setupOnStart = false;
@@ -66,6 +70,8 @@ namespace TLab.InputField
 
         public bool shift => m_shift;
 
+        private bool hiding = true;
+
         public bool initialized => m_initialized;
 
         public bool isActive => m_keyBOX.activeSelf;
@@ -88,6 +94,14 @@ namespace TLab.InputField
             m_anchor.position = position;
 
             m_anchor.LookAt(target, worldUp);
+        }
+
+        public void ToggleHide()
+        {
+            hiding = !hiding;
+            HideKeyborad(hiding);
+            m_openImage.SetActive(hiding);
+            m_lockImage.SetActive(!hiding);
         }
 
         public void HideKeyborad(bool hide)
