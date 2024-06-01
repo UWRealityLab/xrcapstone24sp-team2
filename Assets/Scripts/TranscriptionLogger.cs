@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UI;
+using UnityEngine.UI;
 
 public class TranscriptionLogger : MonoBehaviour
 {
@@ -21,8 +22,13 @@ public class TranscriptionLogger : MonoBehaviour
     private List<string> transcriptionList; // full transcript (without timestamps)
     private List<(string, string)> transcriptionTimeList; // full transcript (with timestamps)
 
+    private string _previousResponseText; // previously saved response text
+    private List<string> responseList; // full response transcript
+
     private float updateTranscriptionInterval;
     private float lastTranscriptionUpdateTime;
+
+    private bool isResponseActive;
 
     #endregion
 
@@ -51,6 +57,11 @@ public class TranscriptionLogger : MonoBehaviour
         updateTranscriptionInterval = 0.5f;
         lastTranscriptionUpdateTime = _timerController.GetElapsedTimeInSeconds();
 
+        // response
+        _previousResponseText = string.Empty;
+        responseList = new List<string>();
+        isResponseActive = false;
+
         // section
         sectionInterval = 10.0f; // each section is 10 seconds
         sectionWordCount = 0;
@@ -73,6 +84,22 @@ public class TranscriptionLogger : MonoBehaviour
             return;
         }
 
+        // Handle response transcription
+        if (isResponseActive)
+        {
+            if (_partialText != null)
+            {
+                string currentResponseText = _partialText.text;
+                if (currentResponseText != _previousResponseText)
+                {
+                    UpdateResponseTranscriptionLists(currentResponseText);
+                    _previousResponseText = currentResponseText;
+                }
+            }
+            return;
+        }
+
+        // Check if the timer is running
         if (!_timerController.IsRunning())
         {
             return;
@@ -157,6 +184,38 @@ public class TranscriptionLogger : MonoBehaviour
         }
     }
 
+    private void UpdateResponseTranscriptionLists(string currentResponseText)
+    {
+        string newText = string.Empty;
+
+        if (!string.IsNullOrEmpty(_previousResponseText) && currentResponseText.StartsWith(_previousResponseText))
+        {
+            newText = currentResponseText.Substring(_previousResponseText.Length).Trim();
+        }
+        else
+        {
+            newText = currentResponseText;
+        }
+
+        if (!string.IsNullOrEmpty(newText))
+        {
+            responseList.Add(newText);
+        }
+    }
+
+    public void SetResponseActive(bool isActive)
+    {
+        isResponseActive = isActive;
+    }
+
+    public void AddEndOfTranscriptMarker()
+    {
+        string endMarker = "###Transcript end###";
+        transcriptionList.Add(endMarker);
+        string currentTime = _timerController.GetCurrentTime();
+        transcriptionTimeList.Add((currentTime, endMarker));
+    }
+
     // Reset the transcription lists and word counts
     public void ResetTranscript()
     {
@@ -164,6 +223,9 @@ public class TranscriptionLogger : MonoBehaviour
         _previousText = string.Empty;
         transcriptionList.Clear();
         transcriptionTimeList.Clear();
+
+        // response
+        ResetResponseTranscript();
 
         // speaking pace
         sectionAverages.Clear();
@@ -180,6 +242,14 @@ public class TranscriptionLogger : MonoBehaviour
         }
     }
 
+    // Reset the response transcription list and the partial text
+    public void ResetResponseTranscript()
+    {
+        _partialText.text = string.Empty;
+        _previousResponseText = string.Empty;
+        responseList.Clear();
+    }
+
     #endregion
 
     #region Getters
@@ -191,6 +261,11 @@ public class TranscriptionLogger : MonoBehaviour
     public List<(string, string)> GetTranscriptionTimeList()
     {
         return transcriptionTimeList;
+    }
+
+    public List<string> GetResponseList()
+    {
+        return responseList;
     }
 
     public List<float> GetSectionAverages()

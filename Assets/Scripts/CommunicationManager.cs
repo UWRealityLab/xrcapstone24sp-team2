@@ -149,6 +149,47 @@ public class CommunicationManager : MonoBehaviour
             Debug.LogError($"Error while processing chat response: {ex.Message}");
         }
     }
+    public async void GenerateResponse(string data, Action<string> callback, Action<string> errorCallback)
+    {
+        Debug.Log("OpenAI request initiated.");
+        try
+        {
+            // Create messages list with system and user messages
+            var responseMessages = new List<ChatMessage>
+            {
+                new ChatMessage { Content = data, Role = "user" }
+            };
+
+            // Create the request for chat completion
+            CreateChatCompletionRequest request = new CreateChatCompletionRequest
+            {
+                Messages = responseMessages,
+                Model = "gpt-4o"
+            };
+
+            // Send the request to OpenAI
+            var response = await openAI.CreateChatCompletion(request);
+
+            // Check if response is valid and process the first choice
+            if (response.Choices != null && response.Choices.Count > 0)
+            {
+                Debug.Log(response.Choices[0].Message.Content);
+                callback(response.Choices[0].Message.Content);
+            }
+            else
+            {
+                string errorMessage = "No choices were returned by the API.";
+                Debug.LogError(errorMessage);
+                errorCallback(errorMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Error while processing chat response: {ex.Message}";
+            Debug.LogError(errorMessage);
+            errorCallback(errorMessage);
+        }
+    }
 
     private void ProcessResponse(ChatMessage response)
     {

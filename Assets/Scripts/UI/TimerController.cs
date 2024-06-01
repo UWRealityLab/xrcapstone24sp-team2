@@ -12,6 +12,12 @@ namespace UI
         [SerializeField]
         private CommunicationManager communicationManager; // Reference to communication manager
 
+        [SerializeField]
+        private AvatarQuestionManager professorQuestionManager;
+
+        [SerializeField]
+        private AvatarQuestionManager noviceQuestionManager;
+
         #region Components
 
         [SerializeField]
@@ -83,6 +89,11 @@ namespace UI
             // Hide reset and QA buttons.
             restartButtonGameObject.SetActive(false);
             qaButtonGameObject.SetActive(false);
+
+            // Hide QA buttons
+            professorQuestionManager.hideAllButtons();
+            noviceQuestionManager.hideAllButtons();
+            transcriptionLogger.ResetResponseTranscript();
         }
 
         public void PauseTimer()
