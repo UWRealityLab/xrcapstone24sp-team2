@@ -5241,7 +5241,7 @@ PrefabInstance:
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
@@ -5251,7 +5251,7 @@ PrefabInstance:
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
@@ -5262,7 +5262,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 794593429}
+      objectReference: {fileID: 1273051362}
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -5276,7 +5276,7 @@ PrefabInstance:
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnFocus
+      value: ToggleHide
       objectReference: {fileID: 0}
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
@@ -5286,7 +5286,7 @@ PrefabInstance:
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: TLab.InputField.TLabInputField, Assembly-CSharp
+      value: TLab.InputField.TLabVKeyborad, Assembly-CSharp-firstpass
       objectReference: {fileID: 0}
     - target: {fileID: 6425820960652440003, guid: 38285747716ff59419a495b709b12c5c,
         type: 3}
