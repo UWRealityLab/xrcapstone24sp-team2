@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.6
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10625559, g: 0.06950926, b: 0.047635145, a: 0.6}
+  m_IndirectSpecularColor: {r: 0.10764596, g: 0.07115336, b: 0.049950995, a: 0.6}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6092,6 +6092,8 @@ MonoBehaviour:
   communicationManager: {fileID: 1428320733}
   professorQuestionManager: {fileID: 1970933117}
   noviceQuestionManager: {fileID: 405820150}
+  noviceAudienceController: {fileID: 1910438212}
+  professorAudienceController: {fileID: 342840107}
   timerText: {fileID: 1099491834}
   timerStateText: {fileID: 968334561}
   restartButtonGameObject: {fileID: 867690258}
@@ -10139,8 +10141,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.2029, y: 10.4633}
-  m_SizeDelta: {x: 3250.7822, y: 366.5858}
+  m_AnchoredPosition: {x: 1.1369, y: 10.4633}
+  m_SizeDelta: {x: 3437.5796, y: 366.5858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461815550
 MonoBehaviour:
@@ -10222,7 +10224,7 @@ MonoBehaviour:
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 100
+  m_fontSizeMin: 90
   m_fontSizeMax: 128
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -13453,7 +13455,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   runtimeConfiguration:
-    witConfiguration: {fileID: 11400000, guid: 7ea62e27e62143e4da2c2a519e43a897, type: 2}
+    witConfiguration: {fileID: 11400000, guid: c8f7533581dd5428aa1b5394893c0f5a, type: 2}
     minKeepAliveVolume: 50
     minKeepAliveTimeInSeconds: 300
     minTranscriptionKeepAliveTimeInSeconds: 300
