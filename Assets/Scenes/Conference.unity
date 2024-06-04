@@ -5834,30 +5834,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6583179033297720897}
-        m_TargetAssemblyTypeName: AudienceController, Assembly-CSharp
-        m_MethodName: CallLowerHand
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6195980375617359241}
-        m_TargetAssemblyTypeName: AudienceController, Assembly-CSharp
-        m_MethodName: CallLowerHand
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &826963871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7553,6 +7529,8 @@ MonoBehaviour:
   communicationManager: {fileID: 1428320733}
   professorQuestionManager: {fileID: 1541422177}
   noviceQuestionManager: {fileID: 1028386404}
+  noviceAudienceController: {fileID: 6195980375617359241}
+  professorAudienceController: {fileID: 6583179033297720897}
   timerText: {fileID: 1099491834}
   timerStateText: {fileID: 968334561}
   restartButtonGameObject: {fileID: 867690258}

@@ -17,6 +17,12 @@ namespace UI
 
         [SerializeField]
         private AvatarQuestionManager noviceQuestionManager;
+        
+        [SerializeField]
+        private AudienceController noviceAudienceController;
+        
+        [SerializeField]
+        private AudienceController professorAudienceController;
 
         #region Components
 
@@ -94,6 +100,10 @@ namespace UI
             professorQuestionManager.hideAllButtons();
             noviceQuestionManager.hideAllButtons();
             transcriptionLogger.ResetResponseTranscript();
+            
+            // Lower avatar hands on resume
+            noviceAudienceController.CallLowerHand();
+            professorAudienceController.CallLowerHand();
         }
 
         public void PauseTimer()
